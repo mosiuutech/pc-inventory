@@ -683,6 +683,8 @@ td .muted,.nil{color:#6f727b}
   .ed .side:first-child{order:2}
 }
 @media(max-width:760px){body:not([data-tab="add"]) #toasts{bottom:calc(76px + env(safe-area-inset-bottom))}}
+.note.warn{border-color:rgba(248,81,73,.5);background:rgba(248,81,73,.1);color:#ffb3ae;display:block;line-height:1.45}
+.note.warn b{color:#fff}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -3027,6 +3029,9 @@ const S={
   tplId:LS.get('rpi3_tpl',null),lists:{},user:LS.get('rpi_user',''),fresh:new Set(),lastHash:'',previewId:null,selEl:null,zoom:2.5,status:'…'
 };
 const demo=()=>!S.cfg.url;
+const NEED_API=6;
+const oldApi=()=>!demo()&&S.apiv!=null&&S.apiv<NEED_API;
+const apiNote=()=>oldApi()?`<div class="note warn"><b>The sheet script is out of date.</b> Paste the new Code.gs in Apps Script, then Deploy → Manage deployments → edit (pencil) → Version: New version → Deploy. Saving still works, but without the newest protections.</div>`:'';
 const nm=it=>(it&&(it['PC No']||it['Old Label']&&it['Old Label']!=='-'&&('('+it['Old Label']+')')||it.ID))||'—';
 const statuses=()=>(S.lists.Status&&S.lists.Status.length)?S.lists.Status:STATUSES;
 const opts=h=>uniq([...((S.lists&&S.lists[h])||[]),...S.items.map(x=>x[h])]);
@@ -3088,7 +3093,7 @@ async function api(action,payload={}){
 }
 function applyData(j){
   S.headers=j.headers&&j.headers.length?j.headers:[...DEFAULT_HEADERS];
-  S.lists=j.lists||{};S.pairs=j.pairs||{};
+  S.lists=j.lists||{};S.pairs=j.pairs||{};S.apiv=demo()?99:(j.apiVersion||0);
   const old=Object.fromEntries(S.items.map(i=>[i.ID,i.Updated]));
   if(S.lastHash){(j.items||[]).forEach(i=>{if(old[i.ID]!==i.Updated&&i['Updated by']!==S.user)S.fresh.add(i.ID)})}
   S.items=j.items||[];
@@ -3501,7 +3506,7 @@ function renderAdd(){
   const F=(k,lab,cls,ph)=>has(k)?`<div class="fld ${cls||''} ${KCLS[k]||''}"><label>${ICON[k]||''}${esc(lab||(C(k)&&C(k).l)||k)}</label>${pickHTML(k,V[k],ph||'Select')}</div>`:'';
   const offR=empty(V['RAM Model'])?'off':'',offG=empty(V['GPU Model'])?'off':'',offS=empty(V['SSD Model'])?'off':'';
   const flog=[...fails,...e.pendingFail.map(t=>'(not saved yet) '+t)];
-  $('#main').innerHTML=`${demo()?`<div class="note slim">Demo mode – sample data, changes stay in this browser. <button class="lnk" data-goto="settings">Connect the sheet</button></div>`:''}
+  $('#main').innerHTML=`${demo()?`<div class="note slim">Demo mode – sample data, changes stay in this browser. <button class="lnk" data-goto="settings">Connect the sheet</button></div>`:''}${apiNote()}
   <div class="entry">
    <section class="form cf">
     <div class="r12 top">
@@ -3681,7 +3686,22 @@ async function saveEnt(next){
     btns.forEach(b=>b.disabled=true);
     const item={};Object.keys(vals).forEach(k=>{if(k!=='PC No'&&!empty(vals[k])||vals[k]==='-')item[k]=vals[k]});
     try{await done(await api('create',{item,no:vals['PC No']}))}
-    catch(err){btns.forEach(b=>b.disabled=false);toast('Not saved: '+err.message,true)}
+    catch(err){
+      if(/unknown action|nieznana akcja/i.test(err.message)){
+        // stary Code.gs bez akcji „create” – zapis starym sposobem
+        S.apiv=0;
+        try{
+          try{applyData(await api('list'))}catch(_){}
+          let no=vals['PC No'];if(takenNo(no))no=nextFree();
+          const tgt=S.items.find(x=>String(x['PC No'])===String(no)&&isBlank(x));
+          const it2=Object.assign({ID:tgt?tgt.ID:''},item,{'PC No':no});
+          const orig=tgt?Object.fromEntries(Object.keys(item).map(k=>[k,String(tgt[k]||'')])):null;
+          const j=await api('save',{item:it2,orig});
+          await done(Object.assign(j,{taken:String(no)!==String(vals['PC No']),requested:vals['PC No']}));
+          toast('Saved, but the sheet script is out of date – please redeploy Code.gs',true);
+        }catch(x){btns.forEach(b=>b.disabled=false);toast('Not saved: '+x.message,true)}
+      }else{btns.forEach(b=>b.disabled=false);toast('Not saved: '+err.message,true)}
+    }
     return;
   }
   // edycja istniejącego – tylko zmienione pola, z wykrywaniem konfliktów
@@ -4100,7 +4120,7 @@ function renderSettings(){
   </div></div>`;
   const read=()=>{S.cfg.url=$('#sUrl').value.trim();S.cfg.token=$('#sTok').value;LS.set('rpi_cfg',S.cfg)};
   $('#sSave').onclick=async()=>{read();await load();if(!demo())toast('Connected to the sheet')};
-  $('#sTest').onclick=async()=>{const old={...S.cfg};read();try{const j=await api('ping');toast(demo()?'No URL – demo mode':'Connected to '+j.sheet)}catch(e){toast('Connection failed: '+e.message,true)}};
+  $('#sTest').onclick=async()=>{const old={...S.cfg};read();try{const j=await api('ping');toast(demo()?'No URL – demo mode':(j.apiVersion>=NEED_API?'Connected to '+j.sheet:'Connected to '+j.sheet+', but the script is out of date – redeploy Code.gs'),!demo()&&!(j.apiVersion>=NEED_API))}catch(e){toast('Connection failed: '+e.message,true)}};
   const off=$('#sOff');if(off)off.onclick=()=>{S.cfg.url='';LS.set('rpi_cfg',S.cfg);load()};
   $('#sQr').onchange=e=>{S.cfg.qrMode=e.target.value;LS.set('rpi_cfg',S.cfg)};
   $('#sLink').onchange=e=>{S.cfg.linkBase=e.target.value.trim();LS.set('rpi_cfg',S.cfg)};
