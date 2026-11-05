@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#18191c">
 <title>Rack Inventory</title>
 <style>
 :root{--bg:#0e1014;--panel:#161920;--panel2:#1d2129;--line:#2a2f3a;--txt:#e8eaef;--mut:#8a92a2;--acc:#d9f53a;--accTxt:#141600;--red:#ff5a5f;--amber:#ffb020;--green:#3ecf8e;--blue:#5aa9ff;--r:10px}
@@ -597,6 +598,91 @@ td .muted,.nil{color:#6f727b}
 .eltools{position:absolute;z-index:10;display:flex;background:#26272b;border:1px solid #4a4d56;border-radius:8px;padding:2px;box-shadow:0 6px 18px rgba(0,0,0,.5)}
 .eltools .acts{display:flex;gap:2px}
 .eltools .ib{color:#e6e6e8}
+
+/* ================= MOBILE ================= */
+.aside,.aside>*,.faceplate,.prev-b{min-width:0}
+.prev-b{width:100%}
+#bnav{display:none}
+@media(max-width:760px){
+  html,body{font-size:15px}
+  body{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+  header{height:52px!important;padding:0 12px!important;flex-wrap:nowrap!important;gap:10px!important;position:sticky;top:0}
+  header nav#nav{display:none!important}
+  .logo .brand{font-size:15px}
+  .sync{margin-left:auto;gap:8px}
+  #syncTxt{display:none}
+  .who{padding:5px 10px}
+  #bnav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;background:#18191c;border-top:1px solid #30323a;padding:4px 2px calc(4px + env(safe-area-inset-bottom))}
+  #bnav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:0;color:#9da0a8;font:inherit;font-size:10.5px;font-weight:500;padding:6px 0;cursor:pointer;border-radius:8px}
+  #bnav{height:auto!important;align-items:stretch}
+  #bnav button{height:auto!important}
+  #bnav button::after{display:none!important}
+  #bnav button svg{flex:none;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  #bnav button.on{color:#fff}
+  #bnav button.on svg{stroke:var(--acc)}
+  main{padding:12px 12px 24px!important;max-width:none}
+  .note.slim{font-size:12px;padding:8px 10px;margin-bottom:10px}
+  input,select,textarea,.inp,.pick{font-size:16px!important}
+  /* add form */
+  .entry{display:flex!important;flex-direction:column;gap:12px}
+  .aside{position:static!important;max-height:none;overflow:visible;order:2;gap:12px}
+  .form{order:1;border-radius:14px}
+  .cf .r12{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px 10px;padding:14px}
+  .cf .r12>*{grid-column:span 6!important}
+  .cf .r12>.sub{grid-column:span 2!important}
+  .cf .r12>.sub.k-ssd{grid-column:span 6!important}
+  .cf .r12>.ram-tot{grid-column:span 6!important;height:auto;flex-direction:row;align-items:baseline;justify-content:flex-end;gap:4px;margin-top:-4px}
+  .cf .r12.top{padding:14px}
+  .cf .plate{flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+  .cf .plate-k{width:100%}
+  .cf .plate-no{font-size:28px}
+  .cf .pick,.cf .inp{min-height:48px;border-radius:10px}
+  .cf .fld>label{font-size:13px}
+  .cf .actions{position:fixed;left:0;right:0;bottom:calc(60px + env(safe-area-inset-bottom));z-index:50;border-radius:0;padding:10px 12px;gap:8px;flex-wrap:nowrap;background:rgba(24,25,28,.97);border-top:1px solid #30323a;box-shadow:0 -8px 24px rgba(0,0,0,.4)}
+  .cf .actions .hint,.cf .actions #eNew{display:none}
+  .cf .actions .sp{display:none}
+  .cf .actions .btn{flex:1;min-height:46px;padding:8px 10px;font-size:14px}
+  .cf .actions .btn.ghost{flex:0 0 auto}
+  body[data-tab="add"] main{padding-bottom:84px!important}
+  .failbox .fadd .pick{min-height:44px}
+  .failbox .fadd .btn{min-height:44px;padding:0 16px}
+  .recent{display:none}
+  /* bottom-sheet dropdown */
+  .pop-bd{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:199}
+  .pop.sheet{position:fixed!important;left:0!important;right:0!important;bottom:0!important;top:auto!important;width:auto!important;transform:none!important;border-radius:16px 16px 0 0;max-height:78vh;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom);animation:sheetup .18s ease-out}
+  @keyframes sheetup{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
+  .pop.sheet .sheet-h{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 8px;font-size:15px}
+  .pop.sheet .sheet-h .ib{width:34px;height:34px;font-size:15px;color:#c4c6cc}
+  .pop.sheet .pop-s{padding:4px 12px 10px;border:0}
+  .pop.sheet .pop-s input{min-height:44px;border-radius:10px!important}
+  .pop.sheet .pop-l{max-height:none;flex:1;padding:0 8px 10px}
+  .pop.sheet .opt{min-height:50px;padding:10px 12px;font-size:15px;border-radius:10px}
+  body.sheet-open{overflow:hidden}
+  /* modals as sheets */
+  .ov{align-items:flex-end;padding:0;z-index:120}
+  .modal{max-width:none;width:100%;border-radius:16px 16px 0 0;max-height:90vh;overflow:auto;padding-bottom:env(safe-area-inset-bottom);margin:0}
+  .modal .mf{position:sticky;bottom:0;background:var(--panel);z-index:2}
+  .modal .mf .btn{min-height:44px}
+  /* lists */
+  .toolbar{gap:8px}
+  .toolbar .srch{max-width:none;flex:1 1 100%;height:44px}
+  .toolbar .pick{min-height:40px!important}
+  #gCols,#add{display:none}
+  .selbar{padding:10px 12px}
+  table.inv tbody tr{grid-template-columns:28px 52px minmax(0,1fr)!important;padding:12px!important}
+  table.inv td:nth-child(4),table.inv td:nth-child(5){display:none!important}
+  table.inv td:nth-child(6){display:block!important;grid-column:2/4;color:var(--mut)}
+  .pcno{font-size:15px}
+  .racks2,.parts,.rklay{grid-template-columns:minmax(0,1fr)!important}
+  .rackc .rkh{flex-wrap:wrap}
+  .ru{padding:12px 14px}
+  .ru .btn{min-height:36px}
+  #toasts{left:12px;right:12px;bottom:calc(140px + env(safe-area-inset-bottom))}
+  .toast{max-width:none}
+  .ed{grid-template-columns:minmax(0,1fr)!important}
+  .ed .side:first-child{order:2}
+}
+@media(max-width:760px){body:not([data-tab="add"]) #toasts{bottom:calc(76px + env(safe-area-inset-bottom))}}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -614,6 +700,14 @@ td .muted,.nil{color:#6f727b}
   <div class="sync"><span class="who" id="who" title="Change your name"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><circle cx="8" cy="5.5" r="2.8" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M2.8 14c.6-2.8 2.7-4.3 5.2-4.3s4.6 1.5 5.2 4.3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span id="whoName">?</span></span><span class="dot" id="dot"></span><span id="syncTxt">…</span><button class="btn sm" id="refresh" title="Reload from sheet">↻</button></div>
 </header>
 <main id="main"></main>
+<nav id="bnav" aria-label="Sections">
+  <button data-tab="add" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg><span>Add</span></button>
+  <button data-tab="pcs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>PCs</span></button>
+  <button data-tab="racks"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M5 9h14M5 15h14"/><circle cx="8.5" cy="6" r=".6"/><circle cx="8.5" cy="12" r=".6"/><circle cx="8.5" cy="18" r=".6"/></svg><span>Racks</span></button>
+  <button data-tab="parts"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg><span>Parts</span></button>
+  <button data-tab="labels"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12.5V4a1 1 0 011-1h8.5L21 11.5 12.5 20z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg><span>Labels</span></button>
+  <button data-tab="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg><span>Settings</span></button>
+</nav>
 <div id="printArea"></div>
 <div id="toasts"></div>
 <style id="pageStyle"></style>
@@ -3208,7 +3302,7 @@ function openRackQR(rack){
       ov.querySelector('#rqb').innerHTML=qrSvg(t);ov.querySelector('#rqt').textContent=t;
       ov.querySelectorAll('#rqm button').forEach(b=>b.classList.toggle('on',b.dataset.m===mode));
       const pv=ov.querySelector('#rqprev');const sc=Math.min(1,(pv.clientWidth-20)/(80*3.7795));
-      pv.innerHTML=`<div style="height:${40*3.7795*sc}px"><div style="transform:scale(${sc});transform-origin:0 0;width:80mm">${rackLabelHTML(rack,mode)}</div></div>`;
+      pv.innerHTML=`<div style="height:${40*3.7795*sc}px;position:relative;overflow:hidden"><div style="position:absolute;left:0;top:0;transform:scale(${sc});transform-origin:0 0;width:80mm">${rackLabelHTML(rack,mode)}</div></div>`;
       ov.querySelector('#rqh').textContent=mode==='link'?'Opens the app with the PCs of this rack – always up to date.':'The PC list is stored in the code itself – reprint the label after moving PCs.';
       S.cfg.rackQr=mode;LS.set('rpi_cfg',S.cfg);
     };
@@ -3320,7 +3414,8 @@ function editInEntry(id){const it=S.items.find(x=>x.ID===id);if(!it)return;S.ent
 const CHEV='<svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function pickHTML(id,val,ph,extra){return `<button type="button" class="pick ${empty(val)?'is-empty':'filled'}" data-pick="${esc(id)}" ${extra||''}><span class="pv">${empty(val)?esc(val==='-'?'None':ph):esc(val)}</span>${CHEV}</button>`}
 let PICK=null;
-function closePick(){if(PICK){PICK.el.remove();PICK.btn.classList.remove('open');PICK=null}}
+const MOB=()=>matchMedia('(max-width:760px)').matches;
+function closePick(){if(PICK){PICK.el.remove();PICK.bd&&PICK.bd.remove();PICK.btn.classList.remove('open');document.body.classList.remove('sheet-open');PICK=null}}
 function openPick(btn,o){
   if(PICK&&PICK.btn===btn)return closePick();
   closePick();
@@ -3334,6 +3429,14 @@ function openPick(btn,o){
   const below=innerHeight-r.bottom,up=below<360&&r.top>below;
   el.style.cssText=`left:${Math.max(10,left)}px;width:${w}px;`+(up?`top:${r.top+scrollY-6}px;transform:translateY(-100%)`:`top:${r.bottom+scrollY+6}px`);
   if(up)el.classList.add('up');
+  if(MOB()){
+    el.classList.add('sheet');el.style.cssText='';
+    const lab=btn.closest&&btn.closest('.fld')&&btn.closest('.fld').querySelector('label');
+    const hd=document.createElement('div');hd.className='sheet-h';hd.innerHTML=`<b>${esc(o.title||(lab?lab.textContent.replace(/\s+/g,' ').trim():'Select'))}</b><button type="button" class="ib" aria-label="Close">✕</button>`;
+    el.prepend(hd);hd.querySelector('button').onclick=()=>closePick();
+    const bd=document.createElement('div');bd.className='pop-bd';document.body.insertBefore(bd,el);PICK.bd=bd;bd.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();closePick()});
+    document.body.classList.add('sheet-open');
+  }
   const inp=el.querySelector('input'),list=el.querySelector('.pop-l');
   const draw=()=>{
     const q=(inp?inp.value:'').trim().toLowerCase();
@@ -3352,7 +3455,9 @@ function openPick(btn,o){
       <span class="ol">${esc(x.label)}${x.sub?`<small>${esc(x.sub)}</small>`:''}</span>${x.count!=null?`<span class="oc">${x.count}</span>`:''}${String(x.v)===String(o.value)&&!x.add?'<span class="ok">✓</span>':''}</div>`).join(''):'<div class="opt muted">No matches</div>';
   };
   const choose=i=>{const x=PICK.items[i];if(!x)return;const q=inp?inp.value.trim():'';closePick();btn.focus();if(x.add)o.onAdd(q);else o.onPick(x.v)};
-  list.addEventListener('pointerdown',e=>{const d=e.target.closest('.opt[data-i]');if(d){e.preventDefault();choose(+d.dataset.i)}});
+  // na komputerze wybór od razu (pointerdown), na telefonie dopiero po pełnym tapnięciu – inaczej „klik” przebija się na przycisk pod spodem
+  list.addEventListener('pointerdown',e=>{if(MOB())return;const d=e.target.closest('.opt[data-i]');if(d){e.preventDefault();choose(+d.dataset.i)}});
+  list.addEventListener('click',e=>{if(!MOB())return;const d=e.target.closest('.opt[data-i]');if(d){e.preventDefault();e.stopPropagation();choose(+d.dataset.i)}});
   list.addEventListener('pointermove',e=>{const d=e.target.closest('.opt[data-i]');if(d&&+d.dataset.i!==PICK.act){PICK.act=+d.dataset.i;list.querySelectorAll('.opt').forEach(n=>n.classList.toggle('act',n.dataset.i==PICK.act))}});
   const key=e=>{
     if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();PICK.act=(PICK.act+(e.key==='ArrowDown'?1:-1)+PICK.items.length)%PICK.items.length;draw();const a=list.querySelector('.act');a&&a.scrollIntoView({block:'nearest'})}
@@ -3360,11 +3465,11 @@ function openPick(btn,o){
     else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closePick();btn.focus()}
     else if(e.key==='Tab'){closePick()}
   };
-  if(inp){inp.oninput=()=>{PICK.act=0;draw()};inp.onkeydown=key;inp.focus({preventScroll:true})}else{el.tabIndex=-1;el.onkeydown=key;setTimeout(()=>el.focus(),0)}
+  if(inp){inp.oninput=()=>{PICK.act=0;draw()};inp.onkeydown=key;if(!MOB())inp.focus({preventScroll:true})}else{el.tabIndex=-1;el.onkeydown=key;setTimeout(()=>el.focus(),0)}
   const si=o.options.findIndex(x=>String(x.v)===String(o.value));PICK.act=Math.max(0,si+(o.none!=null?1:0));
   draw();const a=list.querySelector('.act');a&&a.scrollIntoView({block:'nearest'});
 }
-document.addEventListener('pointerdown',e=>{if(PICK&&!PICK.el.contains(e.target)&&!PICK.btn.contains(e.target))closePick()});
+document.addEventListener('pointerdown',e=>{if(PICK&&!PICK.bd&&!PICK.el.contains(e.target)&&!PICK.btn.contains(e.target))closePick()});
 window.addEventListener('resize',closePick);
 
 /* ---------- zakładka Dodaj ---------- */
@@ -3416,7 +3521,7 @@ function renderAdd(){
       ${F('RAM Model','Memory','s5')}
       ${has('RAM Model')?`<div class="fld s2 k-ram sub ${offR}"><label>Sticks</label>${pickHTML('ram_n',e.n?e.n+' ×':'','–')}</div>
       <div class="fld s2 k-ram sub ${offR}"><label>Per stick</label>${pickHTML('ram_size',e.size?e.size+' GB':'','–')}</div>
-      ${has('RAM MT/s')?`<div class="fld s2 k-ram sub ${offR}"><label>Speed</label>${pickHTML('RAM MT/s',V['RAM MT/s']?V['RAM MT/s']+' MT/s':'','–')}</div>`:''}
+      ${has('RAM MT/s')?`<div class="fld s2 k-ram sub ${offR}"><label>Speed <span class="lsub">MT/s</span></label>${pickHTML('RAM MT/s',V['RAM MT/s']||'','–')}</div>`:''}
       <div class="ram-tot s1 k-ram ${offR}"><span>${tot||'–'}</span><small>GB</small></div>`:''}
       ${F('SSD Model','M.2 SSD','s8')}${has('SSD Qty')?`<div class="fld s4 qty k-ssd sub ${offS}"><label>Drives${has('SSD 2 Model')&&!(e.ssd2||!empty(V['SSD 2 Model']))?`<button type="button" class="lnk sm lr" id="eSsd2">+ Add second SSD</button>`:''}</label>${pickHTML('SSD Qty',V['SSD Qty']?V['SSD Qty']+' ×':'','–')}</div>`:''}
       ${has('SSD 2 Model')&&(e.ssd2||!empty(V['SSD 2 Model']))?`${F('SSD 2 Model','M.2 SSD 2','s8')}<div class="fld s4 k-ssd sub ${empty(V['SSD 2 Model'])?'off2':''}"><label>Drives<button type="button" class="lnk sm lr" id="eSsd2x">Remove</button></label>${pickHTML('SSD 2 Qty',V['SSD 2 Qty']?V['SSD 2 Qty']+' ×':'','–')}</div>`:''}
@@ -3452,7 +3557,7 @@ function drawPrev(){
   const lt=S.templates.find(t=>t.id==='t_spec')||defaultTemplates()[0];
   const sc=Math.min(1,(box.clientWidth||330)/(lt.w*3.7795));
   box.style.height=(lt.h*3.7795*sc)+'px';
-  box.innerHTML=`<div style="transform:scale(${sc});transform-origin:0 0;width:${lt.w}mm">${labelHTML(lt,entItem(),false)}</div>`;
+  box.innerHTML=`<div style="position:absolute;left:0;top:0;transform:scale(${sc});transform-origin:0 0;width:${lt.w}mm">${labelHTML(lt,entItem(),false)}</div>`;
 }
 const reqCats=()=>cats().filter(c=>!c.opt);
 function filledN(){return reqCats().filter(c=>!empty(S.ent.vals[c.k])).length}
@@ -4004,11 +4109,12 @@ function renderSettings(){
 
 /* ================= router ================= */
 function render(){
-  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===S.tab));
+  document.querySelectorAll('#nav button,#bnav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===S.tab));
+  document.body.dataset.tab=S.tab;
   ({add:renderAdd,pcs:renderPcs,racks:renderRacks,parts:renderParts,labels:renderLabels,settings:renderSettings}[S.tab])();
   document.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>{S.tab=b.dataset.goto;render()});
 }
-document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{S.tab=b.dataset.tab;render()});
+document.querySelectorAll('#nav button,#bnav button').forEach(b=>b.onclick=()=>{S.tab=b.dataset.tab;render();if(MOB())scrollTo(0,0)});
 $('#refresh').onclick=load;
 function askUser(force){
   if(S.user&&!force){$('#whoName').textContent=S.user;return}
