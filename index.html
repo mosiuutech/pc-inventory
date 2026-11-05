@@ -578,6 +578,8 @@ td .muted,.nil{color:#6f727b}
 .part.L-Motherboard{--c:var(--c-mb)}.part.L-CPU{--c:var(--c-cpu)}.part.L-RAMModel{--c:var(--c-ram)}.part.L-GPUModel{--c:var(--c-gpu)}.part.L-SSDModel{--c:var(--c-ssd)}.part.L-PowerSupply{--c:var(--c-psu)}.part.L-CaptureCard{--c:var(--c-cap)}
 .part .unit .bar i{background:var(--c,var(--acc));opacity:.9}
 .chkl{color:#c4c6cc}
+.failbox .fadd .pick{min-height:34px;padding:5px 10px;font-size:13px;flex:1}
+.failbox .fadd .btn:disabled{opacity:.45}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -2934,7 +2936,7 @@ function demoData(){
   // przykładowe, wymyślone dane – nie prawdziwy inwentarz
   const H=["PC No", "Old Label", "Rack", "Motherboard", "CPU", "RAM Model", "RAM GB", "RAM MT/s", "GPU Model", "GPU Code", "SSD Model", "SSD Qty", "SSD 2 Model", "SSD 2 Qty", "Power Supply", "Capture Card 1", "Capture Card 2", "Failures", "Updated", "Updated by", "ID"];
   const rows=[{"PC No": "1", "Old Label": "DEMO-OBS-1", "Rack": "Demo Rack A", "Motherboard": "MSI PRO Z790-A", "CPU": "Intel Core i5-14600K", "RAM Model": "Kingston FURY Beast KF552C40", "RAM GB": "32 (2x16)", "RAM MT/s": "5200", "GPU Model": "Gigabyte RTX 4060 Ti", "GPU Code": "AD106-351", "SSD Model": "WD Black SN850X 1TB", "SSD Qty": "1", "Power Supply": "Corsair RM850x", "Capture Card 1": "Elgato 4K60 Pro", "Capture Card 2": "-", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "2", "Old Label": "DEMO-OBS-2", "Rack": "Demo Rack A", "Motherboard": "MSI PRO Z790-A", "CPU": "Intel Core i5-14600K", "RAM Model": "Kingston FURY Beast KF552C40", "RAM GB": "32 (2x16)", "RAM MT/s": "5200", "GPU Model": "Gigabyte RTX 4060 Ti", "GPU Code": "AD106-351", "SSD Model": "WD Black SN850X 1TB", "SSD Qty": "1", "Power Supply": "Corsair RM850x", "Capture Card 1": "Elgato 4K60 Pro", "Capture Card 2": "-", "Failures": "2026-01-10 09:15 Demo: No signal on capture card, reseated \u2013 fixed", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "3", "Old Label": "DEMO-REPLAY-1", "Rack": "Demo Rack A", "Motherboard": "MSI PRO Z790-A", "CPU": "Intel Core i5-14600K", "RAM Model": "Kingston FURY Beast KF552C40", "RAM GB": "64 (2x32)", "RAM MT/s": "5200", "GPU Model": "Gigabyte RTX 4060 Ti", "GPU Code": "AD106-351", "SSD Model": "WD Black SN850X 1TB", "SSD Qty": "1", "SSD 2 Model": "Samsung 870 EVO 2TB", "SSD 2 Qty": "1", "Power Supply": "Corsair RM850x", "Capture Card 1": "Elgato 4K60 Pro", "Capture Card 2": "-", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "4", "Old Label": "DEMO-PLAYER-1", "Rack": "Demo Rack B", "Motherboard": "ASRock B650 Steel Legend", "CPU": "AMD Ryzen 7 7800X3D", "RAM Model": "G.Skill Flare X5 F5-6000J3038F16G", "RAM GB": "32 (2x16)", "RAM MT/s": "6000", "GPU Model": "Sapphire Pulse RX 7800 XT", "GPU Code": "Navi 32", "SSD Model": "WD Black SN850X 1TB", "SSD Qty": "1", "Power Supply": "Corsair RM850x", "Capture Card 1": "-", "Capture Card 2": "-", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "5", "Old Label": "DEMO-PLAYER-2", "Rack": "Demo Rack B", "Motherboard": "ASRock B650 Steel Legend", "CPU": "AMD Ryzen 7 7800X3D", "RAM Model": "G.Skill Flare X5 F5-6000J3038F16G", "RAM GB": "32 (2x16)", "RAM MT/s": "6000", "GPU Model": "Sapphire Pulse RX 7800 XT", "GPU Code": "Navi 32", "SSD Model": "WD Black SN850X 1TB", "SSD Qty": "1", "Power Supply": "Corsair RM850x", "Capture Card 1": "-", "Capture Card 2": "-", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "6", "Old Label": "DEMO-SPARE", "Rack": "", "Motherboard": "ASRock B650 Steel Legend", "CPU": "AMD Ryzen 7 7800X3D", "RAM Model": "G.Skill Flare X5 F5-6000J3038F16G", "RAM GB": "32 (2x16)", "RAM MT/s": "6000", "GPU Model": "Gigabyte RTX 4060 Ti", "GPU Code": "AD106-351", "SSD Model": "WD Black SN850X 1TB", "SSD Qty": "1", "Power Supply": "Corsair RM850x", "Capture Card 1": "-", "Capture Card 2": "-", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "7", "Old Label": "", "Rack": "", "Motherboard": "", "CPU": "", "RAM Model": "", "RAM GB": "", "RAM MT/s": "", "GPU Model": "", "GPU Code": "", "SSD Model": "", "SSD Qty": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": "", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "8", "Old Label": "", "Rack": "", "Motherboard": "", "CPU": "", "RAM Model": "", "RAM GB": "", "RAM MT/s": "", "GPU Model": "", "GPU Code": "", "SSD Model": "", "SSD Qty": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": "", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "9", "Old Label": "", "Rack": "", "Motherboard": "", "CPU": "", "RAM Model": "", "RAM GB": "", "RAM MT/s": "", "GPU Model": "", "GPU Code": "", "SSD Model": "", "SSD Qty": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": "", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "10", "Old Label": "", "Rack": "", "Motherboard": "", "CPU": "", "RAM Model": "", "RAM GB": "", "RAM MT/s": "", "GPU Model": "", "GPU Code": "", "SSD Model": "", "SSD Qty": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": "", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}];
-  return {headers:H,templates:null,pairs:{"GPU Model":[["Gigabyte RTX 4060 Ti","AD106-351"],["Sapphire Pulse RX 7800 XT","Navi 32"]]},lists:{"Rack": ["Demo Rack A", "Demo Rack B"], "Motherboard": ["MSI PRO Z790-A", "ASRock B650 Steel Legend"], "CPU": ["Intel Core i5-14600K", "AMD Ryzen 7 7800X3D"], "RAM Model": ["Kingston FURY Beast KF552C40", "G.Skill Flare X5 F5-6000J3038F16G"], "GPU Model": ["Gigabyte RTX 4060 Ti", "Sapphire Pulse RX 7800 XT"], "GPU Code": ["AD106-351", "Navi 32"], "SSD Model": ["WD Black SN850X 1TB", "Samsung 870 EVO 2TB"], "Power Supply": ["Corsair RM850x"], "Capture Card": ["Elgato 4K60 Pro"]},items:rows.map(r=>Object.assign({},r,{ID:'PC-'+uid().toUpperCase()}))};
+  return {headers:H,templates:null,pairs:{"GPU Model":[["Gigabyte RTX 4060 Ti","AD106-351"],["Sapphire Pulse RX 7800 XT","Navi 32"]]},lists:{"Rack": ["Demo Rack A", "Demo Rack B"], "Motherboard": ["MSI PRO Z790-A", "ASRock B650 Steel Legend"], "CPU": ["Intel Core i5-14600K", "AMD Ryzen 7 7800X3D"], "RAM Model": ["Kingston FURY Beast KF552C40", "G.Skill Flare X5 F5-6000J3038F16G"], "GPU Model": ["Gigabyte RTX 4060 Ti", "Sapphire Pulse RX 7800 XT"], "GPU Code": ["AD106-351", "Navi 32"], "SSD Model": ["WD Black SN850X 1TB", "Samsung 870 EVO 2TB"], "Power Supply": ["Corsair RM850x"], "Capture Card": ["Elgato 4K60 Pro"], "Failure Types": ["No signal on capture card", "No POST", "Not detected"]},items:rows.map(r=>Object.assign({},r,{ID:'PC-'+uid().toUpperCase()}))};
 }
 try{['ewc_demo','ewc2_demo','rpi_demo','rpi2_demo','rpi3_demo','racki_demo'].forEach(k=>localStorage.removeItem(k))}catch(e){}
 function demoDB(){let d=LS.get('rpi4_demo',null);if(!d){d=demoData();LS.set('rpi4_demo',d)}return d}
@@ -3369,8 +3371,8 @@ function renderAdd(){
     <div class="prev"><div class="prev-h"><span>Label preview</span><span class="muted">${lt.w} × ${lt.h} mm</span></div>
       <div class="faceplate"><div class="prev-b" id="ePrev"></div></div></div>
     ${has('Failures')?`<div class="prev failbox"><div class="prev-h"><span>Failures${flog.length?` <span class="fcount">${flog.length}</span>`:''}</span><span class="muted">saved with date and name</span></div>
-      ${flog.length?`<ol class="flog">${flog.slice().reverse().map(f=>{const m=f.match(/^(\d{4}-\d{2}-\d{2}(?: \d{2}:\d{2})?)\s+([^:]+):\s*(.*)$/);return m?`<li><span class="fwhat">${esc(m[3])}</span><span class="fwhen">${esc(m[1])}, ${esc(m[2])}</span></li>`:`<li><span class="fwhat">${esc(f)}</span></li>`}).join('')}</ol>`:''}
-      <div class="fadd"><input id="eFail" class="inp" placeholder="What went wrong?" autocomplete="off"><button class="btn" id="eFailAdd">Log</button></div>
+      ${flog.length?`<ol class="flog">${flog.slice().reverse().map(f=>{const m=f.match(/^(\d{4}-\d{2}-\d{2}(?: \d{2}:\d{2})?)(?::\d{2})?\s+([^:]+):\s*(.*)$/);return m?`<li><span class="fwhat">${esc(m[3])}</span><span class="fwhen">${esc(m[1])}, ${esc(m[2])}</span></li>`:`<li><span class="fwhat">${esc(f)}</span></li>`}).join('')}</ol>`:''}
+      <div class="fadd">${pickHTML('failPick',e.failSel||'','Choose or type a failure')}<button class="btn" id="eFailAdd" ${e.failSel?'':'disabled'}>Log</button></div>
     </div>`:''}
     <div class="prev recent"><div class="prev-h"><span>Recently saved</span></div>
       ${recent.length?recent.slice(0,4).map(i=>`<button class="rc" data-id="${esc(i.ID)}"><b>PC ${esc(i['PC No'])}</b><span>${esc(empty(i['Old Label'])?'No Old Label':i['Old Label'])}</span><em>${esc(i['Updated by']||'')}</em></button>`).join(''):'<p class="muted" style="margin:0;font-size:12.5px">PCs you save will show up here.</p>'}
@@ -3402,6 +3404,8 @@ function bindAdd(){
   const usedVals=h=>uniq(S.items.map(i=>i[h]).filter(v=>!empty(v)));
   m.querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>{
     const k=b.dataset.pick,c=cats().find(x=>x.k===k);
+    if(k==='failPick')return openPick(b,{options:failureTypes().map(f=>({v:f.t,label:f.t,count:f.n||null})),value:e.failSel||'',custom:true,minW:300,searchPh:'Search or describe a new failure…',
+      onPick:v=>{e.failSel=String(v).trim();rerender();setTimeout(()=>{const x=$('#eFailAdd');x&&x.focus()},0)}});
     if(c&&c.type==='gpu'){
       const pairs=gpuPairs();
       return openPick(b,{value:V['GPU Model']?V['GPU Model']+'|'+(V['GPU Code']||''):'',none:'',
@@ -3437,20 +3441,32 @@ function bindAdd(){
   const s2=$('#eSsd2');if(s2)s2.onclick=()=>{e.ssd2=true;rerender()};
   const s2x=$('#eSsd2x');if(s2x)s2x.onclick=()=>{e.ssd2=false;V['SSD 2 Model']='';V['SSD 2 Qty']='';rerender()};
   m.querySelectorAll('[data-cust]').forEach(i=>i.oninput=()=>{V[i.dataset.cust]=i.value;drawPrev()});
-  const fi=$('#eFail'),fa=$('#eFailAdd');
-  if(fi){
-    const log=async()=>{
-      const t=fi.value.trim();if(!t)return toast('Describe the failure first',true);
-      if(!e.id){e.pendingFail.push(t);fi.value='';toast('Failure will be logged when you save this PC');return rerender()}
+  const fa=$('#eFailAdd');
+  if(fa){
+    fa.onclick=async()=>{
+      const t=String(e.failSel||'').trim();if(!t)return toast('Choose or type a failure first',true);
+      rememberFailure(t);
+      if(!e.id){e.pendingFail.push(t);e.failSel='';toast('Failure will be logged when you save this PC');return rerender()}
       fa.disabled=true;
-      try{const j=await api('appendText',{id:e.id,field:'Failures',text:t});mergeItem(j.item);toast('Failure logged for PC '+j.item['PC No']);rerender()}
+      try{const j=await api('appendText',{id:e.id,field:'Failures',text:t});mergeItem(j.item);e.failSel='';toast('Failure logged for PC '+j.item['PC No']);rerender()}
       catch(x){fa.disabled=false;toast('Failure not logged: '+x.message,true)}
     };
-    fa.onclick=log;fi.onkeydown=ev=>{if(ev.key==='Enter'){ev.preventDefault();log()}};
   }
   m.querySelectorAll('.rc').forEach(r=>r.onclick=()=>editInEntry(r.dataset.id));
   $('#eSave').onclick=()=>saveEnt(false);
   const sn=$('#eSaveNext');if(sn)sn.onclick=()=>saveEnt(true);
+}
+// typy awarii: lista z zakładki Lists + wszystko, co już było wpisane
+const failText=f=>{const m=String(f).match(/^\d{4}-\d{2}-\d{2}(?: \d{2}:\d{2}(?::\d{2})?)?\s+[^:]+:\s*(.*)$/);return (m?m[1]:String(f)).trim()};
+function failureTypes(){
+  const cnt={};S.items.forEach(i=>failList(i).forEach(f=>{const t=failText(f);if(t)cnt[t]=(cnt[t]||0)+1}));
+  const all=uniq([...((S.lists['Failure Types'])||[]),...Object.keys(cnt)]);
+  return all.map(t=>({t,n:cnt[t]||0})).sort((a,b)=>b.n-a.n||cmp(a.t,b.t));
+}
+function rememberFailure(t){
+  const L=(S.lists['Failure Types']=S.lists['Failure Types']||[]);
+  if(L.some(x=>x.toLowerCase()===t.toLowerCase()))return;
+  L.push(t);api('addPart',{list:'Failure Types',value:t}).catch(()=>{});
 }
 function addRack(prefill,after){
   modal(`<div class="mh"><h3>New rack</h3><button class="x" data-close>×</button></div>
