@@ -584,6 +584,19 @@ td .muted,.nil{color:#6f727b}
 .btn.ghost.danger:hover{background:rgba(248,81,73,.12)}
 .btn.danger-pri{background:#e5484d;border-color:#e5484d}
 .btn.danger-pri:hover{background:#f2555a;border-color:#f2555a}
+
+.ellist .it{position:relative}
+.ellist .it .acts{display:flex;gap:2px;opacity:0;transition:opacity .1s}
+.ellist .it:hover .acts,.ellist .it.on .acts{opacity:1}
+.ib{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;border:1px solid transparent;background:none;color:var(--mut);cursor:pointer;padding:0}
+.ib svg{width:15px;height:15px}
+.ib:hover{background:var(--raise);color:#fff;border-color:var(--line2)}
+.ib.del:hover{background:rgba(248,81,73,.15);color:#ff8a83;border-color:rgba(248,81,73,.4)}
+.phd{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.phd .acts{display:flex;gap:4px}
+.eltools{position:absolute;z-index:10;display:flex;background:#26272b;border:1px solid #4a4d56;border-radius:8px;padding:2px;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+.eltools .acts{display:flex;gap:2px}
+.eltools .ib{color:#e6e6e8}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -3820,7 +3833,7 @@ function renderLabels(){
     <h4>Elements</h4>
     <div class="row"><button class="btn sm" id="aText">Add text</button><button class="btn sm" id="aQR">Add QR</button></div>
     <select id="aField"><option value="">Add a field…</option>${[...S.headers.filter(h=>!READONLY.includes(h)&&h!=='Failures'),'GPU','RAM','SSD','Capture'].map(h=>`<option>${esc(h)}</option>`).join('')}</select>
-    <div class="ellist">${t.elements.map(e=>`<div class="it ${e.id===S.selEl?'on':''}" data-el="${e.id}"><span class="ty">${e.type==='qr'?'QR':'TXT'}</span><span class="t">${esc(e.type==='qr'?({spec:'full spec',link:'link',name:'PC number',custom:e.text}[e.qr]):e.text)||'<empty>'}</span></div>`).join('')||'<span class="muted" style="font-size:12px">No elements</span>'}</div>
+    <div class="ellist">${t.elements.map(e=>`<div class="it ${e.id===S.selEl?'on':''}" data-el="${e.id}"><span class="ty">${e.type==='qr'?'QR':'TXT'}</span><span class="t">${esc(e.type==='qr'?({spec:'full spec',link:'link',name:'PC number',custom:e.text}[e.qr]):e.text)||'<empty>'}</span>${elActs(e.id)}</div>`).join('')||'<span class="muted" style="font-size:12px">No elements</span>'}</div>
   </div>
   <div class="card stagewrap">
     <div class="zoomrow">Preview with <select id="pv" style="width:auto;max-width:260px">${S.items.filter(i=>!isBlank(i)).map(i=>`<option value="${esc(i.ID)}" ${i.ID===S.previewId?'selected':''}>PC ${esc(i['PC No'])}${empty(i['Old Label'])?'':' · '+esc(i['Old Label'])}</option>`).join('')}</select>
@@ -3837,7 +3850,7 @@ function renderLabels(){
 }
 function propsHTML(el){
   const num=(k,lab,step=0.5)=>`<label class="f">${lab}<input type="number" data-p="${k}" value="${el[k]}" step="${step}"></label>`;
-  let h=`<h4>${el.type==='qr'?'QR code':'Text'}</h4>`;
+  let h=`<div class="phd"><h4>${el.type==='qr'?'QR code':'Text'}</h4>${elActs(el.id)}</div>`;
   if(el.type==='qr'){
     h+=`<label class="f">QR content<select data-p="qr">${[['spec','Full spec (text)'],['link','Link to this PC on the site'],['name','PC number only'],['custom','Custom text / fields']].map(([v,l])=>`<option value="${v}" ${el.qr===v?'selected':''}>${l}</option>`).join('')}</select></label>`;
     if(el.qr==='custom')h+=`<label class="f">QR text<textarea data-p="text" id="pText">${esc(el.text)}</textarea></label>${chips()}`;
@@ -3849,10 +3862,26 @@ function propsHTML(el){
     h+=`<label class="f">Vertical align<div class="seg">${['top','middle','bottom'].map(a=>`<button data-va="${a}" class="${(el.valign||'middle')===a?'on':''}">${{top:'Top',middle:'Middle',bottom:'Bottom'}[a]}</button>`).join('')}</div></label>`;
   }
   h+=`<h4>Position (mm)</h4><div class="row">${num('x','X')}${num('y','Y')}</div><div class="row">${num('w','Width')}${num('h','Height')}</div>`;
-  h+=`<div class="row"><button class="btn sm" id="eDup">Duplicate</button><button class="btn sm danger" id="eDel">Delete element</button></div>`;
   return h;
 }
 function chips(){return `<div class="chips">${[...S.headers.filter(h=>!READONLY.includes(h)&&h!=='Failures'),'GPU','RAM','SSD','Capture'].map(h=>`<span class="chip" data-ins="${esc(h)}">{${esc(h)}}</span>`).join('')}</div>`}
+const ICO_DUP='<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="8.5" height="8.5" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3 10.5V3.8C3 3.4 3.4 3 3.8 3h6.7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
+const ICO_DEL='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 4.5h10M6.5 4.5V3h3v1.5M4.5 4.5l.6 8.3c.05.7.6 1.2 1.3 1.2h3.2c.7 0 1.25-.5 1.3-1.2l.6-8.3M6.8 7v4.5M9.2 7v4.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function elActs(id){return `<span class="acts"><button type="button" class="ib" data-dup="${id}" title="Duplicate">${ICO_DUP}</button><button type="button" class="ib del" data-del="${id}" title="Delete element (Del)">${ICO_DEL}</button></span>`}
+function delEl(t,id){t.elements=t.elements.filter(x=>x.id!==id);if(S.selEl===id)S.selEl=null;persistTemplates();renderLabels()}
+function dupEl(t,id){const el=t.elements.find(x=>x.id===id);if(!el)return;const n=Object.assign({},el,{id:uid(),x:Math.min(el.x+2,t.w-el.w),y:Math.min(el.y+2,t.h-el.h)});t.elements.push(n);S.selEl=n.id;persistTemplates();renderLabels()}
+// pływający pasek nad zaznaczonym elementem na etykiecie
+function placeTools(t){
+  const cv=$('#cv');if(!cv)return;const old=cv.querySelector('.eltools');old&&old.remove();
+  const el=t.elements.find(x=>x.id===S.selEl);if(!el)return;
+  const k=3.7795*S.zoom,bar=document.createElement('div');bar.className='eltools';bar.innerHTML=elActs(el.id);
+  let top=el.y*k-34;if(top<-4)top=(el.y+el.h)*k+6;
+  bar.style.left=Math.max(0,Math.min(el.x*k,t.w*k-64))+'px';bar.style.top=top+'px';
+  cv.appendChild(bar);
+  bar.querySelector('[data-dup]').onclick=ev=>{ev.stopPropagation();dupEl(t,el.id)};
+  bar.querySelector('[data-del]').onclick=ev=>{ev.stopPropagation();delEl(t,el.id)};
+  bar.addEventListener('pointerdown',ev=>ev.stopPropagation());
+}
 function redrawCanvas(t){
   const prev=S.items.find(x=>x.ID===S.previewId)||{};
   $('#cvIn').innerHTML=labelHTML(t,prev,true);
@@ -3860,6 +3889,7 @@ function redrawCanvas(t){
   bindCanvas(t);
 }
 function bindCanvas(t){
+  setTimeout(()=>placeTools(t),0);
   const pxPerMm=3.7795*S.zoom;
   $('#cvIn').querySelectorAll('.el').forEach(node=>{
     node.onpointerdown=e=>{
@@ -3876,8 +3906,8 @@ function bindCanvas(t){
         else{el.x=snap(o.x+dx);el.y=snap(o.y+dy)}
         n2.style.left=el.x+'mm';n2.style.top=el.y+'mm';n2.style.width=el.w+'mm';n2.style.height=el.h+'mm';
       };
-      dragging=true;
-      const up=()=>{dragging=false;window.removeEventListener('pointermove',mv);window.removeEventListener('pointerup',up);persistTemplates();
+      dragging=true;{const tb=$('#cv .eltools');tb&&tb.remove()}
+      const up=()=>{dragging=false;placeTools(t);window.removeEventListener('pointermove',mv);window.removeEventListener('pointerup',up);persistTemplates();
         const p=$('#props');if(p)['x','y','w','h'].forEach(k=>{const i=p.querySelector(`[data-p="${k}"]`);if(i)i.value=el[k]})};
       window.addEventListener('pointermove',mv);window.addEventListener('pointerup',up);
     };
@@ -3898,7 +3928,10 @@ function bindEditor(t,el){
   $('#aText').onclick=()=>add({type:'text',text:'Text'});
   $('#aQR').onclick=()=>{const s=Math.min(t.h-4,20);add({type:'qr',qr:'spec',w:s,h:s})};
   $('#aField').onchange=e=>{if(e.target.value)add({type:'text',text:'{'+e.target.value+'}',bold:e.target.value==='PC No',fs:e.target.value==='PC No'?14:10})};
-  m.querySelectorAll('.ellist .it').forEach(i=>i.onclick=()=>{S.selEl=i.dataset.el;renderLabels()});
+  m.querySelectorAll('.ellist .it').forEach(i=>i.onclick=ev=>{
+    const d=ev.target.closest('[data-del]'),u=ev.target.closest('[data-dup]');
+    if(d)return delEl(t,d.dataset.del);if(u)return dupEl(t,u.dataset.dup);
+    S.selEl=i.dataset.el;renderLabels()});
   $('#pv').onchange=e=>{S.previewId=e.target.value;redrawCanvas(t)};
   $('#zm').oninput=e=>{S.zoom=+e.target.value;$('#cvIn').style.transform=`scale(${S.zoom})`;redrawCanvas(t)};
   $('#tPrint').onclick=()=>openPrint();
@@ -3923,8 +3956,8 @@ function bindEditor(t,el){
   p.querySelectorAll('[data-ins]').forEach(c=>c.onclick=()=>{
     const ta=$('#pText');const ins='{'+c.dataset.ins+'}';const s=ta.selectionStart??ta.value.length;
     ta.value=ta.value.slice(0,s)+ins+ta.value.slice(ta.selectionEnd??s);ta.dispatchEvent(new Event('input'));ta.focus();ta.selectionStart=ta.selectionEnd=s+ins.length});
-  $('#eDel').onclick=()=>{t.elements=t.elements.filter(x=>x!==el);S.selEl=null;up();renderLabels()};
-  $('#eDup').onclick=()=>{const n=Object.assign({},el,{id:uid(),x:el.x+2,y:el.y+2});t.elements.push(n);S.selEl=n.id;up();renderLabels()};
+  p.querySelectorAll('.phd [data-del]').forEach(b=>b.onclick=()=>delEl(t,el.id));
+  p.querySelectorAll('.phd [data-dup]').forEach(b=>b.onclick=()=>dupEl(t,el.id));
 }
 document.addEventListener('keydown',e=>{
   if(S.tab!=='labels'||!S.selEl||$('#ov'))return;
