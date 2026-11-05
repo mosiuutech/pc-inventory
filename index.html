@@ -3161,6 +3161,50 @@ function closeModal(){const o=$('#ov');o&&o.remove();if(new URLSearchParams(loca
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
 /* ================= edycja kompa ================= */
+/* ---------- QR dla racka ---------- */
+function rackPcs(rack){return S.items.filter(i=>i.Rack===rack&&!isBlank(i)).sort((a,b)=>cmp(a['PC No'],b['PC No']))}
+function rackQrText(rack,mode){
+  if(mode==='link')return linkBase()+'?rack='+encodeURIComponent(rack);
+  const pcs=rackPcs(rack);
+  return ['Rack: '+rack,pcs.length+' PC'+(pcs.length===1?'':'s'),...pcs.map(i=>['PC '+i['PC No'],empty(i['Old Label'])?'':i['Old Label'],i['GPU Model']||'',failList(i).length?'FAILURE':''].filter(Boolean).join(' | '))].join('\n');
+}
+function rackLabelHTML(rack,mode){
+  const n=rackPcs(rack).length,f=rackPcs(rack).reduce((s,i)=>s+failList(i).length,0);
+  return `<div class="label" style="width:80mm;height:40mm;border:0.3mm solid #000;border-radius:1mm">
+    <div class="el qr" style="left:3mm;top:3mm;width:34mm;height:34mm">${qrSvg(rackQrText(rack,mode))}</div>
+    <div class="el" style="left:40mm;top:4mm;width:37mm;height:20mm;font-size:15pt;font-weight:800;align-items:flex-start;text-transform:uppercase"><span>${esc(rack)}</span></div>
+    <div class="el" style="left:40mm;top:25mm;width:37mm;height:6mm;font-size:9pt;align-items:center"><span>${n} PC${n===1?'':'s'}${f?` · ${f} failure${f===1?'':'s'}`:''}</span></div>
+    <div class="el" style="left:40mm;top:31mm;width:37mm;height:6mm;font-size:6.5pt;color:#555;align-items:center"><span>${mode==='link'?'scan to open this rack':'scan for the PC list'} · ${new Date().toLocaleDateString('en-GB')}</span></div>
+  </div>`;
+}
+function openRackQR(rack){
+  let mode=S.cfg.rackQr||'list';
+  modal(`<div class="mh"><h3>QR code – ${esc(rack)}</h3><button class="x" data-close>×</button></div>
+  <div class="mb" style="display:flex;flex-direction:column;gap:12px">
+    <div class="seg" id="rqm"><button data-m="list">PC list (works offline)</button><button data-m="link">Link to this rack</button></div>
+    <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+      <div class="qrbox" id="rqb" style="width:220px;height:220px;flex:none"></div>
+      <div style="flex:1;min-width:220px;display:flex;flex-direction:column;gap:8px"><span class="muted" style="font-size:12px">Rack label (80 × 40 mm)</span><div id="rqprev" style="background:#0f1012;border:1px solid var(--line);border-radius:6px;padding:10px;overflow:hidden"></div></div>
+    </div>
+    <pre class="spec" id="rqt" style="max-height:120px"></pre>
+    <div class="muted" style="font-size:12px" id="rqh"></div>
+  </div>
+  <div class="mf"><button class="btn" data-close>Close</button><button class="btn" id="rqdl">Download PNG</button><button class="btn pri" id="rqpr">Print rack label</button></div>`,ov=>{
+    const draw=()=>{
+      const t=rackQrText(rack,mode);
+      ov.querySelector('#rqb').innerHTML=qrSvg(t);ov.querySelector('#rqt').textContent=t;
+      ov.querySelectorAll('#rqm button').forEach(b=>b.classList.toggle('on',b.dataset.m===mode));
+      const pv=ov.querySelector('#rqprev');const sc=Math.min(1,(pv.clientWidth-20)/(80*3.7795));
+      pv.innerHTML=`<div style="height:${40*3.7795*sc}px"><div style="transform:scale(${sc});transform-origin:0 0;width:80mm">${rackLabelHTML(rack,mode)}</div></div>`;
+      ov.querySelector('#rqh').textContent=mode==='link'?'Opens the app with the PCs of this rack – always up to date.':'The PC list is stored in the code itself – reprint the label after moving PCs.';
+      S.cfg.rackQr=mode;LS.set('rpi_cfg',S.cfg);
+    };
+    ov.querySelectorAll('#rqm button').forEach(b=>b.onclick=()=>{mode=b.dataset.m;draw()});
+    ov.querySelector('#rqdl').onclick=()=>{const svg=qrSvg(rackQrText(rack,mode));const img=new Image();img.onload=()=>{const c=document.createElement('canvas');c.width=c.height=1024;const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.drawImage(img,0,0,1024,1024);c.toBlob(bl=>{const a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download=rack.replace(/[^\w\-]+/g,'_')+'_QR.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)})};img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)};
+    ov.querySelector('#rqpr').onclick=()=>{const pa=$('#printArea');pa.className='roll';pa.innerHTML=rackLabelHTML(rack,mode);$('#pageStyle').textContent='@page{size:80mm 40mm;margin:0}';closeModal();setTimeout(()=>window.print(),60)};
+    setTimeout(draw,0);
+  });
+}
 function openQR(id){
   const it=S.items.find(x=>x.ID===id);if(!it)return;
   let mode=S.cfg.qrMode||'spec';
@@ -3581,7 +3625,7 @@ function renderRacks(){
   $('#main').innerHTML=`<div class="toolbar"><span class="muted">${names.length} racks, ${pcs.length-none.length} of ${pcs.length} PCs placed</span><span style="flex:1"></span><button class="btn pri" id="rkAdd">Add rack</button></div>
   <div class="rklay ${none.length?'':'full'}"><div class="rkside">${none.length?`<div class="card rackc none"><div class="rkh"><div><b>Not in a rack</b><small>${none.length} ${none.length===1?'PC':'PCs'}</small></div><button class="btn sm" id="rkBulk">Assign several…</button></div>${none.map(i=>row(i,true)).join('')}</div>`:''}</div>
   <div class="racks2">${groups.map(g=>{const f=g.list.reduce((s,i)=>s+failList(i).length,0);return `<div class="card rackc"><div class="rkh"><div><b>${esc(g.r)}</b><small>${g.list.length} ${g.list.length===1?'PC':'PCs'}${f?`, <span class="ftxt">${f} ${f===1?'failure':'failures'}</span>`:''}</small></div>
-    <span style="display:flex;gap:6px"><button class="btn sm" data-rlabels="${esc(g.r)}" ${g.list.length?'':'disabled'}>Print labels</button></span></div>
+    <span style="display:flex;gap:6px"><button class="btn sm" data-rqr="${esc(g.r)}">Rack QR</button><button class="btn sm" data-rlabels="${esc(g.r)}" ${g.list.length?'':'disabled'}>PC labels</button></span></div>
     ${g.list.length?g.list.sort((a,b)=>cmp(a['PC No'],b['PC No'])).map(i=>row(i,false)).join(''):'<p class="muted rk-empty">No PCs yet. Assign them from “Not in a rack” or in the PC form.</p>'}</div>`}).join('')}
   ${!names.length?'<div class="card empty">No racks yet. Add your first rack, then assign PCs to it.</div>':''}</div></div>`;
   const m=$('#main');
@@ -3591,6 +3635,7 @@ function renderRacks(){
     onPick:v=>setRack(ids,v),onAdd:q=>addRack(q,name=>setRack(ids,name))});
   m.querySelectorAll('[data-assign],[data-move]').forEach(b=>b.onclick=()=>pickRack(b,[b.dataset.assign||b.dataset.move]));
   const bk=$('#rkBulk');if(bk)bk.onclick=()=>{S.sel=new Set(none.map(i=>i.ID));S.tab='pcs';S.f.rack='__none';render();toast('All PCs without a rack are selected – use Edit selected to set the rack')};
+  m.querySelectorAll('[data-rqr]').forEach(b=>b.onclick=()=>openRackQR(b.dataset.rqr));
   m.querySelectorAll('[data-rlabels]').forEach(b=>b.onclick=()=>openPrint(S.items.filter(i=>i.Rack===b.dataset.rlabels).map(i=>i.ID)));
 }
 async function setRack(ids,rack){
@@ -3943,7 +3988,7 @@ function askUser(force){
   });
 }
 $('#who').onclick=()=>askUser(true);
-load().then(()=>{const id=new URLSearchParams(location.search).get('id');if(id&&S.items.find(x=>x.ID===id))editInEntry(id);askUser(false)});
+load().then(()=>{const P=new URLSearchParams(location.search),id=P.get('id'),rk=P.get('rack');if(id&&S.items.find(x=>x.ID===id))editInEntry(id);else if(rk){S.f.rack=rk;S.tab='pcs';render()}askUser(false)});
 </script>
 </body>
 </html>
