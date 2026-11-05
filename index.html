@@ -2949,6 +2949,12 @@ async function api(action,payload={}){
     const stamp=()=>new Date().toLocaleString('sv').slice(0,19);
     const put=(x)=>{const i=d.items.findIndex(y=>y.ID===x.ID);const it=Object.assign(i>=0?d.items[i]:Object.fromEntries(d.headers.map(h=>[h,''])),x);if(!it.ID)it.ID='PC-'+uid().toUpperCase();it.Updated=stamp();it['Updated by']=S.user||'demo';i>=0?d.items[i]=it:d.items.push(it);return Object.assign({},it)};
     const toLists=(x)=>Object.keys(x).forEach(k=>{if(d.lists[k]&&x[k]&&!['Status'].includes(k)&&!d.lists[k].includes(x[k]))d.lists[k].push(x[k])});
+    if(action==='create'){toLists(payload.item);
+      const free=x=>!d.headers.some(h=>!['PC No','ID','Updated','Updated by'].includes(h)&&!empty(x[h]));
+      let want=String(payload.no||''),t=d.items.find(x=>String(x['PC No'])===want),taken=false;
+      if(t&&!free(t)){taken=true;t=null}
+      if(!want||taken){const f=d.items.filter(x=>free(x)&&!isNaN(parseInt(x['PC No']))).sort((a,b)=>a['PC No']-b['PC No'])[0];if(f){t=f;want=String(f['PC No'])}else want=String(Math.max(0,...d.items.map(x=>parseInt(x['PC No'])||0))+1)}
+      const it=put(Object.assign({},payload.item,{ID:t?t.ID:'','PC No':want}));LS.set('rpi4_demo',d);return {ok:true,item:it,taken,requested:payload.no}}
     if(action==='save'){toLists(payload.item);const it=put(payload.item);LS.set('rpi4_demo',d);return {ok:true,item:it}}
     if(action==='saveMany'){payload.items.forEach(x=>toLists(x.item));const out=payload.items.map(x=>put(x.item));LS.set('rpi4_demo',d);return {ok:true,items:out,conflicts:[]}}
     if(action==='delete'){d.items=d.items.filter(x=>x.ID!==payload.id);LS.set('rpi4_demo',d);return {ok:true}}
@@ -3482,38 +3488,42 @@ function addRack(prefill,after){
 function renderAddKeep(){const y=window.scrollY;renderAdd();window.scrollTo(0,y)}
 document.addEventListener('keydown',ev=>{if(S.tab==='add'&&!$('#ov')&&!PICK&&ev.key==='Enter'&&(ev.ctrlKey||ev.metaKey)){ev.preventDefault();saveEnt(!S.ent.id)}});
 
-async function saveEnt(next,tries=0){
-  if(tries>4)return toast('Could not find a free PC number – refresh and try again',true);
+async function saveEnt(next){
   const e=S.ent;const vals=entItem();
-  if(!String(vals['PC No']).trim())return toast('PC number is missing',true);
-  let target=e.id?S.items.find(x=>x.ID===e.id):null;
-  if(!target){
-    const same=S.items.find(x=>String(x['PC No']).trim().toLowerCase()===String(vals['PC No']).trim().toLowerCase());
-    if(same&&!isBlank(same)){
-      // numer zajęty w międzyczasie – bierzemy następny wolny, nigdy duplikat
-      const old=vals['PC No'];e.vals['PC No']=nextFree();
-      toast(`PC ${old} was just taken by someone else – using PC ${e.vals['PC No']}`);
-      return saveEnt(next,tries+1);
-    }
-    if(same)target=same; // pusty numer z arkusza – wypełniamy ten wiersz
-  }
-  const item={ID:target?target.ID:''},orig={};
-  Object.keys(vals).forEach(k=>{const was=target?String(target[k]==null?'':target[k]):'';if(String(vals[k])!==was){item[k]=vals[k];if(target)orig[k]=was}});
-  if(target&&Object.keys(item).length===1){toast('No changes to save');if(next){S.ent=newEnt(e);render()}return}
-  const btns=document.querySelectorAll('#eSave,#eSaveNext');btns.forEach(b=>b.disabled=true);
-  const done=async j=>{mergeItem(j.item);toast('Saved PC '+j.item['PC No']);
+  const btns=document.querySelectorAll('#eSave,#eSaveNext');
+  const done=async j=>{
+    mergeItem(j.item);
+    if(j.taken)toast(`PC ${j.requested} was just taken by someone else – saved as PC ${j.item['PC No']}`);
+    else toast('Saved PC '+j.item['PC No']);
     for(const t of (e.pendingFail||[])){try{const r=await api('appendText',{id:j.item.ID,field:'Failures',text:t});mergeItem(r.item)}catch(x){toast('Failure not logged: '+x.message,true)}}
-    e.pendingFail=[];S.ent=next?newEnt(e):(e.id?entFrom(j.item):newEnt());render();if(next)setTimeout(()=>{const o=$('#eOld');o&&o.focus()},30)};
-  try{
-    await done(await api('save',{item,orig:target?orig:null}));
-  }catch(err){
+    e.pendingFail=[];
+    const wasNew=!e.id;
+    S.ent=next?newEnt(e):(e.id?entFrom(S.items.find(x=>x.ID===j.item.ID)||j.item):newEnt());render();
+    if(wasNew&&!demo())poll();
+    if(next)setTimeout(()=>{const o=$('#eOld');o&&o.focus()},30);
+  };
+  // nowy komp – numer przydziela serwer (nie da się dodać dwóch tych samych)
+  if(!e.id){
+    btns.forEach(b=>b.disabled=true);
+    const item={};Object.keys(vals).forEach(k=>{if(k!=='PC No'&&!empty(vals[k])||vals[k]==='-')item[k]=vals[k]});
+    try{await done(await api('create',{item,no:vals['PC No']}))}
+    catch(err){btns.forEach(b=>b.disabled=false);toast('Not saved: '+err.message,true)}
+    return;
+  }
+  // edycja istniejącego – tylko zmienione pola, z wykrywaniem konfliktów
+  const target=S.items.find(x=>x.ID===e.id);if(!target){toast('This PC no longer exists',true);S.ent=newEnt();return render()}
+  const item={ID:target.ID},orig={};
+  Object.keys(vals).forEach(k=>{if(k==='PC No')return;const was=String(target[k]==null?'':target[k]);if(String(vals[k])!==was){item[k]=vals[k];orig[k]=was}});
+  if(Object.keys(item).length===1){toast('No changes to save');return}
+  btns.forEach(b=>b.disabled=true);
+  try{await done(await api('save',{item,orig}))}
+  catch(err){
     btns.forEach(b=>b.disabled=false);
-    if(err.data&&(err.data.conflict==='duplicate'||(err.data.conflict==='changed'&&target&&isBlank(target)))&&!e.id){try{applyData(await api('list'))}catch(_){}
-      const old=vals['PC No'];e.vals['PC No']=nextFree();toast(`PC ${old} was just taken by someone else – using PC ${e.vals['PC No']}`);return saveEnt(next,tries+1)}
-    if(err.data&&err.data.conflict)conflictModal(err.data,vals,async()=>{try{done(await api('save',{item,orig:target?orig:null,force:true}))}catch(x){toast(x.message,true)}},cur=>{mergeItem(cur);editInEntry(cur.ID)});
+    if(err.data&&err.data.conflict)conflictModal(err.data,vals,async()=>{try{await done(await api('save',{item,orig,force:true}))}catch(x){toast(x.message,true)}},cur=>{mergeItem(cur);editInEntry(cur.ID)});
     else toast('Not saved: '+err.message,true);
   }
 }
+
 function addModel(c,after,prefill){
   const gpu=c.type==='gpu';
   const what=c.list==='Capture Card'?'capture card':c.type==='ram'?'memory kit':c.l;
