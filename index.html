@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>EWC PC Inventory</title>
+<title>Rack Inventory</title>
 <style>
 :root{--bg:#0e1014;--panel:#161920;--panel2:#1d2129;--line:#2a2f3a;--txt:#e8eaef;--mut:#8a92a2;--acc:#d9f53a;--accTxt:#141600;--red:#ff5a5f;--amber:#ffb020;--green:#3ecf8e;--blue:#5aa9ff;--r:10px}
 *{box-sizing:border-box}
@@ -207,140 +207,387 @@ tr.fresh td{animation:fl 2.5s ease-out}
 code{background:var(--bg);padding:1px 6px;border-radius:5px;border:1px solid var(--line);font-size:12px}
 .banner{padding:10px 14px;border:1px solid rgba(255,176,32,.35);background:rgba(255,176,32,.07);border-radius:var(--r);margin-bottom:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 
-/* ================= PREMIUM THEME ================= */
-:root{--bg:#15171b;--panel:#1c1f24;--panel2:#23272e;--raise:#2a2f37;--line:#2f343d;--line2:#3a404b;--txt:#ecebe7;--mut:#8f949c;--acc:#c9ab80;--accTxt:#1b1610;--accSoft:rgba(201,171,128,.12);--green:#5fcf8f;--amber:#e8a94b;--red:#ef6a6a;--blue:#7fb2e8;--tape:#e4ef4f;--r:12px}
-html,body{font-family:"Archivo",system-ui,sans-serif;font-size:14px;letter-spacing:.005em;background:var(--bg)}
-body{background:radial-gradient(1200px 600px at 85% -10%,rgba(201,171,128,.06),transparent 60%),var(--bg);min-height:100vh}
-header{background:rgba(21,23,27,.86);border-bottom:1px solid var(--line);padding:0 24px;height:60px;gap:28px}
-.logo{gap:12px}
-.logo .tape{background:none;color:var(--txt);transform:none;font-family:"Archivo",sans-serif;font-stretch:125%;font-weight:800;font-size:15px;padding:0;letter-spacing:.02em}
-.logo .tape::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 10px rgba(95,207,143,.7);margin-right:9px;vertical-align:1px}
-.logo .muted{font-weight:500!important;color:var(--mut)}
-nav{gap:2px;height:100%;align-items:stretch}
-nav button{border-radius:0;padding:0 14px;color:var(--mut);font-weight:600;position:relative;background:none!important}
+
+/* ================= THEME: pro dark ================= */
+:root{--bg:#131416;--panel:#1a1b1e;--panel2:#202125;--raise:#26272b;--line:#2a2b30;--line2:#35363c;--txt:#e6e6e8;--mut:#8b8d94;--dim:#5f6168;--acc:#4c8dff;--accH:#6aa0ff;--accTxt:#fff;--accSoft:rgba(76,141,255,.12);--green:#3fb950;--amber:#d29922;--red:#f85149;--r:6px}
+html,body{background:var(--bg);color:var(--txt);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:14px;letter-spacing:0}
+::selection{background:rgba(76,141,255,.35)}
+header{position:sticky;top:0;z-index:30;height:52px;padding:0 20px;gap:28px;background:var(--panel);border-bottom:1px solid var(--line);backdrop-filter:none}
+.logo{gap:10px}
+.logo .mark{width:20px;height:20px;color:var(--txt)}
+.logo .brand{font-weight:600;font-size:14.5px}
+nav{gap:0;height:100%;align-items:stretch}
+nav button{border-radius:0;padding:0 14px;color:var(--mut);font-weight:500;background:none!important;position:relative}
 nav button:hover{color:var(--txt)}
 nav button.on{color:var(--txt);background:none}
-nav button.on::after{content:"";position:absolute;left:14px;right:14px;bottom:-1px;height:2px;background:var(--acc);border-radius:2px}
-.sync{font-size:12px}
-.who{background:var(--panel2);border-color:var(--line)}
-main{padding:28px 24px 120px;max-width:1360px}
-.btn{background:var(--panel2);border:1px solid var(--line2);border-radius:9px;padding:9px 16px;font-weight:600;transition:background .15s,border-color .15s}
-.btn:hover{background:var(--raise);border-color:#4a515d}
-.btn.pri{background:var(--acc);border-color:var(--acc);color:var(--accTxt)}
-.btn.pri:hover{background:#d6ba92}
+nav button.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--acc)}
+.sync{font-size:12px;color:var(--mut);gap:10px}
+.who{display:inline-flex;align-items:center;gap:6px;background:none;border:1px solid var(--line2);border-radius:var(--r);padding:4px 10px;font-size:12.5px;color:var(--txt);cursor:pointer}
+.who:hover{border-color:#4a4b52}
+.dot{width:7px;height:7px}
+main{max-width:1320px;padding:24px 20px 110px}
+/* controls */
+.btn{background:var(--panel2);border:1px solid var(--line2);border-radius:var(--r);padding:8px 14px;font-weight:500;color:var(--txt);transition:background .1s,border-color .1s}
+.btn:hover{background:var(--raise);border-color:#45464d}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:var(--accTxt);font-weight:600}
+.btn.pri:hover{background:var(--accH);border-color:var(--accH)}
 .btn.ghost{background:none;border-color:transparent;color:var(--mut)}
 .btn.ghost:hover{color:var(--txt);background:var(--panel2)}
-.btn:focus-visible,.pick:focus-visible,.inp:focus-visible,.lnk:focus-visible,.rc:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r)}
-input[type=text],input[type=number],input[type=url],input[type=password],input:not([type]),select,textarea{background:var(--bg);border-color:var(--line2);border-radius:9px;padding:9px 12px}
-input:focus,select:focus,textarea:focus{border-color:var(--acc)}
-.pill.DEAD{background:var(--tape);color:#1a1a00;border-color:var(--tape)}
-.toast{background:var(--raise);border-left-color:var(--acc);border-radius:10px}
-.lnk{background:none;border:0;color:var(--acc);cursor:pointer;font-weight:600;padding:0;font:inherit;font-weight:600}
-.lnk.sm{font-size:12px}
-.note{border:1px solid var(--line);background:var(--panel);border-radius:var(--r);padding:12px 16px;margin-bottom:20px;color:var(--mut);display:flex;gap:12px;align-items:center}
+.btn.danger{color:var(--red)}
+.btn.sm{padding:5px 10px;font-size:12.5px}
+.btn:focus-visible,.pick:focus-visible,.inp:focus-visible,.lnk:focus-visible,.rc:focus-visible,nav button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.lnk{background:none;border:0;padding:0;color:var(--acc);cursor:pointer;font:inherit;font-weight:500}
+.lnk:hover{text-decoration:underline}
+.lnk.sm{font-size:12.5px}
+input[type=text],input[type=number],input[type=url],input[type=password],input:not([type]),select,textarea{background:var(--bg);border:1px solid var(--line2);border-radius:var(--r);padding:8px 10px;color:var(--txt)}
+input:focus,select:focus,textarea:focus{border-color:var(--acc);outline:none}
+input[type=checkbox]{accent-color:var(--acc)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:none}
 .muted{color:var(--mut)}
-/* entry */
-.entry{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:28px;align-items:start}
+.note{display:flex;gap:12px;align-items:center;padding:10px 14px;margin-bottom:18px;border:1px solid rgba(210,153,34,.35);background:rgba(210,153,34,.08);border-radius:var(--r);color:#d7b56a;font-size:13px}
+.note .lnk{color:#e8c77a}
+.pill{border-radius:4px}
+.pill.DEAD{background:var(--amber);color:#1a1200;border-color:var(--amber)}
+.toast{background:var(--raise);border:1px solid var(--line2);border-left:3px solid var(--green);border-radius:var(--r);padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.4);font-size:13px}
+.toast.err{border-left-color:var(--red)}
+.ov{background:rgba(0,0,0,.55)}
+.modal{border-radius:8px}
+.modal .mh{border-bottom:1px solid var(--line)}
+.modal .mh h3{font-size:15px;font-weight:600}
+.modal .mf{border-top:1px solid var(--line)}
+/* add form */
+.entry{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
 @media(max-width:1060px){.entry{grid-template-columns:minmax(0,1fr)}.aside{position:static!important}}
-@media(max-width:760px){
-  header{height:auto;padding:10px 14px 0;gap:8px 14px;flex-wrap:wrap}
-  .sync{margin-left:auto}
-  nav{order:3;width:100%;overflow-x:auto;height:44px;flex-wrap:nowrap;margin:0 -4px}
-  nav button{white-space:nowrap;padding:0 10px}
-  nav button.on::after{left:10px;right:10px}
-  main{padding:16px 12px 100px}
-  .plate-no{font-size:38px}
-  .g2.ssd{grid-template-columns:1fr 110px}
-  #syncTxt{display:none}
-}
-.form{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:visible}
-.ident{display:grid;grid-template-columns:auto 1fr;gap:28px;padding:26px 28px;border-bottom:1px solid var(--line);align-items:end;background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);border-radius:16px 16px 0 0}
-@media(max-width:640px){.ident{grid-template-columns:1fr;gap:18px;padding:20px}}
-.plate{display:flex;flex-direction:column;gap:4px;min-width:210px}
+.form{background:var(--panel);border:1px solid var(--line);border-radius:8px}
+.ident{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;padding:22px 24px;border-bottom:1px solid var(--line);align-items:start}
+.plate{display:flex;flex-direction:column;gap:6px}
 .plate-k{font-size:12px;color:var(--mut)}
-.plate-no{font-stretch:125%;font-weight:800;font-size:44px;line-height:1;letter-spacing:-.01em;color:var(--txt)}
+.plate-no{font-size:34px;font-weight:600;line-height:1.05;font-variant-numeric:tabular-nums;color:var(--txt);letter-spacing:-.01em}
 .plate.edit .plate-no{color:var(--acc)}
-.plate-lock{display:inline-flex;gap:6px;align-items:center;font-size:12px;color:var(--mut);margin-top:6px}
-.plate-lock svg{width:14px;height:14px}
+.meter{font-size:12px;color:var(--mut)}
+.plate-lock{display:inline-flex;gap:6px;align-items:center;font-size:12px;color:var(--mut)}
+.plate-lock svg{width:13px;height:13px}
 .plate .lnk{align-self:flex-start;margin-top:2px}
-.fld{display:flex;flex-direction:column;gap:7px;min-width:0}
-.fld>label{font-size:12.5px;color:var(--mut);font-weight:500}
-.fld.grow{flex:1}
+.idf{display:flex;flex-direction:column;gap:14px;min-width:0}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld>label{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--mut);font-weight:500}
+.ic{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;color:var(--dim);flex:none}
 .hint{font-size:12px;color:var(--mut)}
-.inp{background:var(--bg)!important;border:1px solid var(--line2)!important;border-radius:10px!important;padding:12px 14px!important;font-size:15px;width:100%;outline:none}
-.inp:focus{border-color:var(--acc)!important}
-.grp{padding:22px 28px;border-bottom:1px solid var(--line)}
-@media(max-width:640px){.grp{padding:18px 20px}}
-.grp h3{margin:0 0 14px;font-size:14px;font-weight:700;color:var(--txt)}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px}
-@media(max-width:720px){.g2{grid-template-columns:1fr}}
-.g2.ssd{grid-template-columns:1fr 140px}
-.pick{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--bg);border:1px solid var(--line2);border-radius:10px;padding:12px 14px;cursor:pointer;color:var(--txt);font-size:14.5px;font-weight:500;transition:border-color .15s,background .15s;min-height:46px}
-.pick:hover{border-color:#4a515d;background:#181a1f}
-.pick.open{border-color:var(--acc);background:#181a1f}
+.inp{width:100%;background:var(--bg);border:1px solid var(--line2);border-radius:var(--r);padding:9px 12px;font-size:14px;color:var(--txt);outline:none}
+.inp:focus{border-color:var(--acc)}
+.grp{display:grid;grid-template-columns:200px minmax(0,1fr);gap:0 24px;padding:20px 24px;border-bottom:1px solid var(--line)}
+.grp>*:not(h3)~*:not(h3){margin-top:12px}
+@media(max-width:760px){.grp>h3{margin-bottom:12px}}
+.grp>h3{grid-column:1;grid-row:1/span 6;margin:0;font-size:13.5px;font-weight:600;color:var(--txt);display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.grp>h3::after{content:attr(data-d);font-size:12px;font-weight:400;color:var(--mut);line-height:1.4}
+.grp>*:not(h3){grid-column:2;min-width:0}
+@media(max-width:760px){.ident,.grp{grid-template-columns:minmax(0,1fr);padding:16px}.grp>h3{grid-row:auto}.grp>*:not(h3){grid-column:1}}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
+.g2.gpu{grid-template-columns:1fr 200px}
+.g2.ssd{grid-template-columns:1fr 130px}
+@media(max-width:720px){.g2,.g2.gpu{grid-template-columns:1fr}.g2.ssd{grid-template-columns:1fr 110px}}
+.pick{display:flex;align-items:center;gap:8px;width:100%;min-height:38px;padding:8px 10px 8px 12px;background:var(--bg);border:1px solid var(--line2);border-radius:var(--r);color:var(--txt);font-size:14px;font-weight:400;text-align:left;cursor:pointer;transition:border-color .1s}
+.pick:hover{border-color:#4a4b52}
+.pick.open{border-color:var(--acc);box-shadow:0 0 0 3px var(--accSoft)}
+.pick.filled{background:var(--bg)}
+.pick.filled .pv{font-weight:500}
+.pick.is-empty .pv{color:var(--dim)}
 .pick .pv{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pick.is-empty .pv{color:#6c7179}
-.pick .chev{width:16px;height:16px;color:var(--mut);flex:none;transition:transform .15s}
+.pick .chev{width:14px;height:14px;color:var(--mut);flex:none}
 .pick.open .chev{transform:rotate(180deg)}
-.ram{display:flex;flex-direction:column;gap:16px}
-.ram-p{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) 96px;gap:12px;align-items:end;transition:opacity .2s}
+.fld.off,.ram-p.off,.qty.off{opacity:.4;pointer-events:none}
+.ram{display:flex;flex-direction:column;gap:14px}
+.ram-p{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 80px;gap:12px;align-items:end}
 @media(max-width:720px){.ram-p{grid-template-columns:1fr 1fr}}
-.ram-p.off,.qty.off{opacity:.35;pointer-events:none}
-.ram-tot{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;height:46px}
-.ram-tot span{font-stretch:125%;font-weight:800;font-size:24px;line-height:1;color:var(--acc)}
-.ram-tot small{font-size:11px;color:var(--mut)}
-.actions{display:flex;gap:10px;align-items:center;padding:18px 28px;position:sticky;bottom:0;background:rgba(28,31,36,.94);backdrop-filter:blur(10px);border-radius:0 0 16px 16px;border-top:1px solid var(--line);z-index:4}
+.ram-tot{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;height:38px}
+.ram-tot span{font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1}
+.ram-tot small{font-size:11px;color:var(--mut);margin-top:3px}
+.actions{position:sticky;bottom:0;display:flex;gap:8px;align-items:center;padding:14px 24px;background:var(--panel);border-top:1px solid var(--line);border-radius:0 0 8px 8px;z-index:4}
 .actions .sp{flex:1}
-@media(max-width:640px){.actions{padding:14px 16px;flex-wrap:wrap}.actions .btn.pri,.actions #eSaveNext{flex:1}}
-.pop{position:absolute;z-index:200;background:var(--raise);border:1px solid var(--line2);border-radius:12px;box-shadow:0 18px 50px rgba(0,0,0,.55);overflow:hidden;animation:popin .12s ease-out;outline:none}
-@keyframes popin{from{opacity:0}to{opacity:1}}
-@media(prefers-reduced-motion:reduce){.pop{animation:none}}
-.pop-s{padding:8px;border-bottom:1px solid var(--line)}
-.pop-s input{background:var(--bg)!important;border:1px solid var(--line2)!important;border-radius:8px!important;padding:9px 11px!important;width:100%}
-.pop-l{max-height:min(320px,45vh);overflow:auto;padding:6px}
-.opt{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;font-size:14px}
+@media(max-width:640px){.actions{padding:12px 16px;flex-wrap:wrap}.actions .btn.pri,.actions #eSaveNext{flex:1}}
+/* dropdown */
+.pop{position:absolute;z-index:200;background:var(--raise);border:1px solid var(--line2);border-radius:8px;box-shadow:0 12px 32px rgba(0,0,0,.5);overflow:hidden;outline:none}
+.pop-s{padding:6px;border-bottom:1px solid var(--line)}
+.pop-s input{width:100%;background:var(--bg)!important;border:1px solid var(--line2)!important;border-radius:var(--r)!important;padding:7px 9px!important;font-size:13.5px}
+.pop-l{max-height:min(320px,45vh);overflow:auto;padding:4px}
+.opt{display:flex;align-items:center;gap:10px;padding:7px 9px;border-radius:4px;cursor:pointer;font-size:13.5px}
 .opt.act{background:rgba(255,255,255,.06)}
 .opt .ol{flex:1;min-width:0;display:flex;flex-direction:column}
-.opt .ol small{font-size:11.5px;color:var(--mut);margin-top:2px}
-.opt .oc{font-size:11px;color:var(--mut);background:var(--bg);border-radius:999px;padding:2px 8px;font-variant-numeric:tabular-nums}
-.opt .ok{color:var(--acc);font-weight:800}
-.opt.sel .ol{color:var(--acc);font-weight:600}
+.opt .ol small{font-size:11.5px;color:var(--mut);margin-top:1px}
+.opt .oc{font-size:11.5px;color:var(--mut);font-variant-numeric:tabular-nums;min-width:18px;text-align:right}
+.opt .ok{color:var(--acc);font-weight:600}
+.opt.sel .ol{color:var(--txt);font-weight:600}
 .opt.muted{color:var(--mut)}
-.opt.add{color:var(--acc);font-weight:600;border-top:1px solid var(--line);border-radius:0 0 8px 8px;margin-top:4px}
-.aside{display:flex;flex-direction:column;gap:20px;position:sticky;top:84px}
-.prev,.recent{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
-.prev-h{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:14px}
-.prev-h .muted{font-weight:500}
-.prev-b{position:relative;overflow:hidden;border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
-.rc{display:flex;gap:10px;align-items:baseline;width:100%;background:none;border:0;border-top:1px solid var(--line);padding:10px 2px;cursor:pointer;color:var(--txt);text-align:left;font:inherit}
+.opt.add{color:var(--acc);border-top:1px solid var(--line);border-radius:0;margin-top:4px;padding-top:9px}
+/* aside */
+.aside{display:flex;flex-direction:column;gap:16px;position:sticky;top:72px}
+.prev,.recent{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px}
+.prev-h{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:12px}
+.prev-h .muted{font-weight:400;font-size:12px}
+.faceplate{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.prev-b{position:relative;overflow:hidden;border-radius:2px;box-shadow:0 1px 3px rgba(0,0,0,.5)}
+.rc{display:flex;gap:10px;align-items:baseline;width:100%;background:none;border:0;border-top:1px solid var(--line);padding:9px 0;color:var(--txt);text-align:left;font:inherit;cursor:pointer}
 .rc:first-of-type{border-top:0}
-.rc b{font-stretch:112%;min-width:52px}
-.rc span{flex:1;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}
-.rc em{font-style:normal;font-size:11.5px;color:var(--mut)}
+.rc b{font-weight:600;min-width:48px;font-variant-numeric:tabular-nums}
+.rc span{flex:1;color:var(--mut);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rc em{font-style:normal;font-size:12px;color:var(--dim)}
 .rc:hover b{color:var(--acc)}
-/* other tabs */
-.toolbar{margin-bottom:18px}
-.selbar{background:transparent;border-bottom:1px solid var(--line);padding:12px 16px}
-th{font-size:12px;text-transform:none;letter-spacing:0;color:var(--mut);font-weight:600}
-td,th{padding:12px 14px}
-td.name{font-stretch:112%;font-weight:700;white-space:nowrap}
-tbody td{font-size:13px;line-height:1.35}
-td .muted{color:#6c7179}
-tbody tr:hover{background:rgba(255,255,255,.025)}
-.part .rh,.rack .rh{font-weight:700}
-.modal .mh h3{font-weight:700}
-.stagewrap{background:radial-gradient(circle,#2a2f37 1px,transparent 1px) 0 0/18px 18px,var(--panel)}
-.side h4{text-transform:none;letter-spacing:0;font-size:13px;color:var(--txt);font-weight:700}
+/* failures */
+.grp.fail>h3 .fcount{align-self:flex-start}
+.fcount{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:18px;padding:0 6px;border-radius:4px;background:rgba(248,81,73,.15);color:#ff8a83;font-size:11.5px;font-weight:600;margin-left:6px}
+.grp.fail>h3{flex-direction:column}
+.flog{list-style:none;margin:0 0 12px;padding:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.flog li{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:9px 12px;border-top:1px solid var(--line);font-size:13.5px}
+.flog li:first-child{border-top:0}
+.fwhen{font-size:12px;color:var(--mut);font-variant-numeric:tabular-nums}
+@media(max-width:640px){.flog li{grid-template-columns:1fr;gap:2px}}
+.fnone{margin:0 0 12px;font-size:13px;color:var(--mut)}
+.fadd{display:flex;gap:8px}
+.fadd .inp{flex:1}
+.fbadge{display:inline-flex;align-items:center;font-size:11.5px;font-weight:600;color:#ff8a83;background:rgba(248,81,73,.13);border-radius:4px;padding:2px 7px;white-space:nowrap}
+.ftxt{color:#ff8a83}
+/* toolbar & table */
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.toolbar .grow{flex:1;min-width:200px}
+.toolbar .pick{min-height:36px;padding:6px 10px;width:auto;min-width:170px}
+.chkl{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--mut);white-space:nowrap;cursor:pointer}
+.selbar{display:flex;gap:8px;align-items:center;padding:10px 14px;background:none;border-bottom:1px solid var(--line);border-radius:0}
+table.inv{table-layout:fixed;width:100%;border-collapse:collapse}
+table.inv th,table.inv td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+table.inv th{font-size:12px;font-weight:500;color:var(--mut);text-transform:none;letter-spacing:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:sticky;top:52px;background:var(--panel);z-index:2;cursor:pointer}
+table.inv th:hover{color:var(--txt)}
+table.inv td{font-size:13px;line-height:1.4;overflow:hidden;white-space:normal}
+table.inv tbody tr{cursor:pointer}
+table.inv tbody tr:hover{background:var(--panel2)}
+table.inv tbody tr.sel{background:var(--accSoft)}
+table.inv td.name{font-weight:600}
+table.inv th.chk,table.inv td.chk{width:42px;overflow:visible}
+table.inv th.c-PCNo{width:64px}
+table.inv th.c-OldLabel{width:13%}
+table.inv th.c-Rack{width:12%}
+table.inv th.c-CPU{width:11%}
+table.inv th.c-GPU{width:17%}
+table.inv th.c-RAM{width:10%}
+table.inv th.c-SSD{width:13%}
+table.inv th.c-PowerSupply{width:8%}
+table.inv th.c-Capture{width:10%}
+table.inv th.c-FailCount{width:80px}
+table.inv thead th:nth-last-child(2){width:100px}
+table.inv thead th:last-child{width:58px}
+table.inv td:last-child{overflow:visible}
+.pcno{font-weight:600;font-variant-numeric:tabular-nums}
+.sort{color:var(--acc);margin-left:4px}
+td .muted{color:var(--dim)}
+.by{font-size:12px;color:var(--mut)}
+.by.fresh{color:var(--acc)}
+@media(max-width:760px){
+  header{height:auto;padding:8px 12px 0;flex-wrap:wrap;gap:8px 12px}
+  .sync{margin-left:auto}#syncTxt{display:none}
+  nav{order:3;width:100%;overflow-x:auto;height:42px;flex-wrap:nowrap}
+  nav button{white-space:nowrap;padding:0 10px}
+  main{padding:14px 10px 100px}
+  table.inv th{top:94px}
+  table.inv thead{display:none}
+  table.inv,table.inv tbody,table.inv tr,table.inv td{display:block}
+  table.inv tbody tr{display:grid!important;grid-template-columns:28px 44px minmax(0,1fr);gap:3px 8px;padding:12px;align-items:center;border-bottom:1px solid var(--line)}
+  table.inv td{padding:0!important;width:auto!important;border:0!important;font-size:13px}
+  table.inv td.hide-m{display:none!important}
+  table.inv td.chk{grid-row:1/span 3}
+  table.inv td:nth-child(2){grid-column:2;grid-row:1}
+  table.inv td:nth-child(3){grid-column:3;grid-row:1;font-weight:600}
+  table.inv td:nth-child(4),table.inv td:nth-child(5){grid-column:2/4;color:var(--mut)}
+}
+/* parts */
+.parts{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;align-items:start}
+.part{padding:0;overflow:hidden}
+.part .rh{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line);font-weight:600;font-size:13.5px}
+.part .unit{display:grid;grid-template-columns:1fr auto 32px;grid-template-rows:auto 2px;column-gap:10px;row-gap:6px;padding:9px 14px;border-bottom:1px solid var(--line);cursor:pointer;font-size:13px;align-items:center}
+.part .unit:last-child{border-bottom:0}
+.part .unit:hover{background:var(--panel2)}
+.part .unit .nm{grid-column:1;grid-row:1;font-weight:500!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.part .unit .gpu{grid-column:2;grid-row:1;color:var(--mut);font-size:12px;white-space:nowrap}
+.part .unit .pn{grid-column:3;grid-row:1;text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.part .unit .bar{grid-column:1/-1;grid-row:2;height:2px;background:var(--line);border-radius:1px;overflow:hidden}
+.part .unit .bar i{display:block;height:100%;background:var(--acc);opacity:.75}
+/* racks */
+.racks2{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:14px;align-items:start}
+.rackc{padding:0;overflow:hidden;margin-bottom:14px}
+.racks2 .rackc{margin:0}
+.rackc .rkh{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.rackc .rkh b{display:block;font-weight:600;font-size:14px}
+.rackc .rkh small{font-size:12px;color:var(--mut)}
+.rackc.none{border-color:rgba(210,153,34,.35)}
+.rackc.none .rkh b{color:#e3b866}
+.ru{display:flex;align-items:center;gap:12px;padding:9px 14px;border-top:1px solid var(--line);cursor:pointer}
+.ru:first-of-type{border-top:0}
+.ru:hover{background:var(--panel2)}
+.ru.has-fail{box-shadow:inset 2px 0 0 var(--red)}
+.ru .pcno{min-width:30px;color:var(--mut)}
+.ru-m{flex:1;min-width:0;display:flex;flex-direction:column}
+.ru-m b{font-weight:500;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ru-m small{font-size:12px;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rk-empty{margin:0;padding:14px;font-size:13px}
+/* label editor + settings */
+.side{padding:14px}
+.side h4{font-size:13px;font-weight:600;text-transform:none;letter-spacing:0;color:var(--txt)}
+.stagewrap{background:var(--bg);border-radius:8px}
+.seg{border-radius:var(--r)}
+.seg button.on{background:var(--raise);color:var(--txt)}
+.ellist .it.on{border-color:var(--acc);background:var(--accSoft)}
+.chip:hover{border-color:var(--acc);color:var(--acc)}
+.help li{color:var(--txt)}
+code{background:var(--bg);border-color:var(--line2);border-radius:4px}
+
+.rklay{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+.rklay .rkside{order:2}
+@media(min-width:1100px){.rklay:not(.full){grid-template-columns:minmax(0,1fr) 380px}.rklay .rkside{order:2;position:sticky;top:72px}.rklay .racks2{order:1;grid-row:1}}
+.rklay .rkside .rackc{margin:0;max-height:calc(100vh - 100px);overflow:auto}
+.rklay .racks2{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.rklay .rkside .ru-m small{display:none}
+
+/* ================= compact add form (13" without scrolling) ================= */
+.note.slim{padding:7px 12px;margin-bottom:12px;font-size:12.5px}
+.cf .r12{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px 14px;padding:16px 20px}
+.cf .r12.top{border-bottom:1px solid var(--line);align-items:end;padding:14px 20px}
+.cf .s1{grid-column:span 1}.cf .s2{grid-column:span 2}.cf .s3{grid-column:span 3}.cf .s4{grid-column:span 4}.cf .s5{grid-column:span 5}.cf .s6{grid-column:span 6}.cf .s8{grid-column:span 8}
+.cf .fld{gap:5px}
+.cf .fld>label{font-size:12px}
+.cf .pick{min-height:36px;padding:6px 10px 6px 11px;font-size:13.5px}
+.cf .inp{padding:7px 11px;font-size:13.5px;min-height:36px}
+.cf .plate{gap:2px;min-width:0}
+.cf .plate-k{display:flex;gap:8px;align-items:center;font-size:12px}
+.cf .plate-lock{font-size:11.5px;gap:4px}
+.cf .plate-no{font-size:26px;line-height:1.1}
+.cf .meter{font-size:12px}
+.cf .ram-tot{height:36px;align-self:end;align-items:flex-start;padding-left:2px}
+.cf .ram-tot span{font-size:17px}
+.cf .ram-tot small{margin-top:1px}
+.cf .ram-tot.off{opacity:.4}
+.cf .actions{padding:12px 20px;position:static;flex-wrap:wrap}
+.cf .actions .hint{font-size:12px}
+.entry{grid-template-columns:minmax(0,1fr) 320px;gap:16px}
+.aside{gap:12px;top:64px;max-height:calc(100vh - 76px);overflow:auto}
+.aside .prev{padding:12px 14px}
+.aside .prev-h{margin-bottom:10px}
+.aside .faceplate{padding:10px}
+.failbox .flog{max-height:150px;overflow:auto;margin-bottom:10px}
+.failbox .flog li{display:flex;flex-direction:column;gap:1px;padding:7px 10px;font-size:13px}
+.failbox .fwhen{font-size:11.5px}
+.failbox .fadd .inp{min-height:34px;padding:6px 10px;font-size:13px}
+.failbox .fadd .btn{padding:6px 12px}
+.recent .rc{padding:7px 0}
+main{padding-top:16px;padding-bottom:28px}
+@media(max-width:1100px){.cf .s5{grid-column:span 6}.cf .s2{grid-column:span 3}.cf .s1{grid-column:span 3}.cf .s3{grid-column:span 12}.cf .r12.top .s5,.cf .r12.top .s4{grid-column:span 6}}
+@media(max-width:720px){.cf .r12{grid-template-columns:repeat(2,minmax(0,1fr));padding:14px}.cf [class*=" s"],.cf .s1,.cf .s2,.cf .s3,.cf .s4,.cf .s5,.cf .s6,.cf .s8{grid-column:span 2}.cf .s2,.cf .ram-tot{grid-column:span 1}}
+
+/* ================= grid ================= */
+.toolbar.gt{gap:10px;margin-bottom:12px}
+.srch{display:flex;align-items:center;gap:8px;flex:1;min-width:220px;max-width:420px;background:var(--bg);border:1px solid var(--line2);border-radius:var(--r);padding:0 10px;height:36px}
+.srch:focus-within{border-color:var(--acc)}
+.srch svg{width:15px;height:15px;color:var(--mut);flex:none}
+.srch input{border:0!important;background:none!important;padding:0!important;height:100%;width:100%;outline:none}
+.btn:disabled{opacity:.4;cursor:default}
+.gwrap{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.gscroll{overflow:auto;max-height:calc(100vh - 190px);outline:none;position:relative}
+table.grid{border-collapse:separate;border-spacing:0;table-layout:fixed;font-size:13px}
+table.grid th,table.grid td{height:34px;padding:0 10px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left;vertical-align:middle;background:var(--panel)}
+table.grid th{text-transform:none;letter-spacing:0;position:sticky;top:0;z-index:3;background:var(--panel2);color:var(--mut);font-weight:500;font-size:12px;height:32px;cursor:pointer;user-select:none}
+table.grid th:hover{color:var(--txt)}
+table.grid th.stk{z-index:5}
+table.grid td.stk{position:sticky;z-index:2}
+table.grid th.stk,table.grid td.stk{position:sticky}
+table.grid td.stk[data-c="1"],table.grid th.stk[data-c="1"]{box-shadow:1px 0 0 var(--line2),6px 0 10px -6px rgba(0,0,0,.6)}
+table.grid td{cursor:cell;user-select:none;color:var(--txt)}
+table.grid td.ro{color:var(--mut)}
+table.grid td.open{cursor:pointer}
+table.grid td.open:hover .pcno{color:var(--acc);text-decoration:underline}
+table.grid tbody tr:hover td{background:#1e1f23}
+table.grid td.rng{background:#1f2a3d!important}
+table.grid td.sel{box-shadow:inset 0 0 0 2px var(--acc);background:#1c2433!important}
+table.grid td.saving{color:var(--mut)}
+table.grid td.editing{padding:0;box-shadow:inset 0 0 0 2px var(--acc);background:var(--bg)!important}
+table.grid tr.fresh td{animation:fl 2.5s ease-out}
+table.grid tr.hf td[data-c="0"]{box-shadow:inset 2px 0 0 var(--red)}
+.cin{width:100%;height:100%;border:0!important;background:none!important;padding:0 10px!important;font:inherit;color:var(--txt);outline:none}
+.nil{color:var(--dim)}
+.add-f{color:var(--dim);font-size:12px}
+td.open:hover .add-f{color:var(--acc)}
+.gfoot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 12px;border-top:1px solid var(--line);font-size:12px;color:var(--mut);flex-wrap:wrap}
+.keys{display:flex;gap:4px 10px;flex-wrap:wrap;align-items:center}
+kbd{font-family:inherit;font-size:11px;background:var(--panel2);border:1px solid var(--line2);border-bottom-width:2px;border-radius:4px;padding:1px 5px;color:var(--txt);margin-right:3px}
+@media(max-width:760px){.keys{display:none}.gscroll{max-height:calc(100vh - 230px)}}
+.tscroll{overflow-x:auto}
+.tscroll table.inv thead th{position:static}
+@media(max-width:760px){table.inv{min-width:0!important}}
+
+.fld>label .lsub{color:var(--dim);font-weight:400;margin-left:4px}
+.fld>label .lr{margin-left:auto}
+.cf .s12{grid-column:span 12}
+.fld.off2 .pick{opacity:.5}
+
+/* ================= v5: contrast + part colours ================= */
+:root{--bg:#121315;--panel:#1b1c1f;--panel2:#232428;--raise:#2a2b30;--line:#2d2e34;--line2:#43454d;--txt:#f3f3f4;--mut:#a9abb2;--dim:#7d8089;
+  --c-mb:#9aa4b2;--c-cpu:#5ea8ff;--c-ram:#b18cff;--c-gpu:#3fd18a;--c-ssd:#f2b84b;--c-psu:#ff7a7a;--c-cap:#3cc9c0;--c-rack:#d6d8de}
+html,body{font-size:14.5px}
+main{max-width:1360px}
+header{background:#18191c}
+nav button{font-size:14px;color:#b4b6bd}
+nav button.on{color:#fff}
+nav button.on::after{height:3px;border-radius:3px 3px 0 0}
+.form,.prev,.card{border-color:#30323a;background:var(--panel)}
+.cf .r12.top{background:linear-gradient(180deg,#202125,#1b1c1f)}
+.cf .plate-no{font-size:30px;font-weight:700;color:#fff}
+.cf .plate.edit .plate-no{color:var(--acc)}
+.cf .plate-k{color:var(--mut)}
+.cf .meter{color:var(--mut)}
+.cf .fld>label{font-size:12.5px;color:#d5d7dc;font-weight:500}
+.cf .fld.sub>label{color:var(--mut)}
+.cf .pick,.cf .inp{background:#0f1012;border:1px solid var(--line2);font-size:14px;color:#fff;min-height:38px}
+.cf .pick:hover{border-color:#5a5d67;background:#121316}
+.cf .pick.is-empty .pv{color:#8a8d96}
+.cf .pick.filled{background:#15161a}
+.cf .pick.filled .pv{font-weight:500;color:#fff}
+.ic{width:16px;height:16px;stroke-width:1.4}
+.k-mb{--c:var(--c-mb)}.k-cpu{--c:var(--c-cpu)}.k-ram{--c:var(--c-ram)}.k-gpu{--c:var(--c-gpu)}.k-ssd{--c:var(--c-ssd)}.k-psu{--c:var(--c-psu)}.k-cap{--c:var(--c-cap)}.k-rack{--c:var(--c-rack)}
+.fld[class*=" k-"]>label .ic{color:var(--c)}
+.fld[class*=" k-"] .pick.filled{box-shadow:inset 3px 0 0 var(--c);border-color:color-mix(in srgb,var(--c) 45%,var(--line2))}
+.fld[class*=" k-"] .pick.open{border-color:var(--c);box-shadow:inset 3px 0 0 var(--c),0 0 0 3px color-mix(in srgb,var(--c) 18%,transparent)}
+.cf .ram-tot span{color:var(--c-ram);font-size:19px;font-weight:700}
+.cf .ram-tot.off span{color:var(--dim)}
+.cf .fld.off,.cf .ram-p.off,.cf .qty.off{opacity:.35}
+.btn{border-color:#474a53;color:#fff}
+.btn.pri{background:#3d84ff;border-color:#3d84ff}
+.btn.pri:hover{background:#5a97ff;border-color:#5a97ff}
+.btn.ghost{color:#c4c6cc}
+.lnk{color:#6ea7ff}
+.cf .actions{background:#18191c}
+.aside .prev-h,.prev-h{color:#fff}
+.faceplate{background:#0f1012;border-color:#30323a}
+.failbox .flog li{border-color:#30323a}
+.rc span{color:#b9bbc1}
+.rc b{color:#fff}
+.opt{color:#eef0f2}
+.opt .ol small{color:#9da0a8}
+.pop{background:#25262b;border-color:#4a4d56}
+/* list + other tabs */
+table.inv th{color:#b4b6bd;background:#1f2024}
+table.inv td{color:#eef0f2}
+td .muted,.nil{color:#6f727b}
+.part .rh,.rackc .rkh{background:#1f2024}
+.part .rh>span:first-child::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:9px;background:var(--c,var(--acc));vertical-align:1px}
+.part.L-Motherboard{--c:var(--c-mb)}.part.L-CPU{--c:var(--c-cpu)}.part.L-RAMModel{--c:var(--c-ram)}.part.L-GPUModel{--c:var(--c-gpu)}.part.L-SSDModel{--c:var(--c-ssd)}.part.L-PowerSupply{--c:var(--c-psu)}.part.L-CaptureCard{--c:var(--c-cap)}
+.part .unit .bar i{background:var(--c,var(--acc));opacity:.9}
+.chkl{color:#c4c6cc}
 </style>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <header>
-  <div class="logo"><span class="tape">EWC</span><span class="muted" style="font-weight:600">PC inventory</span></div>
+  <div class="logo"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h18M3 15h18" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="6" r="1" fill="#5fcf8f"/><circle cx="7" cy="12" r="1" fill="#5fcf8f"/><circle cx="7" cy="18" r="1" fill="#c9ab80"/></svg><span class="brand">Rack Inventory</span></div>
   <nav id="nav">
     <button data-tab="add" class="on">Add PC</button>
     <button data-tab="pcs">Computers</button>
+    <button data-tab="racks">Racks</button>
     <button data-tab="parts">Parts</button>
     <button data-tab="labels">Labels & QR</button>
     <button data-tab="settings" title="Settings">Settings</button>
@@ -2655,16 +2902,16 @@ var qrcode = function() {
 <script>
 'use strict';
 /* ================= stan ================= */
-const DEFAULT_HEADERS=['PC No','Old Label','Motherboard','CPU','Memory','GPU','M2 SSD','Power Supply','Capture Card 1','Capture Card 2','Updated','Updated by','ID'];
+const DEFAULT_HEADERS=['PC No','Old Label','Rack','Motherboard','CPU','RAM Model','RAM GB','RAM MT/s','GPU Model','GPU Code','SSD Model','SSD Qty','Power Supply','Capture Card 1','Capture Card 2','Failures','Updated','Updated by','ID'];
 const LIST_FIELDS=['Stage','Rack','Motherboard','CPU','Memory','GPU','M.2 SSD','Power Supply','Capture Card'];
 const STATUSES=['OK','DEAD','Service','Spare'];
 const READONLY=['ID','Updated','Updated by'];
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const S={
   headers:[...DEFAULT_HEADERS],items:[],templates:[],sel:new Set(),
-  cfg:Object.assign({url:'',token:'',qrMode:'spec',linkBase:''},LS.get('ewc_cfg',{})),
+  cfg:Object.assign({url:'',token:'',qrMode:'spec',linkBase:''},LS.get('rpi_cfg',{})),
   tab:'add',ent:null,f:{q:'',stage:'',rack:'',status:'',showEmpty:false},sort:{k:'PC No',d:1},
-  tplId:LS.get('ewc2_tpl',null),lists:{},user:LS.get('ewc_user',''),fresh:new Set(),lastHash:'',previewId:null,selEl:null,zoom:2.5,status:'…'
+  tplId:LS.get('rpi3_tpl',null),lists:{},user:LS.get('rpi_user',''),fresh:new Set(),lastHash:'',previewId:null,selEl:null,zoom:2.5,status:'…'
 };
 const demo=()=>!S.cfg.url;
 const nm=it=>(it&&(it['PC No']||it['Old Label']&&it['Old Label']!=='-'&&('('+it['Old Label']+')')||it.ID))||'—';
@@ -2684,11 +2931,13 @@ let saveTplTimer=null;
 
 /* ================= dane demo ================= */
 function demoData(){
-  const H=["PC No", "Old Label", "Motherboard", "CPU", "Memory", "GPU", "M2 SSD", "Power Supply", "Capture Card 1", "Capture Card 2", "Updated", "Updated by", "ID"];
-  const rows=[{"PC No": "1", "Old Label": "-", "Motherboard": "ASUS PRIME Z790-P WIFI", "CPU": "Intel Core i7-14700K", "Memory": "Kingston KF556C36-16 32gb (2x16gb) 5600MT/s DDR5", "GPU": "Zotac GeForce RTX 5070 GB205-300", "M2 SSD": "Samsung SSD 990 PRO 1TB", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "DeckLink Duo 2", "Capture Card 2": ""}, {"PC No": "2", "Old Label": "S2-DATA-1", "Motherboard": "ASUS PRIME Z790-P WIFI", "CPU": "i9 14900K", "Memory": "CORSAIR CMK64GX5M2B5200C40 64gb (2x32gb) 5200MT/s", "GPU": "MSI RTX 4090 GAMING X TRIO AD102-300/301", "M2 SSD": "2x Samsung SSD 980 PRO 1TB", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "DeckLink Duo 2", "Capture Card 2": ""}, {"PC No": "3", "Old Label": "-", "Motherboard": "ASUS PRIME Z790-P WIFI", "CPU": "i9 14900K", "Memory": "Kingston KF556C36-16 32gb (2x16gb) 5600MT/s DDR5", "GPU": "ASUS ROG ASTRAL GeForce RTX 5090 OC GB202-300", "M2 SSD": "Samsung SSD 980 500GB", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "-", "Capture Card 2": ""}, {"PC No": "4", "Old Label": "-", "Motherboard": "", "CPU": "Intel Core i7-14700K", "Memory": "Kingston KF556C36-16 32gb (2x16gb) 5600MT/s DDR5", "GPU": "Zotac GeForce RTX 5070 GB205-300", "M2 SSD": "Samsung SSD 990 PRO 1TB", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "-", "Capture Card 2": ""}, {"PC No": "5", "Old Label": "SPARE PC RACK 5", "Motherboard": "", "CPU": "Intel Core i7-14700K", "Memory": "CORSAIR CMK64GX5M2B5200C40 64gb (2x32gb) 5200MT/s", "GPU": "ASUS DUAL RTX 4070 SUPER AD104-350", "M2 SSD": "Samsung SSD 980 PRO 1TB", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "-", "Capture Card 2": ""}, {"PC No": "6", "Old Label": "S1-TD-COMP", "Motherboard": "", "CPU": "i9 14900K", "Memory": "CORSAIR CMK64GX5M2B5200C40 64gb (2x32gb) 4800MT/s", "GPU": "NVIDIA RTX A5000 GA102GL", "M2 SSD": "Samsung SSD 980 PRO 1TB", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "DeckLink Duo 2", "Capture Card 2": "DeckLink Duo 2"}, {"PC No": "7", "Old Label": "STAGE 4 INGAME RACK 2", "Motherboard": "", "CPU": "Intel Core i7-14700K", "Memory": "CORSAIR CMK64GX5M2B5200C40 64gb (2x32gb) 5200MT/s", "GPU": "Palit RTX 4070 SUPER AD104-350", "M2 SSD": "Samsung SSD 990 PRO 1TB", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "-", "Capture Card 2": ""}, {"PC No": "8", "Old Label": "SPARE PC RACK 5", "Motherboard": "", "CPU": "Intel Core i7-14700K", "Memory": "CORSAIR CMK64GX5M2B5200C40 64gb (2x32gb) 5200MT/s", "GPU": "ASUS DUAL RTX 4070 SUPER AD104-350", "M2 SSD": "Samsung SSD 980 PRO 1TB", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "9", "Old Label": "S1-vmix 2 reactions", "Motherboard": "", "CPU": "i9 14900K", "Memory": "ddr5 G.SKILL F5-6000J3040G32G 64 gb (2x32gb) 5200MT/s", "GPU": "ASUS ROG ASTRAL GeForce RTX 5090 OC GB202-300", "M2 SSD": "Samsung SSD 870 Evo 4Tb", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "DeckLink Duo 2", "Capture Card 2": ""}, {"PC No": "10", "Old Label": "SECONDARY STAGE 3 INGAME RACK 1", "Motherboard": "", "CPU": "Intel Core i7-14700K", "Memory": "CORSAIR CMK64GX5M2B5200C40 64gb (2x32gb) 5200MT/s", "GPU": "ASUS DUAL RTX 4070 SUPER AD104-350", "M2 SSD": "Samsung SSD 980 PRO 1TB", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "11", "Old Label": "S4- DATA-2", "Motherboard": "", "CPU": "i9 14900K", "Memory": "ddr5 G.SKILL F5-6000J3040G32G 64 gb (2x32gb) 5200MT/s", "GPU": "ASUS ROG ASTRAL GeForce RTX 5090 OC GB202-300", "M2 SSD": "2x Samsung SSD 990 PRO 1TB", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "12", "Old Label": "SECONDARY STAGE 3 INGAME RACK 1", "Motherboard": "", "CPU": "Intel Core i7-14700K", "Memory": "CORSAIR CMK64GX5M2B5200C40 64gb (2x32gb) 5200MT/s", "GPU": "ASUS DUAL RTX 4070 SUPER AD104-350", "M2 SSD": "Samsung SSD 980 PRO 1TB", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "13", "Old Label": "SEC3-obs-3", "Motherboard": "", "CPU": "Intel Core i7-14700K", "Memory": "CORSAIR CMK64GX5M2B5200C40 64gb (2x32gb) 5200MT/s", "GPU": "ASUS DUAL RTX 4070 SUPER AD104-350", "M2 SSD": "Samsung SSD 980 PRO 1TB", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "14", "Old Label": "STAGE 4 INGAME RACK 2", "Motherboard": "", "CPU": "Intel Core i7-14700K", "Memory": "CORSAIR CMK64GX5M2B5200C40 64gb (2x32gb) 5200MT/s", "GPU": "Palit RTX 4070 SUPER AD104-350", "M2 SSD": "Samsung SSD 990 PRO 1TB", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "15", "Old Label": "S4-DATA-1", "Motherboard": "", "CPU": "i9 14900K", "Memory": "ddr5 G.SKILL F5-6000J3040G32G 64 gb (2x32gb) 5200MT/s", "GPU": "ASUS ROG ASTRAL GeForce RTX 5090 OC GB202-300", "M2 SSD": "2x Samsung SSD 990 PRO 1TB", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "DeckLink Duo 2", "Capture Card 2": ""}, {"PC No": "16", "Old Label": "STAGE 3 - INGAME RACK 2", "Motherboard": "", "CPU": "Intel Core i7-14700K", "Memory": "CORSAIR CMK64GX5M2B5200C40 64gb (2x32gb) 5200MT/s", "GPU": "ASUS DUAL RTX 4070 SUPER AD104-350", "M2 SSD": "Samsung SSD 980 PRO 1TB", "Power Supply": "BeQuiet! 1000w", "Capture Card 1": "DeckLink Duo 2", "Capture Card 2": ""}, {"PC No": "17", "Old Label": "S2-obs-12-aid-td-1", "Motherboard": "", "CPU": "i7-13700K", "Memory": "CORSAIR CMK64GX5M2B5200C40 64gb (2x32gb) 5200MT/s", "GPU": "PALIT RTX 3080 GA102-202 (lhr)", "M2 SSD": "Samsung SSD 980 PRO 1TB", "Power Supply": "Corsair 850 W", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "18", "Old Label": "STAGE 2 INGAME RACK 2", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "19", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "20", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "21", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "22", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "23", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "24", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "25", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "26", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "27", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "28", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "29", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "30", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "31", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "32", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "33", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "34", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "35", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "36", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "37", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "38", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "39", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "40", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "41", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "42", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "43", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "44", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "45", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "46", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "47", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "48", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "49", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "50", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "51", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "52", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}, {"PC No": "53", "Old Label": "", "Motherboard": "", "CPU": "", "Memory": "", "GPU": "", "M2 SSD": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": ""}];
-  return {headers:H,templates:null,lists:{"Motherboard": ["ASUS PRIME Z790-P WIFI"], "CPU": ["Intel Core i7-14700K", "i9 14900K", "i7-13700K"], "Memory": ["Kingston KF556C36-16 32gb (2x16gb) 5600MT/s DDR5", "CORSAIR CMK64GX5M2B5200C40 64gb (2x32gb) 5200MT/s", "CORSAIR CMK64GX5M2B5200C40 64gb (2x32gb) 4800MT/s", "ddr5 G.SKILL F5-6000J3040G32G 64 gb (2x32gb) 5200MT/s"], "GPU": ["Zotac GeForce RTX 5070 GB205-300", "MSI RTX 4090 GAMING X TRIO AD102-300/301", "ASUS ROG ASTRAL GeForce RTX 5090 OC GB202-300", "ASUS DUAL RTX 4070 SUPER AD104-350", "NVIDIA RTX A5000 GA102GL", "Palit RTX 4070 SUPER AD104-350", "PALIT RTX 3080 GA102-202 (lhr)"], "M2 SSD": ["Samsung SSD 990 PRO 1TB", "2x Samsung SSD 980 PRO 1TB", "Samsung SSD 980 500GB", "Samsung SSD 980 PRO 1TB", "Samsung SSD 870 Evo 4Tb", "2x Samsung SSD 990 PRO 1TB"], "Power Supply": ["BeQuiet! 1000w", "Corsair 850 W"], "Capture Card": ["DeckLink Duo 2"]},items:rows.map(r=>Object.assign({Updated:'','Updated by':'',ID:'PC-'+uid().toUpperCase()},r))};
+  // przykładowe, wymyślone dane – nie prawdziwy inwentarz
+  const H=["PC No", "Old Label", "Rack", "Motherboard", "CPU", "RAM Model", "RAM GB", "RAM MT/s", "GPU Model", "GPU Code", "SSD Model", "SSD Qty", "SSD 2 Model", "SSD 2 Qty", "Power Supply", "Capture Card 1", "Capture Card 2", "Failures", "Updated", "Updated by", "ID"];
+  const rows=[{"PC No": "1", "Old Label": "DEMO-OBS-1", "Rack": "Demo Rack A", "Motherboard": "MSI PRO Z790-A", "CPU": "Intel Core i5-14600K", "RAM Model": "Kingston FURY Beast KF552C40", "RAM GB": "32 (2x16)", "RAM MT/s": "5200", "GPU Model": "Gigabyte RTX 4060 Ti", "GPU Code": "AD106-351", "SSD Model": "WD Black SN850X 1TB", "SSD Qty": "1", "Power Supply": "Corsair RM850x", "Capture Card 1": "Elgato 4K60 Pro", "Capture Card 2": "-", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "2", "Old Label": "DEMO-OBS-2", "Rack": "Demo Rack A", "Motherboard": "MSI PRO Z790-A", "CPU": "Intel Core i5-14600K", "RAM Model": "Kingston FURY Beast KF552C40", "RAM GB": "32 (2x16)", "RAM MT/s": "5200", "GPU Model": "Gigabyte RTX 4060 Ti", "GPU Code": "AD106-351", "SSD Model": "WD Black SN850X 1TB", "SSD Qty": "1", "Power Supply": "Corsair RM850x", "Capture Card 1": "Elgato 4K60 Pro", "Capture Card 2": "-", "Failures": "2026-01-10 09:15 Demo: No signal on capture card, reseated \u2013 fixed", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "3", "Old Label": "DEMO-REPLAY-1", "Rack": "Demo Rack A", "Motherboard": "MSI PRO Z790-A", "CPU": "Intel Core i5-14600K", "RAM Model": "Kingston FURY Beast KF552C40", "RAM GB": "64 (2x32)", "RAM MT/s": "5200", "GPU Model": "Gigabyte RTX 4060 Ti", "GPU Code": "AD106-351", "SSD Model": "WD Black SN850X 1TB", "SSD Qty": "1", "SSD 2 Model": "Samsung 870 EVO 2TB", "SSD 2 Qty": "1", "Power Supply": "Corsair RM850x", "Capture Card 1": "Elgato 4K60 Pro", "Capture Card 2": "-", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "4", "Old Label": "DEMO-PLAYER-1", "Rack": "Demo Rack B", "Motherboard": "ASRock B650 Steel Legend", "CPU": "AMD Ryzen 7 7800X3D", "RAM Model": "G.Skill Flare X5 F5-6000J3038F16G", "RAM GB": "32 (2x16)", "RAM MT/s": "6000", "GPU Model": "Sapphire Pulse RX 7800 XT", "GPU Code": "Navi 32", "SSD Model": "WD Black SN850X 1TB", "SSD Qty": "1", "Power Supply": "Corsair RM850x", "Capture Card 1": "-", "Capture Card 2": "-", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "5", "Old Label": "DEMO-PLAYER-2", "Rack": "Demo Rack B", "Motherboard": "ASRock B650 Steel Legend", "CPU": "AMD Ryzen 7 7800X3D", "RAM Model": "G.Skill Flare X5 F5-6000J3038F16G", "RAM GB": "32 (2x16)", "RAM MT/s": "6000", "GPU Model": "Sapphire Pulse RX 7800 XT", "GPU Code": "Navi 32", "SSD Model": "WD Black SN850X 1TB", "SSD Qty": "1", "Power Supply": "Corsair RM850x", "Capture Card 1": "-", "Capture Card 2": "-", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "6", "Old Label": "DEMO-SPARE", "Rack": "", "Motherboard": "ASRock B650 Steel Legend", "CPU": "AMD Ryzen 7 7800X3D", "RAM Model": "G.Skill Flare X5 F5-6000J3038F16G", "RAM GB": "32 (2x16)", "RAM MT/s": "6000", "GPU Model": "Gigabyte RTX 4060 Ti", "GPU Code": "AD106-351", "SSD Model": "WD Black SN850X 1TB", "SSD Qty": "1", "Power Supply": "Corsair RM850x", "Capture Card 1": "-", "Capture Card 2": "-", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "7", "Old Label": "", "Rack": "", "Motherboard": "", "CPU": "", "RAM Model": "", "RAM GB": "", "RAM MT/s": "", "GPU Model": "", "GPU Code": "", "SSD Model": "", "SSD Qty": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": "", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "8", "Old Label": "", "Rack": "", "Motherboard": "", "CPU": "", "RAM Model": "", "RAM GB": "", "RAM MT/s": "", "GPU Model": "", "GPU Code": "", "SSD Model": "", "SSD Qty": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": "", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "9", "Old Label": "", "Rack": "", "Motherboard": "", "CPU": "", "RAM Model": "", "RAM GB": "", "RAM MT/s": "", "GPU Model": "", "GPU Code": "", "SSD Model": "", "SSD Qty": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": "", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}, {"PC No": "10", "Old Label": "", "Rack": "", "Motherboard": "", "CPU": "", "RAM Model": "", "RAM GB": "", "RAM MT/s": "", "GPU Model": "", "GPU Code": "", "SSD Model": "", "SSD Qty": "", "Power Supply": "", "Capture Card 1": "", "Capture Card 2": "", "Failures": "", "Updated": "", "Updated by": "", "ID": ""}];
+  return {headers:H,templates:null,pairs:{"GPU Model":[["Gigabyte RTX 4060 Ti","AD106-351"],["Sapphire Pulse RX 7800 XT","Navi 32"]]},lists:{"Rack": ["Demo Rack A", "Demo Rack B"], "Motherboard": ["MSI PRO Z790-A", "ASRock B650 Steel Legend"], "CPU": ["Intel Core i5-14600K", "AMD Ryzen 7 7800X3D"], "RAM Model": ["Kingston FURY Beast KF552C40", "G.Skill Flare X5 F5-6000J3038F16G"], "GPU Model": ["Gigabyte RTX 4060 Ti", "Sapphire Pulse RX 7800 XT"], "GPU Code": ["AD106-351", "Navi 32"], "SSD Model": ["WD Black SN850X 1TB", "Samsung 870 EVO 2TB"], "Power Supply": ["Corsair RM850x"], "Capture Card": ["Elgato 4K60 Pro"]},items:rows.map(r=>Object.assign({},r,{ID:'PC-'+uid().toUpperCase()}))};
 }
-function demoDB(){let d=LS.get('ewc2_demo',null);if(!d){d=demoData();LS.set('ewc2_demo',d)}return d}
+try{['ewc_demo','ewc2_demo','rpi_demo','rpi2_demo','rpi3_demo','racki_demo'].forEach(k=>localStorage.removeItem(k))}catch(e){}
+function demoDB(){let d=LS.get('rpi4_demo',null);if(!d){d=demoData();LS.set('rpi4_demo',d)}return d}
 
 /* ================= API ================= */
 async function api(action,payload={}){
@@ -2697,11 +2946,15 @@ async function api(action,payload={}){
     if(action==='list')return {ok:true,...d};
     const stamp=()=>new Date().toLocaleString('sv').slice(0,19);
     const put=(x)=>{const i=d.items.findIndex(y=>y.ID===x.ID);const it=Object.assign(i>=0?d.items[i]:Object.fromEntries(d.headers.map(h=>[h,''])),x);if(!it.ID)it.ID='PC-'+uid().toUpperCase();it.Updated=stamp();it['Updated by']=S.user||'demo';i>=0?d.items[i]=it:d.items.push(it);return Object.assign({},it)};
-    if(action==='save'){const it=put(payload.item);LS.set('ewc2_demo',d);return {ok:true,item:it}}
-    if(action==='saveMany'){const out=payload.items.map(x=>put(x.item));LS.set('ewc2_demo',d);return {ok:true,items:out,conflicts:[]}}
-    if(action==='delete'){d.items=d.items.filter(x=>x.ID!==payload.id);LS.set('ewc2_demo',d);return {ok:true}}
-    if(action==='addPart'){(d.lists[payload.list]=d.lists[payload.list]||[]);if(!d.lists[payload.list].includes(payload.value))d.lists[payload.list].push(payload.value);LS.set('ewc2_demo',d);return {ok:true}}
-    if(action==='saveTemplates'){d.templates=payload.templates;LS.set('ewc2_demo',d);return {ok:true}}
+    const toLists=(x)=>Object.keys(x).forEach(k=>{if(d.lists[k]&&x[k]&&!['Status'].includes(k)&&!d.lists[k].includes(x[k]))d.lists[k].push(x[k])});
+    if(action==='save'){toLists(payload.item);const it=put(payload.item);LS.set('rpi4_demo',d);return {ok:true,item:it}}
+    if(action==='saveMany'){payload.items.forEach(x=>toLists(x.item));const out=payload.items.map(x=>put(x.item));LS.set('rpi4_demo',d);return {ok:true,items:out,conflicts:[]}}
+    if(action==='delete'){d.items=d.items.filter(x=>x.ID!==payload.id);LS.set('rpi4_demo',d);return {ok:true}}
+    if(action==='addColumn'){const nm=payload.name;if(d.headers.some(h=>h.toLowerCase()===nm.toLowerCase()))return {ok:false,error:'Column already exists'};const at=d.headers.indexOf('Updated');d.headers.splice(at<0?d.headers.length:at,0,nm);d.items.forEach(i=>i[nm]=i[nm]||'');if(payload.list)d.lists[nm]=d.lists[nm]||[];LS.set('rpi4_demo',d);return {ok:true,...d}}
+    if(action==='appendText'){const it=d.items.find(x=>x.ID===payload.id);if(!it)return {ok:false,error:'PC not found'};const ln=new Date().toLocaleString('sv').slice(0,16)+' '+(S.user||'?')+': '+payload.text;it[payload.field]=it[payload.field]?it[payload.field]+'\n'+ln:ln;it.Updated=new Date().toLocaleString('sv').slice(0,19);it['Updated by']=S.user;LS.set('rpi4_demo',d);return {ok:true,item:Object.assign({},it)}}
+    if(action==='addPart'&&payload.code!=null){(d.pairs=d.pairs||{});(d.pairs[payload.list]=d.pairs[payload.list]||[]).push([payload.value,payload.code]);}
+    if(action==='addPart'){(d.lists[payload.list]=d.lists[payload.list]||[]);if(!d.lists[payload.list].includes(payload.value))d.lists[payload.list].push(payload.value);LS.set('rpi4_demo',d);return {ok:true}}
+    if(action==='saveTemplates'){d.templates=payload.templates;LS.set('rpi4_demo',d);return {ok:true}}
     if(action==='ping')return {ok:true,sheet:'demo'};
   }
   let r;
@@ -2716,7 +2969,7 @@ async function api(action,payload={}){
 }
 function applyData(j){
   S.headers=j.headers&&j.headers.length?j.headers:[...DEFAULT_HEADERS];
-  S.lists=j.lists||{};
+  S.lists=j.lists||{};S.pairs=j.pairs||{};
   const old=Object.fromEntries(S.items.map(i=>[i.ID,i.Updated]));
   if(S.lastHash){(j.items||[]).forEach(i=>{if(old[i.ID]!==i.Updated&&i['Updated by']!==S.user)S.fresh.add(i.ID)})}
   S.items=j.items||[];
@@ -2792,10 +3045,10 @@ function qrSvg(text){
 }
 function linkBase(){return S.cfg.linkBase||(location.origin+location.pathname)}
 function specText(it){
-  const head=['PC '+(it['PC No']||'?'),empty(it['Old Label'])?'':it['Old Label']].filter(Boolean);
-  const lab={'M2 SSD':'SSD','Power Supply':'PSU','Capture Card 1':'Capture 1','Capture Card 2':'Capture 2','Memory':'RAM','Motherboard':'MB'};
-  const rest=cats().filter(c=>!empty(it[c.k])).map(c=>(lab[c.k]||c.k)+': '+it[c.k]);
-  return [...head,...rest].join('\n');
+  const head=['PC '+(it['PC No']||'?'),empty(it['Old Label'])?'':it['Old Label'],empty(it.Rack)?'':'Rack: '+it.Rack].filter(Boolean);
+  const lines=[['MB',it.Motherboard],['CPU',it.CPU],['GPU',gpuLine(it)],['RAM',ramLine(it)],['SSD',ssdLine(it)],['PSU',it['Power Supply']],['Capture',[it['Capture Card 1'],it['Capture Card 2']].filter(v=>!empty(v)).join(' + ')]].filter(([k,v])=>!empty(v)).map(([k,v])=>k+': '+v);
+  const extra=customCols().filter(h=>!empty(it[h])).map(h=>h+': '+it[h]);
+  return [...head,...lines,...extra].join('\n');
 }
 function qrContent(it,mode,custom){
   if(mode==='link')return linkBase()+'?id='+encodeURIComponent(it.ID);
@@ -2818,7 +3071,8 @@ function defaultTemplates(){
     {id:'t_spec',name:'Spec label with QR (100×50)',w:100,h:50,border:true,elements:[
       T({text:'PC {PC No}',x:3,y:2,w:30,h:9,fs:18,bold:true}),
       T({text:'{Old Label}',x:3,y:11,w:62,h:6,fs:9,bold:true,upper:true}),
-      T({text:'CPU: {CPU}\nGPU: {GPU}\nRAM: {Memory}\nSSD: {M2 SSD}\nPSU: {Power Supply}\nCapture: {Capture}',x:3,y:18,w:62,h:30,fs:7,valign:'top'}),
+      T({text:'{Rack}',x:34,y:4,w:31,h:6,fs:7,align:'right',color:'#555555'}),
+      T({text:'CPU: {CPU}\nGPU: {GPU}\nRAM: {RAM}\nSSD: {SSD}\nPSU: {Power Supply}\nCapture: {Capture}',x:3,y:18,w:62,h:30,fs:7,valign:'top'}),
       {id:uid(),type:'qr',qr:'spec',text:'',x:67,y:7,w:30,h:30},
       T({text:'scan = full spec',x:67,y:38,w:30,h:5,fs:6,align:'center',color:'#555555'})
     ]},
@@ -2830,7 +3084,7 @@ function defaultTemplates(){
     {id:'t_rack',name:'Rack sticker (70×28)',w:70,h:28,border:true,elements:[
       T({text:'{Old Label}',x:2,y:3,w:31,h:22,fs:9,bold:true,align:'center',upper:true}),
       T({text:'PC {PC No}',x:34,y:3,w:34,h:11,fs:15,bold:true,align:'center',upper:true}),
-      T({text:'{GPU}',x:34,y:15,w:34,h:10,fs:8,align:'center',upper:true})
+      T({text:'{GPU Model}',x:34,y:15,w:34,h:10,fs:8,align:'center',upper:true})
     ]}
   ];
 }
@@ -2838,7 +3092,7 @@ const tpl=()=>S.templates.find(t=>t.id===S.tplId)||S.templates[0];
 function persistTemplates(){
   clearTimeout(saveTplTimer);
   saveTplTimer=setTimeout(async()=>{try{await api('saveTemplates',{templates:S.templates})}catch(e){toast('Templates not saved: '+e.message,true)}},700);
-  LS.set('ewc2_tpl',S.tplId);
+  LS.set('rpi3_tpl',S.tplId);
 }
 function labelHTML(t,it,edit){
   const st=`width:${t.w}mm;height:${t.h}mm;background:${t.bg||'#fff'};${t.border?'border:0.3mm solid #000;border-radius:1mm;':''}`;
@@ -2916,50 +3170,59 @@ function openQR(id){
 }
 
 /* ================= części: definicje ================= */
+// k = główna kolumna, extra = kolumny dodatkowe tej części
 const CATS=[
   {k:'Motherboard',l:'Motherboard',list:'Motherboard'},
   {k:'CPU',l:'CPU',list:'CPU'},
-  {k:'Memory',l:'RAM',list:'Memory',type:'ram'},
-  {k:'GPU',l:'GPU',list:'GPU'},
-  {k:'M2 SSD',l:'M.2 SSD',list:'M2 SSD',type:'qty'},
+  {k:'RAM Model',l:'Memory',list:'RAM Model',type:'ram',extra:['RAM GB','RAM MT/s']},
+  {k:'GPU Model',l:'GPU',list:'GPU Model',type:'gpu',extra:['GPU Code']},
+  {k:'SSD Model',l:'M.2 SSD',list:'SSD Model',type:'ssd',extra:['SSD Qty']},
+  {k:'SSD 2 Model',l:'M.2 SSD 2',list:'SSD Model',type:'ssd',extra:['SSD 2 Qty'],opt:true},
   {k:'Power Supply',l:'Power supply',list:'Power Supply'},
-  {k:'Capture Card 1',l:'Capture Card 1',list:'Capture Card',none:'-'},
-  {k:'Capture Card 2',l:'Capture Card 2',list:'Capture Card',none:'-'}
+  {k:'Capture Card 1',l:'Capture card 1',list:'Capture Card',none:'-'},
+  {k:'Capture Card 2',l:'Capture card 2',list:'Capture Card',none:'-',opt:true}
 ];
 const cats=()=>CATS.filter(c=>S.headers.includes(c.k));
-const LISTS=()=>{const o={};cats().forEach(c=>{(o[c.list]=o[c.list]||{list:c.list,l:c.type==='ram'?'Memory':c.list==='Capture Card'?'Capture cards':c.l,cols:[],type:c.type});o[c.list].cols.push(c.k)});return Object.values(o)};
+const KNOWN=new Set(['PC No','Old Label','Rack','Motherboard','CPU','RAM Model','RAM GB','RAM MT/s','GPU Model','GPU Code','SSD Model','SSD Qty','SSD 2 Model','SSD 2 Qty','Power Supply','Capture Card 1','Capture Card 2','Failures','Updated','Updated by','ID']);
+const customCols=()=>S.headers.filter(h=>h&&!KNOWN.has(h));
+const isListCol=h=>Object.prototype.hasOwnProperty.call(S.lists||{},h);
+const EDIT_COLS=()=>['PC No','Old Label','Rack',...cats().flatMap(c=>[c.k,...(c.extra||[])]),...customCols()].filter(h=>S.headers.includes(h));
+const LISTS=()=>{const o={};cats().forEach(c=>{(o[c.list]=o[c.list]||{list:c.list,l:c.list==='Capture Card'?'Capture cards':c.l,cols:[],type:c.type});o[c.list].cols.push(c.k)});return Object.values(o)};
 const empty=v=>{v=String(v==null?'':v).trim();return !v||v==='-'};
 const hasSpec=it=>cats().some(c=>!empty(it[c.k]));
 const isBlank=it=>!hasSpec(it)&&empty(it['Old Label']);
-function parseRam(s){
-  s=String(s||'').trim();
-  const m=s.match(/^(.*?)\s*(\d+)\s*gb\s*\(\s*(\d+)\s*x\s*(\d+)\s*gb\s*\)\s*(\d+)\s*MT\/s\s*(.*)$/i);
-  if(!m)return {model:s,n:'',size:'',mt:'',type:''};
-  return {model:m[1].trim(),n:m[3],size:m[4],mt:m[5],type:m[6].trim()};
-}
-function ramStr(r){
-  if(!r||!String(r.model||'').trim())return '';
-  if(!r.n&&!r.size&&!r.mt)return (r.model+' '+(r.type||'')).trim();
-  const tot=(+r.n||0)*(+r.size||0);
-  return `${r.model.trim()} ${tot}gb (${r.n}x${r.size}gb) ${r.mt}MT/s${r.type?' '+r.type:''}`;
-}
-function ramShort(s){const r=parseRam(s);return r.n?`${(+r.n)*(+r.size)} GB (${r.n}×${r.size}) ${r.mt} MT/s`:s}
-function parseQty(s){s=String(s||'').trim();const m=s.match(/^(\d+)\s*x\s+(.*)$/i);return m?{q:+m[1],model:m[2].trim()}:{q:1,model:s}}
-const qtyStr=(q,model)=>!String(model||'').trim()?'':((+q>1?(+q)+'x ':'')+model.trim());
-// wszystkie wartości danej listy: katalog + to, co już jest wpisane w kompach
+// RAM GB w arkuszu: "64 (2x32)"
+function parseGB(s){const m=String(s||'').match(/(\d+)\s*(?:gb)?\s*\(\s*(\d+)\s*x\s*(\d+)/i);if(m)return {tot:m[1],n:m[2],size:m[3]};const t=String(s||'').match(/\d+/);return {tot:t?t[0]:'',n:'',size:''}}
+const gbStr=(n,size)=>(+n&&+size)?`${(+n)*(+size)} (${+n}x${+size})`:'';
+const ramLine=it=>empty(it['RAM Model'])?'':[it['RAM Model'],it['RAM GB']?parseGB(it['RAM GB']).tot+' GB'+(parseGB(it['RAM GB']).n?` (${parseGB(it['RAM GB']).n}×${parseGB(it['RAM GB']).size})`:''):'',it['RAM MT/s']?it['RAM MT/s']+' MT/s':''].filter(Boolean).join(' · ');
+const ramShortIt=it=>empty(it['RAM Model'])?'':[it['RAM GB']?parseGB(it['RAM GB']).tot+' GB':'',it['RAM MT/s']?it['RAM MT/s']+' MT/s':''].filter(Boolean).join(' · ');
+const gpuLine=it=>empty(it['GPU Model'])?'':[it['GPU Model'],it['GPU Code']].filter(v=>!empty(v)).join(' ');
+const ssdOne=(m,q)=>empty(m)?'':((+q>1?(+q)+'× ':'')+m);
+const ssdLine=it=>[ssdOne(it['SSD Model'],it['SSD Qty']),ssdOne(it['SSD 2 Model'],it['SSD 2 Qty'])].filter(Boolean).join(' + ');
+const failList=it=>String(it&&it.Failures||'').split('\n').map(s=>s.trim()).filter(Boolean);
+// wartości listy: katalog z zakładki Lists + to, co już jest w kompach
 function listValues(L){
   const used={};
-  S.items.forEach(it=>L.cols.forEach(k=>{const v=String(it[k]||'').trim();if(!empty(v))used[v]=(used[v]||0)+1}));
+  S.items.forEach(it=>L.cols.forEach(k=>{const v=String(it[k]||'').trim();if(!empty(v))used[v]=(used[v]||0)+(L.type==='ssd'?(+it[k==='SSD 2 Model'?'SSD 2 Qty':'SSD Qty']||1):1)}));
   const vals=uniq([...((S.lists[L.list])||[]).filter(v=>!empty(v)),...Object.keys(used)]);
   return vals.map(v=>({v,n:used[v]||0,inList:((S.lists[L.list])||[]).includes(v)}));
 }
-// kafelki do wyboru: dla RAM i SSD grupujemy po modelu
+// najczęstsze wartości dodatkowych pól dla danego modelu (np. kod GPU, GB i MT/s RAM)
+function commonExtra(c,model){
+  const out={};
+  (c.extra||[]).forEach(x=>{const cnt={};S.items.forEach(it=>{if(it[c.k]===model&&!empty(it[x]))cnt[it[x]]=(cnt[it[x]]||0)+1});out[x]=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a])[0]||''});
+  return out;
+}
+function gpuPairs(){
+  const cnt={},out=[];
+  const add=(m,c,n)=>{m=String(m||'').trim();c=String(c||'').trim();if(empty(m))return;const k=m+'|'+c;if(!(k in cnt)){cnt[k]=0;out.push({m,c})}cnt[k]+=n};
+  ((S.pairs&&S.pairs['GPU Model'])||[]).forEach(([m,c])=>add(m,c,0));
+  S.items.forEach(i=>add(i['GPU Model'],i['GPU Code'],1));
+  return out.map(p=>Object.assign(p,{n:cnt[p.m+'|'+p.c]})).sort((a,b)=>b.n-a.n||cmp(a.m,b.m));
+}
 function tileModels(c){
   const L=LISTS().find(x=>x.list===c.list);
-  const vals=listValues(L);
-  const map={};
-  vals.forEach(({v,n})=>{const m=c.type==='ram'?parseRam(v).model:c.type==='qty'?parseQty(v).model:v;(map[m]=map[m]||{m,n:0,best:v,bestN:-1});map[m].n+=n;if(n>map[m].bestN){map[m].best=v;map[m].bestN=n}});
-  return Object.values(map).sort((a,b)=>b.n-a.n||cmp(a.m,b.m));
+  return listValues(L).map(({v,n})=>({m:v,n})).sort((a,b)=>b.n-a.n||cmp(a.m,b.m));
 }
 function nextFree(){
   const nums=S.items.map(i=>({i,n:parseInt(i['PC No'],10)})).filter(x=>!isNaN(x.n));
@@ -2967,31 +3230,31 @@ function nextFree(){
   if(free)return String(free.n);
   return String(nums.reduce((m,x)=>Math.max(m,x.n),0)+1);
 }
-function virt(it){const o=Object.assign({},it);if(o['Old Label']==='-')o['Old Label']='';o.Capture=[it['Capture Card 1'],it['Capture Card 2']].filter(v=>!empty(v)).join(' + ')||'-';o.RAM=it.Memory?ramShort(it.Memory):'';return o}
+function virt(it){const o=Object.assign({},it);if(o['Old Label']==='-')o['Old Label']='';
+  o.Capture=[it['Capture Card 1'],it['Capture Card 2']].filter(v=>!empty(v)).join(' + ')||'-';
+  o.RAM=ramLine(it);o.GPU=gpuLine(it);o.SSD=ssdLine(it);o.Memory=o.RAM;o['M2 SSD']=o.SSD;
+  o.FailCount=failList(it).length;return o}
 
-/* ================= zakładka: Dodaj / edytuj ================= */
+/* ================= stan formularza ================= */
 function newEnt(keep){
-  const e={id:null,vals:{'PC No':nextFree(),'Old Label':''},ram:{model:'',n:'',size:'',mt:'',type:''},ramRaw:'',ramDirty:false,ssd:{q:1,model:''}};
-  cats().forEach(c=>e.vals[c.k]='');
-  if(keep){cats().forEach(c=>e.vals[c.k]=keep.vals[c.k]);e.ram=Object.assign({},keep.ram);e.ramRaw=keep.ramRaw;e.ramDirty=keep.ramDirty;e.ssd=Object.assign({},keep.ssd)}
+  const e={id:null,vals:{},n:'',size:'',pendingFail:[]};
+  EDIT_COLS().forEach(h=>e.vals[h]='');
+  e.vals['PC No']=nextFree();
+  if(keep){cats().forEach(c=>[c.k,...(c.extra||[])].forEach(h=>e.vals[h]=keep.vals[h]));e.vals.Rack=keep.vals.Rack;e.n=keep.n;e.size=keep.size}
+  if(!keep&&S.f&&S.f.rack&&S.f.rack!=='__none')e.vals.Rack=S.f.rack;
   return e;
 }
 function entFrom(it){
-  const e=newEnt();e.id=it.ID;e.vals['PC No']=it['PC No']||'';e.vals['Old Label']=it['Old Label']||'';
-  cats().forEach(c=>e.vals[c.k]=it[c.k]||'');
-  if(it.Memory){e.ram=parseRam(it.Memory);e.ramRaw=it.Memory}
-  if(it['M2 SSD'])e.ssd=parseQty(it['M2 SSD']);
+  const e=newEnt();e.id=it.ID;EDIT_COLS().forEach(h=>e.vals[h]=it[h]||'');
+  const g=parseGB(it['RAM GB']);e.n=g.n;e.size=g.size;
   return e;
 }
-function entValue(c,e){
-  if(c.type==='ram')return e.ramDirty?ramStr(e.ram):(e.ramRaw||ramStr(e.ram));
-  if(c.type==='qty')return qtyStr(e.ssd.q,e.ssd.model);
-  return e.vals[c.k];
-}
+const entValue=(c,e)=>e.vals[c.k];
 function editInEntry(id){const it=S.items.find(x=>x.ID===id);if(!it)return;S.ent=entFrom(it);S.tab='add';render();window.scrollTo(0,0)}
+
 /* ---------- rozwijana lista z wyszukiwaniem ---------- */
 const CHEV='<svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-function pickHTML(id,val,ph,extra){return `<button type="button" class="pick ${empty(val)?'is-empty':''}" data-pick="${esc(id)}" ${extra||''}><span class="pv">${empty(val)?esc(val==='-'?'None':ph):esc(val)}</span>${CHEV}</button>`}
+function pickHTML(id,val,ph,extra){return `<button type="button" class="pick ${empty(val)?'is-empty':'filled'}" data-pick="${esc(id)}" ${extra||''}><span class="pv">${empty(val)?esc(val==='-'?'None':ph):esc(val)}</span>${CHEV}</button>`}
 let PICK=null;
 function closePick(){if(PICK){PICK.el.remove();PICK.btn.classList.remove('open');PICK=null}}
 function openPick(btn,o){
@@ -3016,7 +3279,7 @@ function openPick(btn,o){
     items.push(...rows);
     const exact=o.options.some(x=>String(x.v).toLowerCase()===q);
     if(q&&!exact&&o.custom)items.push({v:inp.value.trim(),label:`Use "${inp.value.trim()}"`,custom:true});
-    if(o.onAdd)items.push({add:true,label:q&&!exact?`Add "${inp.value.trim()}" as a new model`:'Add a new model…'});
+    if(o.onAdd)items.push({add:true,label:q&&!exact&&!o.addLabel?`Add "${inp.value.trim()}" as a new model`:(o.addLabel||'Add a new model…')});
     PICK.items=items;PICK.act=Math.min(PICK.act,items.length-1);
     list.innerHTML=items.length?items.map((x,i)=>`<div class="opt ${x.add?'add':''} ${x.muted?'muted':''} ${String(x.v)===String(o.value)&&!x.add?'sel':''} ${i===PICK.act?'act':''}" data-i="${i}" role="option">
       <span class="ol">${esc(x.label)}${x.sub?`<small>${esc(x.sub)}</small>`:''}</span>${x.count!=null?`<span class="oc">${x.count}</span>`:''}${String(x.v)===String(o.value)&&!x.add?'<span class="ok">✓</span>':''}</div>`).join(''):'<div class="opt muted">No matches</div>';
@@ -3030,7 +3293,7 @@ function openPick(btn,o){
     else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closePick();btn.focus()}
     else if(e.key==='Tab'){closePick()}
   };
-  if(inp){inp.oninput=()=>{PICK.act=0;draw()};inp.onkeydown=key;setTimeout(()=>inp.focus(),0)}else{el.tabIndex=-1;el.onkeydown=key;setTimeout(()=>el.focus(),0)}
+  if(inp){inp.oninput=()=>{PICK.act=0;draw()};inp.onkeydown=key;inp.focus({preventScroll:true})}else{el.tabIndex=-1;el.onkeydown=key;setTimeout(()=>el.focus(),0)}
   const si=o.options.findIndex(x=>String(x.v)===String(o.value));PICK.act=Math.max(0,si+(o.none!=null?1:0));
   draw();const a=list.querySelector('.act');a&&a.scrollIntoView({block:'nearest'});
 }
@@ -3038,6 +3301,9 @@ document.addEventListener('pointerdown',e=>{if(PICK&&!PICK.el.contains(e.target)
 window.addEventListener('resize',closePick);
 
 /* ---------- zakładka Dodaj ---------- */
+const KCLS={'Motherboard':'k-mb','CPU':'k-cpu','RAM Model':'k-ram','GPU Model':'k-gpu','SSD Model':'k-ssd','SSD 2 Model':'k-ssd','Power Supply':'k-psu','Capture Card 1':'k-cap','Capture Card 2':'k-cap','Rack':'k-rack'};
+const ICON={'Motherboard':'<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1"/><rect x="5" y="5" width="3.5" height="3.5"/><path d="M10.5 5v1.5M10.5 9v2M5 11h3"/></svg>', 'CPU':'<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="4.5" y="4.5" width="7" height="7" rx="1"/><path d="M6.5 2v2.5M9.5 2v2.5M6.5 11.5V14M9.5 11.5V14M2 6.5h2.5M2 9.5h2.5M11.5 6.5H14M11.5 9.5H14"/></svg>', 'RAM Model':'<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="5" width="13" height="5.5" rx="1"/><path d="M4 7h1.5M7 7h1.5M10 7h1.5M7.5 10.5v2M3 10.5v2M13 10.5v2"/></svg>', 'GPU Model':'<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="4" width="13" height="7.5" rx="1"/><circle cx="10" cy="7.75" r="2.2"/><path d="M4 6.5h2.5M4 9h2.5M3 11.5v1.5"/></svg>', 'SSD Model':'<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="5.5" width="13" height="5" rx="1"/><path d="M4 8h3M12 5.5v5"/><circle cx="13.6" cy="8" r=".4"/></svg>','SSD 2 Model':'<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="5.5" width="13" height="5" rx="1"/><path d="M4 8h3M12 5.5v5"/><circle cx="13.6" cy="8" r=".4"/></svg>', 'Power Supply':'<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M8.8 5L6.5 8.5h3L7.2 12"/></svg>', 'Capture Card 1':'<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="4.5" width="9" height="7" rx="1"/><path d="M10.5 7l4-2v6l-4-2"/></svg>', 'Capture Card 2':'<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="4.5" width="9" height="7" rx="1"/><path d="M10.5 7l4-2v6l-4-2"/></svg>', 'Rack':'<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2" width="11" height="12" rx="1"/><path d="M2.5 6h11M2.5 10h11"/><circle cx="5" cy="4" r=".5"/><circle cx="5" cy="8" r=".5"/><circle cx="5" cy="12" r=".5"/></svg>'};
+
 function freeNumbers(){
   const nums=S.items.map(i=>({i,n:parseInt(i['PC No'],10)})).filter(x=>!isNaN(x.n));
   const free=nums.filter(x=>isBlank(x.i)).map(x=>x.n).sort((a,b)=>a-b);
@@ -3046,60 +3312,53 @@ function freeNumbers(){
 }
 const takenNo=no=>S.items.some(x=>String(x['PC No']).trim().toLowerCase()===String(no).trim().toLowerCase()&&!isBlank(x)&&x.ID!==(S.ent&&S.ent.id));
 const LOCK='<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="7" width="9" height="6.5" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 7V5.2a2.5 2.5 0 015 0V7" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>';
+const rackNames=()=>uniq([...((S.lists.Rack)||[]),...S.items.map(i=>i.Rack)].filter(v=>!empty(v)));
 function renderAdd(){
   if(!S.ent)S.ent=newEnt();
   const e=S.ent,src=e.id?S.items.find(x=>x.ID===e.id):null;
   if(e.id&&!src){S.ent=newEnt();return renderAdd()}
   if(!e.id&&takenNo(e.vals['PC No']))e.vals['PC No']=nextFree();
+  const V=e.vals,has=h=>S.headers.includes(h);
   const C=k=>cats().find(c=>c.k===k);
-  const fld=(k,lab)=>{const c=C(k);if(!c)return '';const v=c.type?entValue(c,e):e.vals[k];
-    const pv=c.type==='ram'?e.ram.model:c.type==='qty'?e.ssd.model:v;
-    return `<div class="fld"><label>${esc(lab||c.l)}</label>${pickHTML(k,pv,'Select')}</div>`};
-  const tot=(+e.ram.n||0)*(+e.ram.size||0);
+  const fld=(k,lab,ph)=>{if(!has(k))return '';const c=C(k);return `<div class="fld"><label>${ICON[k]||''}${esc(lab||(c&&c.l)||k)}</label>${pickHTML(k,V[k],ph||'Select')}</div>`};
+  const tot=(+e.n||0)*(+e.size||0)||parseGB(V['RAM GB']).tot;
+  const fails=src?failList(src):[];
   const recent=S.items.filter(hasSpec).filter(i=>i.Updated).sort((a,b)=>String(b.Updated).localeCompare(String(a.Updated))).slice(0,6);
   const lt=S.templates.find(t=>t.id==='t_spec')||defaultTemplates()[0];
-  $('#main').innerHTML=`${demo()?`<div class="note">Demo mode – changes are only saved in this browser. <button class="lnk" data-goto="settings">Connect the sheet</button></div>`:''}
+  const F=(k,lab,cls,ph)=>has(k)?`<div class="fld ${cls||''} ${KCLS[k]||''}"><label>${ICON[k]||''}${esc(lab||(C(k)&&C(k).l)||k)}</label>${pickHTML(k,V[k],ph||'Select')}</div>`:'';
+  const offR=empty(V['RAM Model'])?'off':'',offG=empty(V['GPU Model'])?'off':'',offS=empty(V['SSD Model'])?'off':'';
+  const flog=[...fails,...e.pendingFail.map(t=>'(not saved yet) '+t)];
+  $('#main').innerHTML=`${demo()?`<div class="note slim">Demo mode – sample data, changes stay in this browser. <button class="lnk" data-goto="settings">Connect the sheet</button></div>`:''}
   <div class="entry">
-   <section class="form">
-    <div class="ident">
-      <div class="plate ${e.id?'edit':''}">
-        <span class="plate-k">${e.id?'Editing':'New PC'}</span>
-        <span class="plate-no">PC ${esc(e.vals['PC No'])}</span>
-        <span class="plate-lock">${LOCK}${e.id?'Number locked':'Assigned automatically'}</span>
-        ${e.id?'':`<button type="button" class="lnk sm" id="ePcPick">Use another free number</button>`}
+   <section class="form cf">
+    <div class="r12 top">
+      <div class="plate s3 ${e.id?'edit':''}">
+        <span class="plate-k">${e.id?'Editing':'New PC'}<span class="plate-lock">${LOCK}${e.id?'locked':'auto'}</span></span>
+        <span class="plate-no">PC ${esc(V['PC No'])}</span>
+        <span class="meter">${filledN()}/${reqCats().length} parts${e.id?'':` · <button type="button" class="lnk sm" id="ePcPick">other number</button>`}</span>
       </div>
-      <div class="fld grow"><label for="eOld">Old Label</label>
-        <input id="eOld" class="inp" value="${esc(empty(e.vals['Old Label'])&&e.vals['Old Label']!=='-'?'':e.vals['Old Label'])}" placeholder="e.g. S2-DATA-1 or Stage 4 Ingame Rack 2" autocomplete="off" list="dl_old">
-        <datalist id="dl_old">${uniq(S.items.map(i=>i['Old Label']).filter(v=>!empty(v))).map(v=>`<option value="${esc(v)}">`).join('')}</datalist>
-        ${src&&src['Updated by']?`<span class="hint">Last changed by ${esc(src['Updated by'])}, ${esc(String(src.Updated).slice(0,16))}</span>`:''}
-      </div>
+      <div class="fld s5"><label for="eOld">Old Label</label>
+        <input id="eOld" class="inp" value="${esc(V['Old Label']==='-'?'':V['Old Label'])}" placeholder="Label currently on the PC" autocomplete="off" list="dl_old">
+        <datalist id="dl_old">${uniq(S.items.map(i=>i['Old Label']).filter(v=>!empty(v))).map(v=>`<option value="${esc(v)}">`).join('')}</datalist></div>
+      ${has('Rack')?`<div class="fld s4 k-rack"><label>${ICON.Rack}Rack</label>${pickHTML('Rack',V.Rack,'Not in a rack yet')}</div>`:''}
     </div>
-
-    <div class="grp"><h3>Components</h3>
-      <div class="g2">${fld('Motherboard')}${fld('CPU')}${fld('GPU')}${fld('Power Supply')}</div>
+    <div class="r12">
+      ${F('Motherboard','Motherboard','s4')}${F('CPU','CPU','s4')}${F('Power Supply','Power supply','s4')}
+      ${has('GPU Model')?`<div class="fld s12 k-gpu"><label>${ICON['GPU Model']}GPU<span class="lsub">model and chip code</span></label>${pickHTML('GPU Model',empty(V['GPU Model'])?'':V['GPU Model']+(empty(V['GPU Code'])?'':'  ·  '+V['GPU Code']),'Select')}</div>`:''}
+      ${F('RAM Model','Memory','s5')}
+      ${has('RAM Model')?`<div class="fld s2 k-ram sub ${offR}"><label>Sticks</label>${pickHTML('ram_n',e.n?e.n+' ×':'','–')}</div>
+      <div class="fld s2 k-ram sub ${offR}"><label>Per stick</label>${pickHTML('ram_size',e.size?e.size+' GB':'','–')}</div>
+      ${has('RAM MT/s')?`<div class="fld s2 k-ram sub ${offR}"><label>Speed</label>${pickHTML('RAM MT/s',V['RAM MT/s']?V['RAM MT/s']+' MT/s':'','–')}</div>`:''}
+      <div class="ram-tot s1 k-ram ${offR}"><span>${tot||'–'}</span><small>GB</small></div>`:''}
+      ${F('SSD Model','M.2 SSD','s8')}${has('SSD Qty')?`<div class="fld s4 qty k-ssd sub ${offS}"><label>Drives${has('SSD 2 Model')&&!(e.ssd2||!empty(V['SSD 2 Model']))?`<button type="button" class="lnk sm lr" id="eSsd2">+ Add second SSD</button>`:''}</label>${pickHTML('SSD Qty',V['SSD Qty']?V['SSD Qty']+' ×':'','–')}</div>`:''}
+      ${has('SSD 2 Model')&&(e.ssd2||!empty(V['SSD 2 Model']))?`${F('SSD 2 Model','M.2 SSD 2','s8')}<div class="fld s4 k-ssd sub ${empty(V['SSD 2 Model'])?'off2':''}"><label>Drives<button type="button" class="lnk sm lr" id="eSsd2x">Remove</button></label>${pickHTML('SSD 2 Qty',V['SSD 2 Qty']?V['SSD 2 Qty']+' ×':'','–')}</div>`:''}
+      ${F('Capture Card 1','Capture card 1','s6')}${F('Capture Card 2','Capture card 2','s6')}
+      ${customCols().map(h=>isListCol(h)?`<div class="fld s4"><label>${esc(h)}</label>${pickHTML(h,V[h],'Select')}</div>`:`<div class="fld s4"><label for="cx_${esc(h)}">${esc(h)}</label><input class="inp" data-cust="${esc(h)}" value="${esc(V[h]||'')}" autocomplete="off"></div>`).join('')}
     </div>
-
-    ${C('Memory')?`<div class="grp"><h3>Memory</h3>
-      <div class="ram">
-        ${fld('Memory','Memory kit')}
-        <div class="ram-p ${empty(e.ram.model)?'off':''}">
-          <div class="fld"><label>Sticks</label>${pickHTML('ram_n',e.ram.n?e.ram.n+' ×':'','–')}</div>
-          <div class="fld"><label>Size per stick</label>${pickHTML('ram_size',e.ram.size?e.ram.size+' GB':'','–')}</div>
-          <div class="fld"><label>Speed</label>${pickHTML('ram_mt',e.ram.mt?e.ram.mt+' MT/s':'','–')}</div>
-          <div class="fld"><label>Type</label>${pickHTML('ram_type',e.ram.type||'','–')}</div>
-          <div class="ram-tot"><span>${tot||'–'}</span><small>GB total</small></div>
-        </div>
-      </div></div>`:''}
-
-    ${C('M2 SSD')?`<div class="grp"><h3>Storage</h3>
-      <div class="g2 ssd">${fld('M2 SSD','M.2 SSD')}<div class="fld qty ${empty(e.ssd.model)?'off':''}"><label>Quantity</label>${pickHTML('ssd_q',e.ssd.model?e.ssd.q+' ×':'','–')}</div></div></div>`:''}
-
-    ${C('Capture Card 1')?`<div class="grp"><h3>Capture cards</h3>
-      <div class="g2">${fld('Capture Card 1','Capture card 1')}${fld('Capture Card 2','Capture card 2')}</div></div>`:''}
-
     <div class="actions">
       <button class="btn ghost" id="eClear">${e.id?'Discard changes':'Clear'}</button>
       ${e.id?`<button class="btn ghost" id="eNew">New PC</button>`:''}
+      ${src&&src['Updated by']?`<span class="hint">Last change: ${esc(src['Updated by'])}, ${esc(String(src.Updated).slice(0,16))}</span>`:''}
       <span class="sp"></span>
       ${e.id?'':`<button class="btn" id="eSaveNext" title="Ctrl + Enter">Save and add next</button>`}
       <button class="btn pri" id="eSave">${e.id?'Save changes':'Save PC'}</button>
@@ -3108,9 +3367,13 @@ function renderAdd(){
 
    <aside class="aside">
     <div class="prev"><div class="prev-h"><span>Label preview</span><span class="muted">${lt.w} × ${lt.h} mm</span></div>
-      <div class="prev-b" id="ePrev"></div></div>
-    <div class="recent"><div class="prev-h"><span>Recently saved</span></div>
-      ${recent.length?recent.map(i=>`<button class="rc" data-id="${esc(i.ID)}"><b>PC ${esc(i['PC No'])}</b><span>${esc(empty(i['Old Label'])?'No Old Label':i['Old Label'])}</span><em>${esc(i['Updated by']||'')}</em></button>`).join(''):'<p class="muted" style="margin:6px 0 0;font-size:13px">PCs you save will show up here.</p>'}
+      <div class="faceplate"><div class="prev-b" id="ePrev"></div></div></div>
+    ${has('Failures')?`<div class="prev failbox"><div class="prev-h"><span>Failures${flog.length?` <span class="fcount">${flog.length}</span>`:''}</span><span class="muted">saved with date and name</span></div>
+      ${flog.length?`<ol class="flog">${flog.slice().reverse().map(f=>{const m=f.match(/^(\d{4}-\d{2}-\d{2}(?: \d{2}:\d{2})?)\s+([^:]+):\s*(.*)$/);return m?`<li><span class="fwhat">${esc(m[3])}</span><span class="fwhen">${esc(m[1])}, ${esc(m[2])}</span></li>`:`<li><span class="fwhat">${esc(f)}</span></li>`}).join('')}</ol>`:''}
+      <div class="fadd"><input id="eFail" class="inp" placeholder="What went wrong?" autocomplete="off"><button class="btn" id="eFailAdd">Log</button></div>
+    </div>`:''}
+    <div class="prev recent"><div class="prev-h"><span>Recently saved</span></div>
+      ${recent.length?recent.slice(0,4).map(i=>`<button class="rc" data-id="${esc(i.ID)}"><b>PC ${esc(i['PC No'])}</b><span>${esc(empty(i['Old Label'])?'No Old Label':i['Old Label'])}</span><em>${esc(i['Updated by']||'')}</em></button>`).join(''):'<p class="muted" style="margin:0;font-size:12.5px">PCs you save will show up here.</p>'}
     </div>
    </aside>
   </div>`;
@@ -3123,46 +3386,82 @@ function drawPrev(){
   box.style.height=(lt.h*3.7795*sc)+'px';
   box.innerHTML=`<div style="transform:scale(${sc});transform-origin:0 0;width:${lt.w}mm">${labelHTML(lt,entItem(),false)}</div>`;
 }
-function entItem(){const e=S.ent,o={'PC No':e.vals['PC No'],'Old Label':e.vals['Old Label']};cats().forEach(c=>o[c.k]=entValue(c,e));return o}
+const reqCats=()=>cats().filter(c=>!c.opt);
+function filledN(){return reqCats().filter(c=>!empty(S.ent.vals[c.k])).length}
+function entItem(){const e=S.ent,o={};EDIT_COLS().forEach(h=>o[h]=e.vals[h]==null?'':String(e.vals[h]));if(S.headers.includes('RAM GB')&&(e.n||e.size))o['RAM GB']=gbStr(e.n,e.size)||o['RAM GB'];if(empty(o['RAM Model'])){['RAM GB','RAM MT/s'].forEach(h=>{if(h in o)o[h]=''})}if(empty(o['SSD Model'])&&'SSD Qty' in o)o['SSD Qty']='';if(empty(o['SSD 2 Model'])&&'SSD 2 Qty' in o)o['SSD 2 Qty']='';if(empty(o['GPU Model'])&&'GPU Code' in o)o['GPU Code']='';return o}
 function refreshPreview(){drawPrev()}
 function bindAdd(){
-  const e=S.ent,m=$('#main');
+  const e=S.ent,m=$('#main'),V=e.vals;
   const rerender=()=>{const y=scrollY;renderAdd();scrollTo(0,y)};
-  $('#eOld').oninput=ev=>{e.vals['Old Label']=ev.target.value;drawPrev()};
+  $('#eOld').oninput=ev=>{V['Old Label']=ev.target.value;drawPrev()};
   const pp=$('#ePcPick');
-  if(pp)pp.onclick=()=>openPick(pp,{options:freeNumbers().map(n=>({v:n,label:'PC '+n,sub:S.items.some(i=>String(i['PC No'])===n)?'empty row in the sheet':'new number'})),value:e.vals['PC No'],searchPh:'Find a number…',minW:240,
-    onPick:v=>{e.vals['PC No']=v;rerender()}});
+  if(pp)pp.onclick=()=>openPick(pp,{options:freeNumbers().map(n=>({v:n,label:'PC '+n,sub:S.items.some(i=>String(i['PC No'])===n)?'empty row in the sheet':'new number'})),value:V['PC No'],searchPh:'Find a number…',minW:240,onPick:v=>{V['PC No']=v;rerender()}});
   const nx=$('#eNew');if(nx)nx.onclick=()=>{S.ent=newEnt();rerender()};
   $('#eClear').onclick=()=>{S.ent=e.id?entFrom(S.items.find(x=>x.ID===e.id)):newEnt();rerender()};
+  const nums=(arr,unit)=>arr.map(n=>({v:String(n),label:n+unit}));
+  const usedVals=h=>uniq(S.items.map(i=>i[h]).filter(v=>!empty(v)));
   m.querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>{
-    const k=b.dataset.pick;
-    const c=cats().find(x=>x.k===k);
+    const k=b.dataset.pick,c=cats().find(x=>x.k===k);
+    if(c&&c.type==='gpu'){
+      const pairs=gpuPairs();
+      return openPick(b,{value:V['GPU Model']?V['GPU Model']+'|'+(V['GPU Code']||''):'',none:'',
+        options:pairs.map(p=>({v:p.m+'|'+p.c,label:p.m,sub:p.c||'no chip code',count:p.n})),
+        onPick:v=>{if(!v){V['GPU Model']='';V['GPU Code']=''}else{const i=v.lastIndexOf('|');V['GPU Model']=v.slice(0,i);V['GPU Code']=v.slice(i+1)}rerender()},
+        onAdd:q=>addModel(c,null,q)});
+    }
     if(c){
       const models=tileModels(c);
-      const cur=c.type==='ram'?e.ram.model:c.type==='qty'?e.ssd.model:e.vals[k];
-      openPick(b,{value:cur,none:c.none!=null?c.none:'',
-        options:models.map(t=>({v:t.m,label:t.m,count:t.n,sub:c.type==='ram'&&t.best?ramShort(t.best):''})),
+      openPick(b,{value:V[k],none:c.none!=null?c.none:'',
+        options:models.map(t=>{const ex=c.extra?commonExtra(c,t.m):{};const sub=c.type==='gpu'?ex['GPU Code']:c.type==='ram'?[ex['RAM GB']&&parseGB(ex['RAM GB']).tot+' GB',ex['RAM MT/s']&&ex['RAM MT/s']+' MT/s'].filter(Boolean).join(' · '):'';return {v:t.m,label:t.m,count:t.n,sub}}),
         onPick:v=>{
-          if(c.type==='ram'){if(!v){e.ram={model:'',n:'',size:'',mt:'',type:''};e.ramRaw='';e.ramDirty=true}else if(v!==e.ram.model){const t=models.find(x=>x.m===v);e.ram=parseRam(t.best);e.ram.model=v;e.ramRaw=t.best;e.ramDirty=false}}
-          else if(c.type==='qty'){if(!v)e.ssd={q:1,model:''};else if(v!==e.ssd.model){const t=models.find(x=>x.m===v);e.ssd={q:parseQty(t.best).q,model:v}}}
-          else e.vals[k]=v;
+          const was=V[k];V[k]=v;
+          if(v&&v!==was&&c.extra){const ex=commonExtra(c,v);c.extra.forEach(x=>{if(ex[x])V[x]=ex[x]});if(c.type==='ram'){const g=parseGB(V['RAM GB']);e.n=g.n;e.size=g.size}if(c.type==='ssd'&&!V[c.extra[0]])V[c.extra[0]]='1'}
+          if(!v&&c.extra)c.extra.forEach(x=>V[x]='');
+          if(!v&&c.type==='ram'){e.n='';e.size=''}
           rerender();
         },
         onAdd:q=>addModel(c,null,q)});
       return;
     }
-    const setR=(f,v)=>{e.ram[f]=String(v).replace(/[^\dA-Za-z]/g,'');e.ramDirty=true;rerender()};
-    const nums=(arr,unit)=>arr.map(n=>({v:String(n),label:n+unit}));
-    const usedMt=uniq(S.items.map(i=>parseRam(i.Memory).mt).filter(Boolean));
-    if(k==='ram_n')openPick(b,{options:nums([1,2,4,8],' ×'),value:e.ram.n,custom:true,search:true,searchPh:'Other amount…',minW:200,onPick:v=>setR('n',v)});
-    if(k==='ram_size')openPick(b,{options:nums([8,16,24,32,48,64],' GB'),value:e.ram.size,custom:true,searchPh:'Other size…',minW:200,onPick:v=>setR('size',v)});
-    if(k==='ram_mt')openPick(b,{options:nums(uniq([...usedMt,'4800','5200','5600','6000','6400','7200']).sort((a,b)=>a-b),' MT/s'),value:e.ram.mt,custom:true,searchPh:'Other speed…',minW:200,onPick:v=>setR('mt',v)});
-    if(k==='ram_type')openPick(b,{options:[{v:'DDR5',label:'DDR5'},{v:'DDR4',label:'DDR4'},{v:'',label:'Leave out'}],value:e.ram.type,search:false,minW:200,onPick:v=>{e.ram.type=v;e.ramDirty=true;rerender()}});
-    if(k==='ssd_q')openPick(b,{options:nums([1,2,3,4],' ×'),value:String(e.ssd.q),search:false,minW:160,onPick:v=>{e.ssd.q=+v;rerender()}});
+    if(k==='Rack')return openPick(b,{options:rackNames().map(r=>({v:r,label:r,count:S.items.filter(i=>i.Rack===r).length})),value:V.Rack,none:'',searchPh:'Search or type a new rack…',
+      onPick:v=>{V.Rack=v;rerender()},onAdd:q=>addRack(q,name=>{V.Rack=name;rerender()})});
+    if(k==='GPU Code'){const sug=V['GPU Model']?commonExtra(cats().find(x=>x.k==='GPU Model'),V['GPU Model'])['GPU Code']:'';
+      return openPick(b,{options:uniq([...((S.lists['GPU Code'])||[]),...usedVals('GPU Code')]).map(v=>({v,label:v,sub:v===sug?'usual for this model':''})).sort((a,b2)=>(b2.sub?1:0)-(a.sub?1:0)),value:V['GPU Code'],custom:true,none:'',searchPh:'Search or type a code…',onPick:v=>{V['GPU Code']=v;rerender()}})}
+    if(k==='ram_n')return openPick(b,{options:nums([1,2,4,8],' ×'),value:e.n,custom:true,searchPh:'Other amount…',minW:200,onPick:v=>{e.n=String(v).replace(/\D/g,'');rerender()}});
+    if(k==='ram_size')return openPick(b,{options:nums([8,16,24,32,48,64],' GB'),value:e.size,custom:true,searchPh:'Other size…',minW:200,onPick:v=>{e.size=String(v).replace(/\D/g,'');rerender()}});
+    if(k==='RAM MT/s')return openPick(b,{options:nums(uniq([...usedVals('RAM MT/s'),'4800','5200','5600','6000','6400','7200']).sort((a,b2)=>a-b2),' MT/s'),value:V['RAM MT/s'],custom:true,searchPh:'Other speed…',minW:200,onPick:v=>{V['RAM MT/s']=String(v).replace(/\D/g,'');rerender()}});
+    if(customCols().includes(k)){const cnt={};S.items.forEach(i=>{if(!empty(i[k]))cnt[i[k]]=(cnt[i[k]]||0)+1});
+      return openPick(b,{options:uniq([...((S.lists[k])||[]),...Object.keys(cnt)]).map(v=>({v,label:v,count:cnt[v]||null})),value:V[k],none:'',custom:true,searchPh:'Search or type a new value…',onPick:v=>{V[k]=v;rerender()}})}
+    if(k==='SSD Qty'||k==='SSD 2 Qty')return openPick(b,{options:nums([1,2,3,4],' ×'),value:V[k],search:false,minW:160,onPick:v=>{V[k]=v;rerender()}});
   });
+  const s2=$('#eSsd2');if(s2)s2.onclick=()=>{e.ssd2=true;rerender()};
+  const s2x=$('#eSsd2x');if(s2x)s2x.onclick=()=>{e.ssd2=false;V['SSD 2 Model']='';V['SSD 2 Qty']='';rerender()};
+  m.querySelectorAll('[data-cust]').forEach(i=>i.oninput=()=>{V[i.dataset.cust]=i.value;drawPrev()});
+  const fi=$('#eFail'),fa=$('#eFailAdd');
+  if(fi){
+    const log=async()=>{
+      const t=fi.value.trim();if(!t)return toast('Describe the failure first',true);
+      if(!e.id){e.pendingFail.push(t);fi.value='';toast('Failure will be logged when you save this PC');return rerender()}
+      fa.disabled=true;
+      try{const j=await api('appendText',{id:e.id,field:'Failures',text:t});mergeItem(j.item);toast('Failure logged for PC '+j.item['PC No']);rerender()}
+      catch(x){fa.disabled=false;toast('Failure not logged: '+x.message,true)}
+    };
+    fa.onclick=log;fi.onkeydown=ev=>{if(ev.key==='Enter'){ev.preventDefault();log()}};
+  }
   m.querySelectorAll('.rc').forEach(r=>r.onclick=()=>editInEntry(r.dataset.id));
   $('#eSave').onclick=()=>saveEnt(false);
   const sn=$('#eSaveNext');if(sn)sn.onclick=()=>saveEnt(true);
+}
+function addRack(prefill,after){
+  modal(`<div class="mh"><h3>New rack</h3><button class="x" data-close>×</button></div>
+  <div class="mb" style="display:flex;flex-direction:column;gap:12px"><label class="f">Rack name<input id="rkName" autocomplete="off" placeholder="Rack name"></label>
+  <div class="muted" style="font-size:12px">The rack is added to the Lists tab in the sheet.</div></div>
+  <div class="mf"><button class="btn" data-close>Cancel</button><button class="btn pri" id="rkOk">Add rack</button></div>`,ov=>{
+    const i=ov.querySelector('#rkName');if(prefill)i.value=prefill;setTimeout(()=>i.focus(),30);
+    const ok=async()=>{const name=i.value.trim();if(!name)return toast('Enter a rack name',true);
+      try{await api('addPart',{list:'Rack',value:name});(S.lists.Rack=S.lists.Rack||[]);if(!S.lists.Rack.includes(name))S.lists.Rack.push(name);closeModal();toast('Added '+name);after&&after(name)}catch(x){toast('Rack not added: '+x.message,true)}};
+    ov.querySelector('#rkOk').onclick=ok;i.onkeydown=ev=>{if(ev.key==='Enter')ok()};
+  });
 }
 function renderAddKeep(){const y=window.scrollY;renderAdd();window.scrollTo(0,y)}
 document.addEventListener('keydown',ev=>{if(S.tab==='add'&&!$('#ov')&&!PICK&&ev.key==='Enter'&&(ev.ctrlKey||ev.metaKey)){ev.preventDefault();saveEnt(!S.ent.id)}});
@@ -3186,9 +3485,11 @@ async function saveEnt(next,tries=0){
   Object.keys(vals).forEach(k=>{const was=target?String(target[k]==null?'':target[k]):'';if(String(vals[k])!==was){item[k]=vals[k];if(target)orig[k]=was}});
   if(target&&Object.keys(item).length===1){toast('No changes to save');if(next){S.ent=newEnt(e);render()}return}
   const btns=document.querySelectorAll('#eSave,#eSaveNext');btns.forEach(b=>b.disabled=true);
-  const done=j=>{mergeItem(j.item);toast('Saved PC '+j.item['PC No']);S.ent=next?newEnt(e):(e.id?entFrom(j.item):newEnt());render();if(next)setTimeout(()=>{const o=$('#eOld');o&&o.focus()},30)};
+  const done=async j=>{mergeItem(j.item);toast('Saved PC '+j.item['PC No']);
+    for(const t of (e.pendingFail||[])){try{const r=await api('appendText',{id:j.item.ID,field:'Failures',text:t});mergeItem(r.item)}catch(x){toast('Failure not logged: '+x.message,true)}}
+    e.pendingFail=[];S.ent=next?newEnt(e):(e.id?entFrom(j.item):newEnt());render();if(next)setTimeout(()=>{const o=$('#eOld');o&&o.focus()},30)};
   try{
-    done(await api('save',{item,orig:target?orig:null}));
+    await done(await api('save',{item,orig:target?orig:null}));
   }catch(err){
     btns.forEach(b=>b.disabled=false);
     if(err.data&&(err.data.conflict==='duplicate'||(err.data.conflict==='changed'&&target&&isBlank(target)))&&!e.id){try{applyData(await api('list'))}catch(_){}
@@ -3198,32 +3499,67 @@ async function saveEnt(next,tries=0){
   }
 }
 function addModel(c,after,prefill){
-  const ram=c.type==='ram';
-  modal(`<div class="mh"><h3>New ${esc(c.type==='ram'?'memory kit':c.list==='Capture Card'?'capture card':c.l)} model</h3><button class="x" data-close>×</button></div>
+  const gpu=c.type==='gpu';
+  const what=c.list==='Capture Card'?'capture card':c.type==='ram'?'memory kit':c.l;
+  modal(`<div class="mh"><h3>New ${esc(what)} model</h3><button class="x" data-close>×</button></div>
   <div class="mb" style="display:flex;flex-direction:column;gap:12px">
-    <label class="f">${ram?'Kit model, e.g. CORSAIR CMK64GX5M2B5200C40':'Model name'}<input id="nmName" autocomplete="off"></label>
-    ${ram?`<div class="row"><label class="f">Sticks<input type="number" id="nmN" value="2"></label><label class="f">GB per stick<input type="number" id="nmS" value="16"></label><label class="f">MT/s<input type="number" id="nmMt" value="5600" step="100"></label><label class="f">Type<input id="nmT" value="DDR5"></label></div>`:''}
-    <div class="muted" style="font-size:12px">The model is added to the Lists tab in the sheet, so everyone sees it straight away.</div>
+    <label class="f">${c.type==='ram'?'Kit model as printed on the stick':gpu?'Card model':'Model name'}<input id="nmName" autocomplete="off"></label>
+    ${gpu?'<label class="f">Chip code (optional)<input id="nmCode" autocomplete="off"></label>':''}
+    <div class="muted" style="font-size:12px">${c.type==='ram'?'Set sticks, size and speed in the form after adding. ':''}The model is added to the Lists tab in the sheet, so everyone sees it straight away.</div>
   </div>
   <div class="mf"><button class="btn" data-close>Cancel</button><button class="btn pri" id="nmOk">${after?'Add model':'Add and select'}</button></div>`,ov=>{
     const i=ov.querySelector('#nmName');if(prefill)i.value=prefill;setTimeout(()=>i.focus(),30);
     const ok=async()=>{
       const name=i.value.trim();if(!name)return toast('Enter a model name',true);
-      const r=ram?{model:name,n:ov.querySelector('#nmN').value,size:ov.querySelector('#nmS').value,mt:ov.querySelector('#nmMt').value,type:ov.querySelector('#nmT').value.trim()}:null;
-      const value=ram?ramStr(r):name;
+      const code=gpu?ov.querySelector('#nmCode').value.trim():'';
       const b=ov.querySelector('#nmOk');b.disabled=true;
       try{
-        await api('addPart',{list:c.list,value});
-        (S.lists[c.list]=S.lists[c.list]||[]);if(!S.lists[c.list].includes(value))S.lists[c.list].push(value);
-        closeModal();toast('Added '+value);
+        await api('addPart',gpu?{list:c.list,value:name,code}:{list:c.list,value:name});
+        if(gpu){(S.pairs=S.pairs||{});(S.pairs['GPU Model']=S.pairs['GPU Model']||[]).push([name,code])}
+        (S.lists[c.list]=S.lists[c.list]||[]);if(!S.lists[c.list].includes(name))S.lists[c.list].push(name);
+        if(code){(S.lists['GPU Code']=S.lists['GPU Code']||[]);if(!S.lists['GPU Code'].includes(code))S.lists['GPU Code'].push(code)}
+        closeModal();toast('Added '+name);
         if(after)return after();
-        const e=S.ent;
-        if(ram){e.ram=r;e.ramRaw=value;e.ramDirty=false}else if(c.type==='qty'){e.ssd={q:1,model:name}}else e.vals[c.k]=name;
+        const V=S.ent.vals;V[c.k]=name;if(gpu)V['GPU Code']=code;if(c.type==='ssd'&&!V[c.extra[0]])V[c.extra[0]]='1';
         renderAddKeep();
       }catch(x){b.disabled=false;toast('Model not added: '+x.message,true)}
     };
     ov.querySelector('#nmOk').onclick=ok;i.onkeydown=ev=>{if(ev.key==='Enter')ok()};
   });
+}
+
+/* ================= zakładka: Racks ================= */
+function renderRacks(){
+  const pcs=S.items.filter(i=>!isBlank(i));
+  const names=rackNames();
+  const groups=names.map(r=>({r,list:pcs.filter(i=>i.Rack===r)}));
+  const none=pcs.filter(i=>empty(i.Rack));
+  const row=(i,assign)=>{const v=virt(i);const f=failList(i).length;return `<div class="ru ${f?'has-fail':''}" data-id="${esc(i.ID)}">
+    <span class="pcno">${esc(i['PC No'])}</span>
+    <span class="ru-m"><b>${esc(empty(i['Old Label'])?'No Old Label':i['Old Label'])}</b><small>${esc([v.GPU,ramShortIt(i)].filter(Boolean).join(' · ')||'no specs')}</small></span>
+    ${f?`<span class="fbadge" title="${esc(failList(i).join('\n'))}">${f} ${f===1?'failure':'failures'}</span>`:''}
+    ${assign?`<button class="btn sm" data-assign="${esc(i.ID)}">Assign rack</button>`:`<button class="btn sm ghost" data-move="${esc(i.ID)}" title="Move to another rack">Move</button>`}
+  </div>`};
+  $('#main').innerHTML=`<div class="toolbar"><span class="muted">${names.length} racks, ${pcs.length-none.length} of ${pcs.length} PCs placed</span><span style="flex:1"></span><button class="btn pri" id="rkAdd">Add rack</button></div>
+  <div class="rklay ${none.length?'':'full'}"><div class="rkside">${none.length?`<div class="card rackc none"><div class="rkh"><div><b>Not in a rack</b><small>${none.length} ${none.length===1?'PC':'PCs'}</small></div><button class="btn sm" id="rkBulk">Assign several…</button></div>${none.map(i=>row(i,true)).join('')}</div>`:''}</div>
+  <div class="racks2">${groups.map(g=>{const f=g.list.reduce((s,i)=>s+failList(i).length,0);return `<div class="card rackc"><div class="rkh"><div><b>${esc(g.r)}</b><small>${g.list.length} ${g.list.length===1?'PC':'PCs'}${f?`, <span class="ftxt">${f} ${f===1?'failure':'failures'}</span>`:''}</small></div>
+    <span style="display:flex;gap:6px"><button class="btn sm" data-rlabels="${esc(g.r)}" ${g.list.length?'':'disabled'}>Print labels</button></span></div>
+    ${g.list.length?g.list.sort((a,b)=>cmp(a['PC No'],b['PC No'])).map(i=>row(i,false)).join(''):'<p class="muted rk-empty">No PCs yet. Assign them from “Not in a rack” or in the PC form.</p>'}</div>`}).join('')}
+  ${!names.length?'<div class="card empty">No racks yet. Add your first rack, then assign PCs to it.</div>':''}</div></div>`;
+  const m=$('#main');
+  $('#rkAdd').onclick=()=>addRack('',()=>renderRacks());
+  m.querySelectorAll('.ru').forEach(r=>r.onclick=ev=>{if(ev.target.closest('button'))return;editInEntry(r.dataset.id)});
+  const pickRack=(btn,ids)=>openPick(btn,{options:rackNames().map(r=>({v:r,label:r,count:S.items.filter(i=>i.Rack===r).length})),value:'',none:ids.length===1&&!empty((S.items.find(x=>x.ID===ids[0])||{}).Rack)?'':null,searchPh:'Search or type a new rack…',
+    onPick:v=>setRack(ids,v),onAdd:q=>addRack(q,name=>setRack(ids,name))});
+  m.querySelectorAll('[data-assign],[data-move]').forEach(b=>b.onclick=()=>pickRack(b,[b.dataset.assign||b.dataset.move]));
+  const bk=$('#rkBulk');if(bk)bk.onclick=()=>{S.sel=new Set(none.map(i=>i.ID));S.tab='pcs';S.f.rack='__none';render();toast('All PCs without a rack are selected – use Edit selected to set the rack')};
+  m.querySelectorAll('[data-rlabels]').forEach(b=>b.onclick=()=>openPrint(S.items.filter(i=>i.Rack===b.dataset.rlabels).map(i=>i.ID)));
+}
+async function setRack(ids,rack){
+  const items=ids.map(id=>S.items.find(x=>x.ID===id)).filter(Boolean).map(i=>({item:{ID:i.ID,Rack:rack},orig:{Rack:String(i.Rack||'')}}));
+  try{const j=await api('saveMany',{items});j.items.forEach(mergeItem);(j.conflicts||[]).forEach(c=>c.item&&mergeItem(c.item));
+    toast(rack?`Moved ${j.items.length} PC${j.items.length===1?'':'s'} to ${rack}`:'Removed from rack');if(j.conflicts&&j.conflicts.length)toast('Someone else changed the rack of '+j.conflicts.length+' PC(s) – check them',true);render()}
+  catch(x){toast('Not saved: '+x.message,true)}
 }
 
 /* ================= zakładka: Części ================= */
@@ -3232,10 +3568,10 @@ function renderParts(){
   const total=S.items.filter(hasSpec).length;
   $('#main').innerHTML=`<div class="toolbar"><span class="muted">${total} PCs with specs. Click a model to see which PCs use it.</span></div>
   <div class="parts">${Ls.map(L=>{
-    const vals=listValues(L).sort((a,b)=>b.n-a.n||cmp(a.v,b.v));
-    const sum=vals.reduce((s,x)=>s+x.n,0);
-    return `<div class="card part"><div class="rh"><span>${esc(L.l)}</span><span style="display:flex;gap:6px;align-items:center"><span class="muted" style="font-size:12px">${sum} in use</span><button class="btn sm" data-addp="${esc(L.list)}">Add model</button></span></div>
-    ${vals.length?vals.map(x=>`<div class="unit" data-q="${esc(x.v)}"><span class="nm" style="font-weight:600">${esc(L.type==='ram'?x.v:x.v)}</span>${L.type==='ram'?`<span class="gpu">${esc(ramShort(x.v))}</span>`:''}${x.inList?'':'<span class="pill Service" title="Used in PCs but missing from the Lists tab">not in Lists</span>'}<b style="min-width:26px;text-align:right">${x.n}</b></div>`).join(''):'<div class="empty" style="padding:16px">None yet</div>'}</div>`}).join('')}</div>`;
+    const vals=L.type==='gpu'?gpuPairs().map(p=>({v:p.m,code:p.c,n:p.n,inList:true})):listValues(L).sort((a,b)=>b.n-a.n||cmp(a.v,b.v));
+    const sum=vals.reduce((s,x)=>s+x.n,0),mx=Math.max(1,...vals.map(x=>x.n));
+    return `<div class="card part L-${esc(L.list).replace(/\W+/g,'')}"><div class="rh"><span>${esc(L.l)}</span><span style="display:flex;gap:6px;align-items:center"><span class="muted" style="font-size:12px">${sum} ${L.type==='ssd'?'drives':'in use'}</span><button class="btn sm" data-addp="${esc(L.list)}">Add model</button></span></div>
+    ${vals.length?vals.map(x=>`<div class="unit" data-q="${esc(x.v)}"><span class="nm" style="font-weight:600" title="${esc(x.v)}">${esc(x.v)}</span>${L.type==='gpu'?`<span class="gpu">${esc(x.code||'')}</span>`:L.type==='ram'?`<span class="gpu">${esc((()=>{const ex=commonExtra(cats().find(c=>c.k==='RAM Model'),x.v);return [ex['RAM GB']&&parseGB(ex['RAM GB']).tot+' GB',ex['RAM MT/s']&&ex['RAM MT/s']+' MT/s'].filter(Boolean).join(' · ')})())}</span>`:''}${x.inList?'':'<span class="pill Service" title="Used in PCs but missing from the Lists tab">not in Lists</span>'}<b class="pn">${x.n}</b><span class="bar"><i style="width:${Math.round(x.n/mx*100)}%"></i></span></div>`).join(''):'<div class="empty" style="padding:16px">None yet</div>'}</div>`}).join('')}</div>`;
   $('#main').querySelectorAll('[data-addp]').forEach(b=>b.onclick=()=>{const c=cats().find(x=>x.list===b.dataset.addp);addModel(c,()=>renderParts())});
   $('#main').querySelectorAll('.unit[data-q]').forEach(u=>u.onclick=()=>{S.f.q=u.dataset.q;S.tab='pcs';render()});
 }
@@ -3243,23 +3579,30 @@ function renderParts(){
 /* ================= widoki ================= */
 function filtered(){
   const q=S.f.q.toLowerCase().trim();
-  return S.items.filter(it=>(S.f.showEmpty||!isBlank(it))&&
-    (!S.f.stage||it.Stage===S.f.stage)&&(!S.f.rack||it.Rack===S.f.rack)&&(!S.f.status||it.Status===S.f.status)&&
+  return S.items.filter(it=>(S.f.showEmpty||!isBlank(it))&&(!S.f.fail||failList(it).length)&&
+    (!S.f.rack||(S.f.rack==='__none'?empty(it.Rack):it.Rack===S.f.rack))&&(!S.f.status||it.Status===S.f.status)&&
     (!q||Object.values(it).some(v=>String(v).toLowerCase().includes(q)))
-  ).sort((a,b)=>cmp(a[S.sort.k],b[S.sort.k])*S.sort.d||cmp(a['PC No'],b['PC No']));
+  ).sort((a,b)=>cmp(virt(a)[S.sort.k],virt(b)[S.sort.k])*S.sort.d||cmp(a['PC No'],b['PC No']));
 }
 function filterBar(){
   const blanks=S.items.filter(isBlank).length;
   return `<div class="toolbar">
-    <input class="grow" id="q" placeholder="Search PC number, Old Label or part…" value="${esc(S.f.q)}">
-    <label style="display:flex;gap:6px;align-items:center;font-size:12px;color:var(--mut)"><input type="checkbox" id="fEmpty" ${S.f.showEmpty?'checked':''}> show empty numbers (${blanks})</label>
+    <div class="srch grow"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><input id="q" placeholder="Search PCs, labels, parts…" value="${esc(S.f.q)}" autocomplete="off"></div>
+    ${S.headers.includes('Rack')?pickHTML('fRack',S.f.rack==='__none'?'Not in a rack':S.f.rack,'All racks','style="width:auto;min-width:180px"'):''}
+    <label class="chkl"><input type="checkbox" id="fFail" ${S.f.fail?'checked':''}> with failures (${S.items.filter(i=>failList(i).length).length})</label>
+    <label class="chkl"><input type="checkbox" id="fEmpty" ${S.f.showEmpty?'checked':''}> show empty numbers (${blanks})</label>
+    <span style="flex:1"></span>
+    <button class="btn" id="gCols">Columns</button>
     <button class="btn pri" id="add">Add PC</button>
   </div>`;
 }
 function bindFilters(){
   const q=$('#q');q.oninput=()=>{S.f.q=q.value;renderBody()};
   $('#fEmpty').onchange=e=>{S.f.showEmpty=e.target.checked;renderBody()};
+  $('#fFail').onchange=e=>{S.f.fail=e.target.checked;renderBody()};
+  const fr=document.querySelector('[data-pick="fRack"]');if(fr)fr.onclick=()=>openPick(fr,{options:[{v:'__none',label:'Not in a rack'},...rackNames().map(r=>({v:r,label:r,count:S.items.filter(i=>i.Rack===r).length}))],value:S.f.rack,none:'',searchPh:'Find a rack…',onPick:v=>{S.f.rack=v;renderPcs()}});
   $('#add').onclick=()=>{S.ent=newEnt();S.tab='add';render()};
+  $('#gCols').onclick=()=>openColumns($('#gCols'));
 }
 function byTxt(it){
   if(!it.Updated)return '';
@@ -3267,10 +3610,11 @@ function byTxt(it){
   const t=isNaN(d)?esc(it.Updated):(d.toDateString()===new Date().toDateString()?d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}):d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}));
   return `<span class="by ${fresh?'fresh':''}">${esc(it['Updated by']||'')}${it['Updated by']?', ':''}${t}</span>`;
 }
-function cols(){return ['PC No','Old Label','CPU','GPU','Memory','M2 SSD','Power Supply','Capture Card 1','Capture Card 2'].filter(c=>S.headers.includes(c))}
+const COLNAME={'PC No':'PC','Old Label':'Old Label','Power Supply':'PSU','Capture':'Capture','FailCount':'Failures'};
+function cols(){const hid=new Set(LS.get('rpi_hide',[]));return listColsAll().filter(k=>k==='PC No'||!hid.has(k))}
 function renderPcs(){
   const m=$('#main');
-  m.innerHTML=(demo()?`<div class="note">Demo mode – changes are only saved in this browser. <button class="lnk" data-goto="settings">Connect the sheet</button></div>`:'')+filterBar()+`<div class="card" id="body"></div>`;
+  m.innerHTML=(demo()?`<div class="note slim">Demo mode – sample data, changes stay in this browser. <button class="lnk" data-goto="settings">Connect the sheet</button></div>`:'')+filterBar()+`<div class="card" id="body"></div>`;
   bindFilters();renderBody();
 }
 function renderBody(){
@@ -3281,12 +3625,12 @@ function renderBody(){
    <span style="flex:1"></span>
    <button class="btn sm" id="bPrint">Print labels${n?' ('+n+')':''}</button>
    ${n?`<button class="btn sm" id="bBulk">Edit selected</button><button class="btn sm" id="bClear">Clear selection</button>`:''}</div>`+
-  (list.length?`<table><thead><tr><th class="chk"><input type="checkbox" id="all" ${allSel?'checked':''}></th>${c.map(k=>`<th data-k="${esc(k)}">${esc(k)}${S.sort.k===k?(S.sort.d>0?' ▲':' ▼'):''}</th>`).join('')}<th>Last change</th><th></th></tr></thead><tbody>
-  ${list.map(it=>`<tr data-id="${esc(it.ID)}" class="${S.sel.has(it.ID)?'sel':''} ${S.fresh.has(it.ID)?'fresh':''}"><td class="chk"><input type="checkbox" data-c="${esc(it.ID)}" ${S.sel.has(it.ID)?'checked':''}></td>
-   ${c.map(k=>k==='Status'?`<td class="st">${it.Status?`<span class="pill ${esc(it.Status)}">${esc(it.Status)}</span>`:''}</td>`:`<td class="${k==='PC No'?'name':['Memory','M2 SSD','Power Supply','Capture Card 1','Capture Card 2'].includes(k)?'hide-m':''}" ${k==='Memory'?`title="${esc(it[k])}"`:''}>${k==='PC No'?esc(it['PC No']):empty(it[k])?`<span class="muted">${esc(it[k])}</span>`:k==='Memory'?esc(ramShort(it[k])):esc(it[k])}</td>`).join('')}
+  (list.length?`<div class="tscroll"><table class="inv" style="min-width:${1150+c.filter(k=>customCols().includes(k)).length*140}px"><thead><tr><th class="chk"><input type="checkbox" id="all" ${allSel?'checked':''}></th>${c.map(k=>`<th data-k="${esc(k)}" class="c-${esc(k).replace(/\W+/g,'')}" ${customCols().includes(k)?'style="width:140px"':''}>${esc(COLNAME[k]||k)}${S.sort.k===k?`<span class="sort">${S.sort.d>0?'↑':'↓'}</span>`:''}</th>`).join('')}<th>Last change</th><th></th></tr></thead><tbody>
+  ${list.map(it0=>{const it=virt(it0);it['Old Label']=it0['Old Label'];return `<tr data-id="${esc(it.ID)}" class="${S.sel.has(it.ID)?'sel':''} ${S.fresh.has(it.ID)?'fresh':''}"><td class="chk"><input type="checkbox" data-c="${esc(it.ID)}" ${S.sel.has(it.ID)?'checked':''}></td>
+   ${c.map(k=>k==='Status'?`<td class="st">${it.Status?`<span class="pill ${esc(it.Status)}">${esc(it.Status)}</span>`:''}</td>`:`<td title="${k==='PC No'?'':k==='FailCount'?esc(failList(it).join('\n')):esc(it[k])}" class="${k==='PC No'?'name':['RAM','SSD','Power Supply','Capture','Rack','FailCount'].includes(k)?'hide-m':''}" ${k==='Memory'?`title="${esc(it[k])}"`:''}>${k==='PC No'?`<span class="pcno">${esc(it['PC No'])}</span>`:k==='Capture'?(it.Capture==='-'?'<span class="muted">-</span>':esc(it.Capture)):k==='FailCount'?(it.FailCount?`<span class="fbadge">${it.FailCount}</span>`:''):k==='RAM'?esc(ramShortIt(it)):k==='Rack'&&empty(it.Rack)?'<span class="muted">–</span>':empty(it[k])?`<span class="muted">${esc(it[k])}</span>`:k==='Memory'?esc(ramShort(it[k])):esc(it[k])}</td>`).join('')}
    <td class="hide-m">${byTxt(it)}</td>
-   <td class="hide-m" style="text-align:right"><button class="btn sm" data-qr="${esc(it.ID)}">QR</button></td></tr>`).join('')}
-  </tbody></table>`:`<div class="empty">${S.items.length?'No PCs match this search.':'No PCs yet. Add the first one in Add PC.'}</div>`);
+   <td class="hide-m" style="text-align:right"><button class="btn sm" data-qr="${esc(it.ID)}">QR</button></td></tr>`}).join('')}
+  </tbody></table></div>`:`<div class="empty">${S.items.length?'No PCs match this search.':'No PCs yet. Add the first one in Add PC.'}</div>`);
   b.querySelectorAll('th[data-k]').forEach(th=>th.onclick=()=>{const k=th.dataset.k;S.sort=S.sort.k===k?{k,d:-S.sort.d}:{k,d:1};renderBody()});
   const all=b.querySelector('#all');if(all)all.onchange=()=>{list.forEach(i=>all.checked?S.sel.add(i.ID):S.sel.delete(i.ID));renderBody()};
   b.querySelectorAll('tbody tr').forEach(tr=>tr.onclick=e=>{
@@ -3298,12 +3642,45 @@ function renderBody(){
   const cl=b.querySelector('#bClear');if(cl)cl.onclick=()=>{S.sel.clear();renderBody()};
   const bb=b.querySelector('#bBulk');if(bb)bb.onclick=openBulk;
 }
+
+function listColsAll(){const h=x=>S.headers.includes(x);return [...['PC No','Old Label','Rack','CPU'].filter(h),...(h('GPU Model')?['GPU']:[]),...(h('RAM Model')?['RAM']:[]),...(h('SSD Model')?['SSD']:[]),...(h('Power Supply')?['Power Supply']:[]),...(h('Capture Card 1')?['Capture']:[]),...customCols(),...(h('Failures')?['FailCount']:[])]}
+function openColumns(btn){
+  const hid=new Set(LS.get('rpi_hide',[]));
+  openPick(btn,{search:false,minW:260,value:'__',
+    options:listColsAll().filter(k=>k!=='PC No').map(k=>({v:k,label:(hid.has(k)?'☐  ':'☑  ')+(COLNAME[k]||k),sub:customCols().includes(k)?(isListCol(k)?'your column · dropdown':'your column · text'):''})),
+    onPick:k=>{hid.has(k)?hid.delete(k):hid.add(k);LS.set('rpi_hide',[...hid]);renderBody();setTimeout(()=>openColumns(btn),0)},
+    addLabel:'Add a column…',onAdd:()=>addColumnModal()});
+}
+function addColumnModal(prefill){
+  modal(`<div class="mh"><h3>Add a column</h3><button class="x" data-close>×</button></div>
+  <div class="mb" style="display:flex;flex-direction:column;gap:14px">
+    <label class="f">Column name<input id="ncName" autocomplete="off" placeholder="e.g. New Label"></label>
+    <div class="f" style="gap:8px"><span>Type</span>
+      <label class="chkl" style="color:var(--txt)"><input type="radio" name="ncType" value="text" checked> Text – type anything</label>
+      <label class="chkl" style="color:var(--txt)"><input type="radio" name="ncType" value="list"> Dropdown – values are remembered and offered in a list</label></div>
+    <div class="muted" style="font-size:12px">The column is added to the Inventory tab in the sheet (before Updated), and shows up in the table, the Add PC form and label templates.</div>
+  </div>
+  <div class="mf"><button class="btn" data-close>Cancel</button><button class="btn pri" id="ncOk">Add column</button></div>`,ov=>{
+    const i=ov.querySelector('#ncName');if(prefill)i.value=prefill;setTimeout(()=>i.focus(),30);
+    const ok=async()=>{
+      const name=i.value.trim().replace(/\s+/g,' ');if(!name)return toast('Enter a column name',true);
+      if(S.headers.some(h=>h.toLowerCase()===name.toLowerCase()))return toast(`Column "${name}" already exists`,true);
+      if(/[{}]/.test(name))return toast('Column name cannot contain { or }',true);
+      const list=ov.querySelector('input[name=ncType]:checked').value==='list';
+      const b=ov.querySelector('#ncOk');b.disabled=true;b.textContent='Adding…';
+      try{const j=await api('addColumn',{name,list});applyData(j);closeModal();toast(`Column "${name}" added`);render()}
+      catch(x){b.disabled=false;b.textContent='Add column';toast('Column not added: '+x.message,true)}
+    };
+    ov.querySelector('#ncOk').onclick=ok;i.onkeydown=e=>{if(e.key==='Enter')ok()};
+  });
+}
+
 /* ================= masowa edycja ================= */
 function openBulk(){
   const items=[...S.sel].map(id=>S.items.find(x=>x.ID===id)).filter(Boolean);
   if(!items.length)return toast('Nothing selected',true);
   const order=filtered().map(i=>i.ID);items.sort((a,b)=>order.indexOf(a.ID)-order.indexOf(b.ID));
-  const fields=S.headers.filter(h=>!READONLY.includes(h)&&!['PC No','Old Label','Hostname','IP','Serial No'].includes(h));
+  const fields=S.headers.filter(h=>!READONLY.includes(h)&&!['PC No','Old Label','Failures'].includes(h));
   const lists={};fields.forEach(k=>lists[k]=opts(k));
   const same=h=>{const v=[...new Set(items.map(i=>String(i[h]||'')))];return v.length===1?v[0]:null};
   const row=h=>{
@@ -3359,7 +3736,7 @@ function renderLabels(){
     <div class="row"><label class="f">Background<input type="color" id="tBg" value="${t.bg||'#ffffff'}" style="height:36px;padding:2px"></label><label class="f" style="flex-direction:row;align-items:center;gap:8px;padding-bottom:8px"><input type="checkbox" id="tBorder" ${t.border?'checked':''}> Border</label></div>
     <h4>Elements</h4>
     <div class="row"><button class="btn sm" id="aText">Add text</button><button class="btn sm" id="aQR">Add QR</button></div>
-    <select id="aField"><option value="">Add a field…</option>${[...S.headers.filter(h=>!READONLY.includes(h)),'Capture','RAM'].map(h=>`<option>${esc(h)}</option>`).join('')}</select>
+    <select id="aField"><option value="">Add a field…</option>${[...S.headers.filter(h=>!READONLY.includes(h)&&h!=='Failures'),'GPU','RAM','SSD','Capture'].map(h=>`<option>${esc(h)}</option>`).join('')}</select>
     <div class="ellist">${t.elements.map(e=>`<div class="it ${e.id===S.selEl?'on':''}" data-el="${e.id}"><span class="ty">${e.type==='qr'?'QR':'TXT'}</span><span class="t">${esc(e.type==='qr'?({spec:'full spec',link:'link',name:'PC number',custom:e.text}[e.qr]):e.text)||'<empty>'}</span></div>`).join('')||'<span class="muted" style="font-size:12px">No elements</span>'}</div>
   </div>
   <div class="card stagewrap">
@@ -3392,7 +3769,7 @@ function propsHTML(el){
   h+=`<div class="row"><button class="btn sm" id="eDup">Duplicate</button><button class="btn sm danger" id="eDel">Delete element</button></div>`;
   return h;
 }
-function chips(){return `<div class="chips">${[...S.headers.filter(h=>!READONLY.includes(h)),'Capture','RAM'].map(h=>`<span class="chip" data-ins="${esc(h)}">{${esc(h)}}</span>`).join('')}</div>`}
+function chips(){return `<div class="chips">${[...S.headers.filter(h=>!READONLY.includes(h)&&h!=='Failures'),'GPU','RAM','SSD','Capture'].map(h=>`<span class="chip" data-ins="${esc(h)}">{${esc(h)}}</span>`).join('')}</div>`}
 function redrawCanvas(t){
   const prev=S.items.find(x=>x.ID===S.previewId)||{};
   $('#cvIn').innerHTML=labelHTML(t,prev,true);
@@ -3425,7 +3802,7 @@ function bindCanvas(t){
 }
 function bindEditor(t,el){
   const m=$('#main'),up=()=>{persistTemplates();};
-  $('#tSel').onchange=e=>{S.tplId=e.target.value;S.selEl=null;LS.set('ewc2_tpl',S.tplId);renderLabels()};
+  $('#tSel').onchange=e=>{S.tplId=e.target.value;S.selEl=null;LS.set('rpi3_tpl',S.tplId);renderLabels()};
   $('#tNew').onclick=()=>{const n={id:'t_'+uid(),name:'New template',w:62,h:29,border:true,elements:[{id:uid(),type:'text',text:'{PC No}',x:3,y:3,w:56,h:12,fs:16,bold:true,align:'center',valign:'middle',upper:true,color:'#000000'}]};S.templates.push(n);S.tplId=n.id;S.selEl=null;up();renderLabels()};
   $('#tDup').onclick=()=>{const n=JSON.parse(JSON.stringify(t));n.id='t_'+uid();n.name=t.name+' copy';n.elements.forEach(e=>e.id=uid());S.templates.push(n);S.tplId=n.id;up();renderLabels()};
   $('#tDel').onclick=()=>{if(S.templates.length<2)return toast('Keep at least one template',true);if(!confirm('Delete template "'+t.name+'"?'))return;S.templates=S.templates.filter(x=>x!==t);S.tplId=S.templates[0].id;S.selEl=null;up();renderLabels()};
@@ -3491,7 +3868,7 @@ function renderSettings(){
   <div class="card side help">
     <h4>Connect the sheet (about 5 minutes)</h4>
     <ol>
-      <li>Upload <code>EWC_PC_Inventory.xlsx</code> to Google Drive, open it and choose <b>File → Save as Google Sheets</b>. In the new sheet open <b>Extensions → Apps Script</b>.</li>
+      <li>Upload <code>PC_Inventory.xlsx</code> to Google Drive, open it and choose <b>File → Save as Google Sheets</b>. In the new sheet open <b>Extensions → Apps Script</b>.</li>
       <li>Replace everything there with the contents of <code>Code.gs</code>.</li>
       <li>Change <code>const TOKEN = '…'</code> to a long password of your own and save (Ctrl+S).</li>
       <li><b>Deploy → New deployment</b> → gear icon → <b>Web app</b>. Execute as: <b>Me</b>, Who has access: <b>Anyone</b> → Deploy → allow access.</li>
@@ -3500,19 +3877,19 @@ function renderSettings(){
     <p class="muted">The site works on the <b>Inventory</b> tab and takes its dropdown lists from <b>Lists</b>. <b>Summary</b> keeps calculating in the sheet. The script adds <b>Updated</b>, <b>Updated by</b> and <b>ID</b> columns at the end of Inventory – leave them as they are. Everyone enters the URL and token on their own device.</p>
     <p class="muted">After changing the code in Apps Script: <b>Deploy → Manage deployments → edit → Version: New version</b>, otherwise the old version keeps running.</p>
   </div></div>`;
-  const read=()=>{S.cfg.url=$('#sUrl').value.trim();S.cfg.token=$('#sTok').value;LS.set('ewc_cfg',S.cfg)};
+  const read=()=>{S.cfg.url=$('#sUrl').value.trim();S.cfg.token=$('#sTok').value;LS.set('rpi_cfg',S.cfg)};
   $('#sSave').onclick=async()=>{read();await load();if(!demo())toast('Connected to the sheet')};
   $('#sTest').onclick=async()=>{const old={...S.cfg};read();try{const j=await api('ping');toast(demo()?'No URL – demo mode':'Connected to '+j.sheet)}catch(e){toast('Connection failed: '+e.message,true)}};
-  const off=$('#sOff');if(off)off.onclick=()=>{S.cfg.url='';LS.set('ewc_cfg',S.cfg);load()};
-  $('#sQr').onchange=e=>{S.cfg.qrMode=e.target.value;LS.set('ewc_cfg',S.cfg)};
-  $('#sLink').onchange=e=>{S.cfg.linkBase=e.target.value.trim();LS.set('ewc_cfg',S.cfg)};
-  const rs=$('#sReset');if(rs)rs.onclick=()=>{try{localStorage.removeItem('ewc2_demo')}catch(e){}load();toast('Demo data reset')};
+  const off=$('#sOff');if(off)off.onclick=()=>{S.cfg.url='';LS.set('rpi_cfg',S.cfg);load()};
+  $('#sQr').onchange=e=>{S.cfg.qrMode=e.target.value;LS.set('rpi_cfg',S.cfg)};
+  $('#sLink').onchange=e=>{S.cfg.linkBase=e.target.value.trim();LS.set('rpi_cfg',S.cfg)};
+  const rs=$('#sReset');if(rs)rs.onclick=()=>{try{localStorage.removeItem('rpi4_demo')}catch(e){}load();toast('Demo data reset')};
 }
 
 /* ================= router ================= */
 function render(){
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===S.tab));
-  ({add:renderAdd,pcs:renderPcs,parts:renderParts,labels:renderLabels,settings:renderSettings}[S.tab])();
+  ({add:renderAdd,pcs:renderPcs,racks:renderRacks,parts:renderParts,labels:renderLabels,settings:renderSettings}[S.tab])();
   document.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>{S.tab=b.dataset.goto;render()});
 }
 document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{S.tab=b.dataset.tab;render()});
@@ -3523,7 +3900,7 @@ function askUser(force){
   <div class="mb"><label class="f">Your name – shown next to every change you make<input id="uName" value="${esc(S.user)}" maxlength="30"></label></div>
   <div class="mf"><button class="btn pri" id="uOk">Continue</button></div>`,ov=>{
     const i=ov.querySelector('#uName');setTimeout(()=>i.focus(),30);
-    const ok=()=>{const v=i.value.trim();if(!v)return toast('Enter your name',true);S.user=v;LS.set('ewc_user',v);$('#whoName').textContent=v;closeModal()};
+    const ok=()=>{const v=i.value.trim();if(!v)return toast('Enter your name',true);S.user=v;LS.set('rpi_user',v);$('#whoName').textContent=v;closeModal()};
     ov.querySelector('#uOk').onclick=ok;i.onkeydown=e=>{if(e.key==='Enter')ok()};
   });
 }
